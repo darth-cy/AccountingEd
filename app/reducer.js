@@ -5,8 +5,8 @@ import { CHAPTERS } from './chapters/chapters';
 const _initState = {
   outputText: "(none)",
   mode: "chapters", // chapters, chapter
-  currentState: {},
-  currentChapter: {},
+  currentState: CHAPTERS[1],
+  currentChapter: CHAPTERS[1],
   chapters: CHAPTERS,
 }
 
@@ -18,8 +18,8 @@ const reducer = (prevState=_initState, action) => {
       console.log(action.payload);
       return newState;
     case "SELECT_CHAPTER":
-      newState.currentState = chapters[action.payload];
-      newState.currentChapter = chapters[action.payload];
+      newState.currentState = CHAPTERS[action.payload];
+      newState.currentChapter = CHAPTERS[action.payload];
       newState.currentState.statements["deleted"] = [];
       return newState;
     default:

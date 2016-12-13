@@ -1,0 +1,83 @@
+*{
+  border-radius: 0px;
+}
+
+[class*="col"], [class*="container"]{
+  padding: 0px;
+}
+
+body{
+  background-color: white !important;
+  color: #222222 !important;
+}
+
+.navbar{
+  background-color: #24003B;
+  color: white;
+  margin: 0px;
+  padding-left: 2.5%;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  border-radius: 0px;
+}
+
+.chapters-list{
+  background-color: #4B1952;
+  min-height: 100vh;
+  color: white;
+  padding-left: 2.5%;
+  padding-top: 2.5%;
+}
+
+.chapters-list-item{
+  background-color: #B57FD5;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 1.5rem;
+  padding-left: 2rem;
+  border-radius: 0.5rem;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: white;
+  width: inherit;
+  display: inline-block;
+  min-width: 90%;
+}
+.chapters-list-item:hover{
+  background-color: #9F59C8;
+}
+
+.chapters-detailed{
+  padding-left: 2.5%;
+  padding-top: 2.5%;
+}
+
+.step-in-chapters{
+  display: flex;
+  position: relative;
+  height: inherit;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.step-in-chapters > .col-sm-6{
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+}
+
+.item-list{
+  text-align: center;
+}
+.item-list-title{
+  background-color: #e6c200;
+  color: white;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.item-list-item{
+  display: flex;
+  text-align: center;
+  background-color: #FFFFF0;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  cursor: pointer;
+}

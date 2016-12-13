@@ -5,8 +5,9 @@ import Chapter from './chapter.js'
 var ContentWrapper = (props) => {
   switch (props.states.mode) {
     case "chapters":
+    debugger;
       return (
-        <Chapters chapters={props.states.chapters} selectChapter={props.selectChapter} />
+        <Chapters chapters={props.states.chapters} currentChapter={props.states.currentChapter} selectChapter={props.states.selectChapter} />
       );
       break;
     case "chapter":
