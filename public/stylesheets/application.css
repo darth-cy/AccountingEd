@@ -31,11 +31,10 @@ body{
 
 .chapters-list-item{
   background-color: #B57FD5;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   padding: 1.5rem;
   padding-left: 2rem;
-  border-radius: 0.5rem;
   font-size: 1.8rem;
   cursor: pointer;
   color: white;
@@ -50,6 +49,11 @@ body{
 .chapters-detailed{
   padding-left: 2.5%;
   padding-top: 2.5%;
+}
+.chapter-go-button{
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+  border-radius: 0px;
 }
 
 .step-in-chapters{

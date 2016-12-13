@@ -24188,6 +24188,11 @@
 	        null,
 	        props.currentChapter.description
 	      ),
+	      _react2.default.createElement(
+	        'button',
+	        { className: 'btn btn-default chapter-go-button' },
+	        'Start Chapter Exercises'
+	      ),
 	      _react2.default.createElement('hr', null),
 	      _react2.default.createElement(
 	        'div',
