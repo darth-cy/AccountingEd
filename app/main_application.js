@@ -1,10 +1,10 @@
 import React from 'react';
-import FirstComponent from './components/first_component.js';
+import ContentWrapper from './components/content_wrapper.js';
 
 const MainApplication = (props) => {
   return(
       <div className="container">
-        <FirstComponent outputContent={props.outputContent} />
+        <ContentWrapper states={props}/>
       </div>
   );
 }

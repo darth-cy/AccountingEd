@@ -60,7 +60,7 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _app_container = __webpack_require__(225);
+	var _app_container = __webpack_require__(226);
 	
 	var _app_container2 = _interopRequireDefault(_app_container);
 	
@@ -23820,11 +23820,11 @@
 	
 	var _redux = __webpack_require__(190);
 	
-	var _reducer = __webpack_require__(228);
+	var _reducer = __webpack_require__(224);
 	
 	var _reducer2 = _interopRequireDefault(_reducer);
 	
-	var _actions = __webpack_require__(224);
+	var _actions = __webpack_require__(225);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -23834,24 +23834,6 @@
 
 /***/ },
 /* 224 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var OUTPUT_CONTENT = exports.OUTPUT_CONTENT = "OUTPUT_CONTENT";
-	
-	var outputContent = exports.outputContent = function outputContent(spec) {
-	  return {
-	    type: OUTPUT_CONTENT,
-	    payload: spec
-	  };
-	};
-
-/***/ },
-/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23860,160 +23842,32 @@
 	  value: true
 	});
 	
-	var _reactRedux = __webpack_require__(183);
+	var _actions = __webpack_require__(225);
 	
-	var _actions = __webpack_require__(224);
-	
-	var _main_application = __webpack_require__(226);
-	
-	var _main_application2 = _interopRequireDefault(_main_application);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var mapStateToProps = function mapStateToProps(state) {
-	  return state;
-	};
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    outputContent: function outputContent(specs) {
-	      return dispatch((0, _actions.outputContent)(specs));
-	    }
-	  };
-	};
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_main_application2.default);
-
-/***/ },
-/* 226 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _first_component = __webpack_require__(227);
-	
-	var _first_component2 = _interopRequireDefault(_first_component);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var MainApplication = function MainApplication(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    { className: 'container' },
-	    _react2.default.createElement(_first_component2.default, { outputContent: props.outputContent })
-	  );
-	};
-	
-	exports.default = MainApplication;
-
-/***/ },
-/* 227 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var FirstComponent = _react2.default.createClass({
-	  displayName: "FirstComponent",
-	
-	  getInitialState: function getInitialState() {
-	    return {
-	      contentText: "This is the first component."
-	    };
-	  },
-	
-	  render: function render() {
-	    var thisView = this;
-	
-	    return _react2.default.createElement(
-	      "div",
-	      null,
-	      _react2.default.createElement(
-	        "button",
-	        { onClick: function onClick() {
-	            thisView.props.outputContent(thisView.state.contentText);
-	          } },
-	        "Print"
-	      )
-	    );
-	  }
-	});
-	
-	exports.default = FirstComponent;
-
-/***/ },
-/* 228 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _actions = __webpack_require__(224);
+	var _chapters = __webpack_require__(229);
 	
 	var _initState = {
 	  outputText: "(none)",
 	  mode: "chapters", // chapters, chapter
-	  chapters: {
-	    "1": {
-	      id: "1",
-	      title: "Getting Started",
-	      description: "",
-	      steps: [{
-	        step_title: "A New Job",
-	        description: "You're offered a job at an early-stage venture-backed startup called StarDust, Ltd. You performed very well on the interviews and earned yourself a handsome salary.",
-	        action_items: [{ name: "Salary", description: "A more tangible evaluation of your interview performance.", amount: 3700 }]
-	      }, {
-	        step_title: "Share in the Company",
-	        description: "The new job also includes a starter equity package of 25,500 shares in the company, par value $0.01 per share. You need to buy them out of pocket.",
-	        action_items: [{ name: "25,500 Shares StarDust", description: "Time will tell their value, not investment bankers.", amount: 255 }, { name: "Share Purchase Payment", description: "Out of pocket expense for the shares in StarDust", amount: 255 }]
-	      }],
-	      statements: {
-	        cash_flow_statement: {
-	          income: [{ name: "Book Royalty", item_description: "Elon Century, Ltd. is paying $200 in royalty for the publishing rights of your biography.", amount: 200 }],
-	          expenses: [{ name: "Mortgage Payment", item_description: "A comfortable home services you physically, but you service it financially.", amount: 1450 }, { name: "Car Loan Payment", item_description: "A symbol of adulthood worth fighting for.", amount: 240 }, { name: "School Loan Payment", item_description: "The doubt is not in its usefulness, but the boundary of its usefulness.", amount: 370 }, { name: "Misc. Expenses", item_description: "The entry you most worry about it when you're poor.", amount: 1400 }]
-	        },
-	        balance_sheet: {
-	          assets: [{ name: "Cash", item_description: "Simple, cold, and sure.", amount: 14370 }, { name: "3/2/1 House", item_description: "Home.", amount: 145000 }, { name: "Car", item_description: "The other home.", amount: 26000 }],
-	          liabilities: [{ name: "Mortgage", item_description: "Home Mortgage for the 3/2/1 house you own.", amount: 85000 }, { name: "Car Loan", item_description: "A loan on your second-hand Mercedes.", amount: 13000 }, { name: "School Loan", item_description: "A loan on your education.", amount: 12000 }]
-	        }
-	      },
-	      equity: 75370,
-	      criteria: {
-	        should_contain: [["income", "Salary"], ["income", "Book Royalty"], ["expenses", "Mortgage Payment"], ["expenses", "Car Loan Payment"], ["expenses", "School Loan Payment"], ["expenses", "Misc. Expenses"], ["expenses", "Share Purchase Payment"], ["assets", "Cash"], ["assets", "3/2/1 House"], ["assets", "Car"], ["assets", "25,500 Shares StarDust"], ["liabilities", "Mortgage"], ["liabilities", "Car Loan"], ["liabilities", "School Loan"]],
-	        should_not_be_present: [],
-	        should_be: [equity]
-	      }
-	    }
-	  }
+	  currentState: {},
+	  currentChapter: {},
+	  chapters: _chapters.CHAPTERS
 	};
 	
 	var reducer = function reducer() {
 	  var prevState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _initState;
 	  var action = arguments[1];
 	
+	  var newState = $.extend(true, {}, prevState);
+	
 	  switch (action.type) {
 	    case "OUTPUT_CONTENT":
 	      console.log(action.payload);
-	      var newState = $.extend(true, {}, prevState);
+	      return newState;
+	    case "SELECT_CHAPTER":
+	      newState.currentState = chapters[action.payload];
+	      newState.currentChapter = chapters[action.payload];
+	      newState.currentState.statements["deleted"] = [];
 	      return newState;
 	    default:
 	      return prevState;
@@ -24057,6 +23911,246 @@
 	//
 	//   }
 	// }
+
+/***/ },
+/* 225 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var OUTPUT_CONTENT = exports.OUTPUT_CONTENT = "OUTPUT_CONTENT";
+	var SELECT_CHAPTER = exports.SELECT_CHAPTER = "SELECT_CHAPTER";
+	
+	var outputContent = exports.outputContent = function outputContent(spec) {
+	  return {
+	    type: OUTPUT_CONTENT,
+	    payload: spec
+	  };
+	};
+	
+	var selectChapter = exports.selectChapter = function selectChapter(spec) {
+	  return {
+	    type: SELECT_CHAPTER,
+	    payload: spec
+	  };
+	};
+
+/***/ },
+/* 226 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(183);
+	
+	var _actions = __webpack_require__(225);
+	
+	var _main_application = __webpack_require__(227);
+	
+	var _main_application2 = _interopRequireDefault(_main_application);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return state;
+	};
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    outputContent: function outputContent(specs) {
+	      return dispatch((0, _actions.outputContent)(specs));
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_main_application2.default);
+
+/***/ },
+/* 227 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _content_wrapper = __webpack_require__(230);
+	
+	var _content_wrapper2 = _interopRequireDefault(_content_wrapper);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var MainApplication = function MainApplication(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'container' },
+	    _react2.default.createElement(_content_wrapper2.default, { states: props })
+	  );
+	};
+	
+	exports.default = MainApplication;
+
+/***/ },
+/* 228 */,
+/* 229 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var CHAPTERS = exports.CHAPTERS = {
+	  "1": {
+	    id: "1",
+	    title: "Getting Started",
+	    description: "",
+	    steps: [{
+	      step_title: "A New Job",
+	      description: "You're offered a job at an early-stage venture-backed startup called StarDust, Ltd. You performed very well on the interviews and earned yourself a handsome salary.",
+	      action_items: [{ name: "Salary", description: "A more tangible evaluation of your interview performance.", amount: 3700 }]
+	    }, {
+	      step_title: "Share in the Company",
+	      description: "The new job also includes a starter equity package of 25,500 shares in the company, par value $0.01 per share. You need to buy them out of pocket.",
+	      action_items: [{ name: "25,500 Shares StarDust", description: "Time will tell their value, not investment bankers.", amount: 255 }, { name: "Share Purchase Payment", description: "Out of pocket expense for the shares in StarDust", amount: 255 }]
+	    }],
+	    statements: {
+	      cash_flow_statement: {
+	        income: [{ name: "Book Royalty", item_description: "Elon Century, Ltd. is paying $200 in royalty for the publishing rights of your biography.", amount: 200 }],
+	        expenses: [{ name: "Mortgage Payment", item_description: "A comfortable home services you physically, but you service it financially.", amount: 1450 }, { name: "Car Loan Payment", item_description: "A symbol of adulthood worth fighting for.", amount: 240 }, { name: "School Loan Payment", item_description: "The doubt is not in its usefulness, but the boundary of its usefulness.", amount: 370 }, { name: "Misc. Expenses", item_description: "The entry you most worry about it when you're poor.", amount: 1400 }]
+	      },
+	      balance_sheet: {
+	        assets: [{ name: "Cash", item_description: "Simple, cold, and sure.", amount: 14370 }, { name: "3/2/1 House", item_description: "Home.", amount: 145000 }, { name: "Car", item_description: "The other home.", amount: 26000 }],
+	        liabilities: [{ name: "Mortgage", item_description: "Home Mortgage for the 3/2/1 house you own.", amount: 85000 }, { name: "Car Loan", item_description: "A loan on your second-hand Mercedes.", amount: 13000 }, { name: "School Loan", item_description: "A loan on your education.", amount: 12000 }]
+	      }
+	    },
+	    equity: 75370,
+	    criteria: {
+	      should_contain: [["income", "Salary"], ["income", "Book Royalty"], ["expenses", "Mortgage Payment"], ["expenses", "Car Loan Payment"], ["expenses", "School Loan Payment"], ["expenses", "Misc. Expenses"], ["expenses", "Share Purchase Payment"], ["assets", "Cash"], ["assets", "3/2/1 House"], ["assets", "Car"], ["assets", "25,500 Shares StarDust"], ["liabilities", "Mortgage"], ["liabilities", "Car Loan"], ["liabilities", "School Loan"]],
+	      should_not_be_present: [],
+	      should_be: [["equity"]]
+	    }
+	  }
+	};
+
+/***/ },
+/* 230 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _chapters = __webpack_require__(231);
+	
+	var _chapters2 = _interopRequireDefault(_chapters);
+	
+	var _chapter = __webpack_require__(232);
+	
+	var _chapter2 = _interopRequireDefault(_chapter);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ContentWrapper = function ContentWrapper(props) {
+	  switch (props.states.mode) {
+	    case "chapters":
+	      return _react2.default.createElement(_chapters2.default, { chapters: props.states.chapters, selectChapter: props.selectChapter });
+	      break;
+	    case "chapter":
+	      return _react2.default.createElement(_chapter2.default, { chapter: props.states.currentChapter, switchMode: props.switchMode });
+	      break;
+	  }
+	
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    'nothing'
+	  );
+	};
+	
+	exports.default = ContentWrapper;
+
+/***/ },
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Chapters = function Chapters(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'div',
+	      null,
+	      'Thing'
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      null,
+	      'AnotherThing'
+	    )
+	  );
+	};
+	
+	exports.default = Chapters;
+
+/***/ },
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Chapter = function Chapter(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'div',
+	      null,
+	      'Chapter'
+	    )
+	  );
+	};
+	
+	exports.default = Chapter;
 
 /***/ }
 /******/ ]);
