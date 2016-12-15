@@ -1,4 +1,4 @@
-import { OUTPUT_TEONT, SELECT_CHAPTER } from './actions';
+import { OUTPUT_TEONT, SELECT_CHAPTER, START_CHAPTER, GO_BACK_CHAPTERS } from './actions';
 import { CHAPTERS } from './chapters/chapters';
 
 
@@ -20,12 +20,16 @@ const reducer = (prevState=_initState, action) => {
     case "SELECT_CHAPTER":
       newState.currentState = CHAPTERS[action.payload];
       newState.currentChapter = CHAPTERS[action.payload];
-      newState.currentState.statements["deleted"] = [];
       return newState;
     case "START_CHAPTER":
       newState.mode = "chapter";
       newState.currentState = CHAPTERS[action.payload];
       newState.currentChapter = CHAPTERS[action.payload];
+      newState.currentState.statements["deleted"] = [];
+      return newState;
+    case "GO_BACK_CHAPTERS":
+      newState.mode = "chapters";
+      newState.currentState = newState.currentChapter;
       newState.currentState.statements["deleted"] = [];
       return newState;
     default:

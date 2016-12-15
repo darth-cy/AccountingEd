@@ -23865,12 +23865,16 @@
 	    case "SELECT_CHAPTER":
 	      newState.currentState = _chapters.CHAPTERS[action.payload];
 	      newState.currentChapter = _chapters.CHAPTERS[action.payload];
-	      newState.currentState.statements["deleted"] = [];
 	      return newState;
 	    case "START_CHAPTER":
 	      newState.mode = "chapter";
 	      newState.currentState = _chapters.CHAPTERS[action.payload];
 	      newState.currentChapter = _chapters.CHAPTERS[action.payload];
+	      newState.currentState.statements["deleted"] = [];
+	      return newState;
+	    case "GO_BACK_CHAPTERS":
+	      newState.mode = "chapters";
+	      newState.currentState = newState.currentChapter;
 	      newState.currentState.statements["deleted"] = [];
 	      return newState;
 	    default:
@@ -23928,6 +23932,7 @@
 	var OUTPUT_CONTENT = exports.OUTPUT_CONTENT = "OUTPUT_CONTENT";
 	var SELECT_CHAPTER = exports.SELECT_CHAPTER = "SELECT_CHAPTER";
 	var START_CHAPTER = exports.START_CHAPTER = "START_CHAPTER";
+	var GO_BACK_CHAPTERS = exports.GO_BACK_CHAPTERS = "GO_BACK_CHAPTERS";
 	
 	var outputContent = exports.outputContent = function outputContent(spec) {
 	  return {
@@ -23946,6 +23951,13 @@
 	var startChapter = exports.startChapter = function startChapter(spec) {
 	  return {
 	    type: START_CHAPTER,
+	    payload: spec
+	  };
+	};
+	
+	var goBackChapters = exports.goBackChapters = function goBackChapters(spec) {
+	  return {
+	    type: GO_BACK_CHAPTERS,
 	    payload: spec
 	  };
 	};
@@ -24056,6 +24068,9 @@
 	    },
 	    startChapter: function startChapter(specs) {
 	      return dispatch((0, _actions.startChapter)(specs));
+	    },
+	    goBackChapters: function goBackChapters(specs) {
+	      return dispatch((0, _actions.goBackChapters)(specs));
 	    }
 	  };
 	};
@@ -24128,7 +24143,7 @@
 	      return _react2.default.createElement(_chapters2.default, { chapters: props.states.chapters, currentChapter: props.states.currentChapter, selectChapter: props.states.selectChapter, startChapter: props.states.startChapter });
 	      break;
 	    case "chapter":
-	      return _react2.default.createElement(_chapter2.default, { chapter: props.states.currentChapter, switchMode: props.switchMode });
+	      return _react2.default.createElement(_chapter2.default, { chapter: props.states.currentChapter, currentChapter: props.states.currentChapter, switchMode: props.states.switchMode, goBackChapters: props.states.goBackChapters });
 	      break;
 	  }
 	
@@ -24365,16 +24380,45 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _step_in_chapters = __webpack_require__(231);
+	
+	var _step_in_chapters2 = _interopRequireDefault(_step_in_chapters);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Chapter = function Chapter(props) {
+	  var thisView = undefined;
+	
 	  return _react2.default.createElement(
 	    'div',
 	    null,
 	    _react2.default.createElement(
 	      'div',
-	      null,
-	      'Chapter'
+	      { className: 'col-md-4 chapters-list' },
+	      _react2.default.createElement(
+	        'h3',
+	        null,
+	        'props.currentChapter.title'
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        null,
+	        props.currentChapter.steps.map(function (step, idx) {
+	          return _react2.default.createElement(_step_in_chapters2.default, { key: idx, index: idx + 1, step: step });
+	        })
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'col-md-8 chapters-detailed' },
+	      _react2.default.createElement(
+	        'button',
+	        { className: 'btn btn-default chapter-go-button', onClick: function onClick() {
+	            props.goBackChapters();
+	          } },
+	        'Back to Chapters'
+	      ),
+	      _react2.default.createElement('hr', null)
 	    )
 	  );
 	};
