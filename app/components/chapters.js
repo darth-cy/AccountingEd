@@ -19,7 +19,9 @@ var Chapters = (props) => {
       <div className="col-md-8 chapters-detailed">
         <h2>{props.currentChapter.title}</h2>
         <p>{props.currentChapter.description}</p>
-        <button className="btn btn-default chapter-go-button">Start Chapter Exercises</button>
+        <button className="btn btn-default chapter-go-button" onClick={() => {
+           props.startChapter(props.currentChapter.id);
+        }}>Start Chapter Exercises</button>
         <hr/>
         <div>
           {props.currentChapter.steps.map((step, idx) => {

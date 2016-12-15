@@ -7,7 +7,7 @@ var ContentWrapper = (props) => {
     case "chapters":
     debugger;
       return (
-        <Chapters chapters={props.states.chapters} currentChapter={props.states.currentChapter} selectChapter={props.states.selectChapter} />
+        <Chapters chapters={props.states.chapters} currentChapter={props.states.currentChapter} selectChapter={props.states.selectChapter} startChapter={props.states.startChapter} />
       );
       break;
     case "chapter":

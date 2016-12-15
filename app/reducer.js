@@ -22,6 +22,12 @@ const reducer = (prevState=_initState, action) => {
       newState.currentChapter = CHAPTERS[action.payload];
       newState.currentState.statements["deleted"] = [];
       return newState;
+    case "START_CHAPTER":
+      newState.mode = "chapter";
+      newState.currentState = CHAPTERS[action.payload];
+      newState.currentChapter = CHAPTERS[action.payload];
+      newState.currentState.statements["deleted"] = [];
+      return newState;
     default:
       return prevState;
   }

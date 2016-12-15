@@ -60,7 +60,7 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _app_container = __webpack_require__(226);
+	var _app_container = __webpack_require__(227);
 	
 	var _app_container2 = _interopRequireDefault(_app_container);
 	
@@ -23824,8 +23824,6 @@
 	
 	var _reducer2 = _interopRequireDefault(_reducer);
 	
-	var _actions = __webpack_require__(225);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var store = (0, _redux.createStore)(_reducer2.default); // instantiate app's store with app's reducer
@@ -23844,7 +23842,7 @@
 	
 	var _actions = __webpack_require__(225);
 	
-	var _chapters = __webpack_require__(229);
+	var _chapters = __webpack_require__(226);
 	
 	var _initState = {
 	  outputText: "(none)",
@@ -23865,6 +23863,12 @@
 	      console.log(action.payload);
 	      return newState;
 	    case "SELECT_CHAPTER":
+	      newState.currentState = _chapters.CHAPTERS[action.payload];
+	      newState.currentChapter = _chapters.CHAPTERS[action.payload];
+	      newState.currentState.statements["deleted"] = [];
+	      return newState;
+	    case "START_CHAPTER":
+	      newState.mode = "chapter";
 	      newState.currentState = _chapters.CHAPTERS[action.payload];
 	      newState.currentChapter = _chapters.CHAPTERS[action.payload];
 	      newState.currentState.statements["deleted"] = [];
@@ -23923,6 +23927,7 @@
 	});
 	var OUTPUT_CONTENT = exports.OUTPUT_CONTENT = "OUTPUT_CONTENT";
 	var SELECT_CHAPTER = exports.SELECT_CHAPTER = "SELECT_CHAPTER";
+	var START_CHAPTER = exports.START_CHAPTER = "START_CHAPTER";
 	
 	var outputContent = exports.outputContent = function outputContent(spec) {
 	  return {
@@ -23937,81 +23942,16 @@
 	    payload: spec
 	  };
 	};
+	
+	var startChapter = exports.startChapter = function startChapter(spec) {
+	  return {
+	    type: START_CHAPTER,
+	    payload: spec
+	  };
+	};
 
 /***/ },
 /* 226 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _reactRedux = __webpack_require__(183);
-	
-	var _actions = __webpack_require__(225);
-	
-	var _main_application = __webpack_require__(227);
-	
-	var _main_application2 = _interopRequireDefault(_main_application);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var mapStateToProps = function mapStateToProps(state) {
-	  return state;
-	};
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    outputContent: function outputContent(specs) {
-	      return dispatch((0, _actions.outputContent)(specs));
-	    },
-	    selectChapter: function selectChapter(specs) {
-	      return dispatch((0, _actions.selectChapter)(specs));
-	    }
-	  };
-	};
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_main_application2.default);
-
-/***/ },
-/* 227 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _content_wrapper = __webpack_require__(230);
-	
-	var _content_wrapper2 = _interopRequireDefault(_content_wrapper);
-	
-	var _navbar = __webpack_require__(236);
-	
-	var _navbar2 = _interopRequireDefault(_navbar);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var MainApplication = function MainApplication(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    { className: 'container-fluid' },
-	    _react2.default.createElement(_navbar2.default, null),
-	    _react2.default.createElement(_content_wrapper2.default, { states: props })
-	  );
-	};
-	
-	exports.default = MainApplication;
-
-/***/ },
-/* 228 */,
-/* 229 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -24084,7 +24024,46 @@
 	};
 
 /***/ },
-/* 230 */
+/* 227 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(183);
+	
+	var _actions = __webpack_require__(225);
+	
+	var _main_application = __webpack_require__(228);
+	
+	var _main_application2 = _interopRequireDefault(_main_application);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return state;
+	};
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    outputContent: function outputContent(specs) {
+	      return dispatch((0, _actions.outputContent)(specs));
+	    },
+	    selectChapter: function selectChapter(specs) {
+	      return dispatch((0, _actions.selectChapter)(specs));
+	    },
+	    startChapter: function startChapter(specs) {
+	      return dispatch((0, _actions.startChapter)(specs));
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_main_application2.default);
+
+/***/ },
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24097,11 +24076,46 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _chapters = __webpack_require__(231);
+	var _content_wrapper = __webpack_require__(229);
+	
+	var _content_wrapper2 = _interopRequireDefault(_content_wrapper);
+	
+	var _navbar = __webpack_require__(235);
+	
+	var _navbar2 = _interopRequireDefault(_navbar);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var MainApplication = function MainApplication(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'container-fluid' },
+	    _react2.default.createElement(_navbar2.default, null),
+	    _react2.default.createElement(_content_wrapper2.default, { states: props })
+	  );
+	};
+	
+	exports.default = MainApplication;
+
+/***/ },
+/* 229 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _chapters = __webpack_require__(230);
 	
 	var _chapters2 = _interopRequireDefault(_chapters);
 	
-	var _chapter = __webpack_require__(232);
+	var _chapter = __webpack_require__(234);
 	
 	var _chapter2 = _interopRequireDefault(_chapter);
 	
@@ -24111,7 +24125,7 @@
 	  switch (props.states.mode) {
 	    case "chapters":
 	      debugger;
-	      return _react2.default.createElement(_chapters2.default, { chapters: props.states.chapters, currentChapter: props.states.currentChapter, selectChapter: props.states.selectChapter });
+	      return _react2.default.createElement(_chapters2.default, { chapters: props.states.chapters, currentChapter: props.states.currentChapter, selectChapter: props.states.selectChapter, startChapter: props.states.startChapter });
 	      break;
 	    case "chapter":
 	      return _react2.default.createElement(_chapter2.default, { chapter: props.states.currentChapter, switchMode: props.switchMode });
@@ -24128,7 +24142,7 @@
 	exports.default = ContentWrapper;
 
 /***/ },
-/* 231 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24141,7 +24155,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _step_in_chapters = __webpack_require__(233);
+	var _step_in_chapters = __webpack_require__(231);
 	
 	var _step_in_chapters2 = _interopRequireDefault(_step_in_chapters);
 	
@@ -24190,7 +24204,9 @@
 	      ),
 	      _react2.default.createElement(
 	        'button',
-	        { className: 'btn btn-default chapter-go-button' },
+	        { className: 'btn btn-default chapter-go-button', onClick: function onClick() {
+	            props.startChapter(props.currentChapter.id);
+	          } },
 	        'Start Chapter Exercises'
 	      ),
 	      _react2.default.createElement('hr', null),
@@ -24208,7 +24224,7 @@
 	exports.default = Chapters;
 
 /***/ },
-/* 232 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24221,37 +24237,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Chapter = function Chapter(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'div',
-	      null,
-	      'Chapter'
-	    )
-	  );
-	};
-	
-	exports.default = Chapter;
-
-/***/ },
-/* 233 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _item_list = __webpack_require__(234);
+	var _item_list = __webpack_require__(232);
 	
 	var _item_list2 = _interopRequireDefault(_item_list);
 	
@@ -24289,7 +24275,7 @@
 	exports.default = StepInChapters;
 
 /***/ },
-/* 234 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24302,7 +24288,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _item = __webpack_require__(235);
+	var _item = __webpack_require__(233);
 	
 	var _item2 = _interopRequireDefault(_item);
 	
@@ -24320,7 +24306,7 @@
 	    props.items.map(function (item, idx) {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'item-list-item' },
+	        { className: 'item-list-item', key: idx },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'col-sm-6' },
@@ -24340,7 +24326,7 @@
 	exports.default = ItemList;
 
 /***/ },
-/* 235 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24366,7 +24352,37 @@
 	exports.default = Item;
 
 /***/ },
-/* 236 */
+/* 234 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Chapter = function Chapter(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'div',
+	      null,
+	      'Chapter'
+	    )
+	  );
+	};
+	
+	exports.default = Chapter;
+
+/***/ },
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

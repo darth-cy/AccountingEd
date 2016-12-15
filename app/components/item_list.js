@@ -6,7 +6,7 @@ var ItemList = (props) => {
     <div className="item-list">
       <div className="item-list-title">{props.title}</div>
       {props.items.map((item, idx) => (
-        <div className="item-list-item">
+        <div className="item-list-item" key={idx}>
           <div className="col-sm-6">
             {item.name}
           </div>
