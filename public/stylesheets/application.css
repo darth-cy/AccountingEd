@@ -68,20 +68,32 @@ body{
   padding-right: 2.5%;
 }
 
-.item-list{
+.item-list, .item-list-active{
   text-align: center;
 }
-.item-list-title{
+.item-list-title, .item-list-active-title{
   background-color: #e6c200;
   color: white;
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
-.item-list-item{
+.item-list-item, .item-list-placeholder, .item-list-active-item{
   display: flex;
   text-align: center;
   background-color: #FFFFF0;
   padding-top: 1rem;
+  color: black;
   padding-bottom: 1rem;
   cursor: pointer;
+}
+.item-list-placeholder{
+  background-color: gray;
+  color: gray;
+}
+
+.item-list-active-title{
+  background-color: purple;
+}
+.item-list-active-item{
+  background-color: white;
 }

@@ -23847,6 +23847,13 @@
 	var _initState = {
 	  outputText: "(none)",
 	  mode: "chapters", // chapters, chapter
+	  cardMoveStates: {
+	    moveInProgress: false,
+	    currentSelectedList: undefined,
+	    currentSelectedItem: undefined,
+	    currentTargetList: undefined,
+	    currentTargetItem: undefined
+	  },
 	  currentState: _chapters.CHAPTERS[1],
 	  currentChapter: _chapters.CHAPTERS[1],
 	  chapters: _chapters.CHAPTERS
@@ -23961,6 +23968,47 @@
 	    payload: spec
 	  };
 	};
+	
+	var SELECT_ITEM = exports.SELECT_ITEM = "SELECT_ITEM";
+	var STOP_MOVE_PROGRESS = exports.STOP_MOVE_PROGRESS = "STOP_MOVE_PROGRESS";
+	var SELECT_TARGET_ITEM = exports.SELECT_TARGET_ITEM = "SELECT_TARGET_LIST";
+	var DESELECT_TARGET_ITEM = exports.DESELECT_TARGET_ITEM = "DESELECT_TARGET_LIST";
+	var MOVE_CARD = exports.MOVE_CARD = "MOVE_CARD";
+	
+	var selectItem = exports.selectItem = function selectItem(spec) {
+	  return {
+	    type: SELECT_ITEM,
+	    payload: spec
+	  };
+	};
+	
+	var stopMoveProgress = exports.stopMoveProgress = function stopMoveProgress(spec) {
+	  return {
+	    type: STOP_MOVE_PROGRESS,
+	    payload: spec
+	  };
+	};
+	
+	var selectTargetItem = exports.selectTargetItem = function selectTargetItem(spec) {
+	  return {
+	    type: SELECT_TARGET_ITEM,
+	    payload: spec
+	  };
+	};
+	
+	var deselectTargetItem = exports.deselectTargetItem = function deselectTargetItem(spec) {
+	  return {
+	    type: DESELECT_TARGET_ITEM,
+	    payload: spec
+	  };
+	};
+	
+	var moveItem = exports.moveItem = function moveItem(spec) {
+	  return {
+	    type: MOVE_ITEM,
+	    payload: spec
+	  };
+	};
 
 /***/ },
 /* 226 */
@@ -24071,7 +24119,72 @@
 	    },
 	    goBackChapters: function goBackChapters(specs) {
 	      return dispatch((0, _actions.goBackChapters)(specs));
-	    }
+	    },
+	    selectItem: function (_selectItem) {
+	      function selectItem(_x) {
+	        return _selectItem.apply(this, arguments);
+	      }
+	
+	      selectItem.toString = function () {
+	        return _selectItem.toString();
+	      };
+	
+	      return selectItem;
+	    }(function (specs) {
+	      return dispatch(selectItem(specs));
+	    }),
+	    stopMoveProgress: function (_stopMoveProgress) {
+	      function stopMoveProgress(_x2) {
+	        return _stopMoveProgress.apply(this, arguments);
+	      }
+	
+	      stopMoveProgress.toString = function () {
+	        return _stopMoveProgress.toString();
+	      };
+	
+	      return stopMoveProgress;
+	    }(function (specs) {
+	      return dispatch(stopMoveProgress(specs));
+	    }),
+	    selectTargetItem: function (_selectTargetItem) {
+	      function selectTargetItem(_x3) {
+	        return _selectTargetItem.apply(this, arguments);
+	      }
+	
+	      selectTargetItem.toString = function () {
+	        return _selectTargetItem.toString();
+	      };
+	
+	      return selectTargetItem;
+	    }(function (specs) {
+	      return dispatch(selectTargetItem(specs));
+	    }),
+	    deselectTargetItem: function (_deselectTargetItem) {
+	      function deselectTargetItem(_x4) {
+	        return _deselectTargetItem.apply(this, arguments);
+	      }
+	
+	      deselectTargetItem.toString = function () {
+	        return _deselectTargetItem.toString();
+	      };
+	
+	      return deselectTargetItem;
+	    }(function (specs) {
+	      return dispatch(deselectTargetItem(specs));
+	    }),
+	    moveItem: function (_moveItem) {
+	      function moveItem(_x5) {
+	        return _moveItem.apply(this, arguments);
+	      }
+	
+	      moveItem.toString = function () {
+	        return _moveItem.toString();
+	      };
+	
+	      return moveItem;
+	    }(function (specs) {
+	      return dispatch(moveItem(specs));
+	    })
 	  };
 	};
 	
@@ -24143,7 +24256,13 @@
 	      return _react2.default.createElement(_chapters2.default, { chapters: props.states.chapters, currentChapter: props.states.currentChapter, selectChapter: props.states.selectChapter, startChapter: props.states.startChapter });
 	      break;
 	    case "chapter":
-	      return _react2.default.createElement(_chapter2.default, { chapter: props.states.currentChapter, currentChapter: props.states.currentChapter, switchMode: props.states.switchMode, goBackChapters: props.states.goBackChapters });
+	      return _react2.default.createElement(_chapter2.default, { chapter: props.states.currentChapter, currentChapter: props.states.currentChapter, switchMode: props.states.switchMode, goBackChapters: props.states.goBackChapters,
+	        selectItem: props.states.selectItem,
+	        stopMoveProgress: props.states.stopMoveProgress,
+	        selectTargetItem: props.states.selectTargetItem,
+	        deselectTargetItem: props.states.deselectTargetItem,
+	        moveItem: props.states.moveItem
+	      });
 	      break;
 	  }
 	
@@ -24380,14 +24499,21 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _step_in_chapters = __webpack_require__(231);
+	var _step_in_chapter = __webpack_require__(236);
 	
-	var _step_in_chapters2 = _interopRequireDefault(_step_in_chapters);
+	var _step_in_chapter2 = _interopRequireDefault(_step_in_chapter);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Chapter = function Chapter(props) {
 	  var thisView = undefined;
+	  var moveUtilities = {
+	    selectItem: props.selectItem,
+	    stopMoveProgress: props.stopMoveProgress,
+	    selectTargetItem: props.selectTargetItem,
+	    deselectTargetItem: props.deselectTargetItem,
+	    moveItem: props.moveItem
+	  };
 	
 	  return _react2.default.createElement(
 	    'div',
@@ -24398,13 +24524,13 @@
 	      _react2.default.createElement(
 	        'h3',
 	        null,
-	        'props.currentChapter.title'
+	        props.currentChapter.title
 	      ),
 	      _react2.default.createElement(
 	        'div',
 	        null,
 	        props.currentChapter.steps.map(function (step, idx) {
-	          return _react2.default.createElement(_step_in_chapters2.default, { key: idx, index: idx + 1, step: step });
+	          return _react2.default.createElement(_step_in_chapter2.default, { key: idx, index: idx + 1, step: step, moveUtilities: moveUtilities });
 	        })
 	      )
 	    ),
@@ -24454,6 +24580,108 @@
 	};
 	
 	exports.default = Navbar;
+
+/***/ },
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _item_list_active = __webpack_require__(237);
+	
+	var _item_list_active2 = _interopRequireDefault(_item_list_active);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Chapter = function Chapter(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'step-in-chapter' },
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'col-sm-12' },
+	      _react2.default.createElement(
+	        'h4',
+	        null,
+	        'Step ',
+	        props.index,
+	        '. ',
+	        props.step.step_title
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        props.step.description
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'col-sm-12' },
+	      _react2.default.createElement(_item_list_active2.default, { title: 'Action Items', items: props.step.action_items })
+	    )
+	  );
+	};
+	
+	exports.default = Chapter;
+
+/***/ },
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _item = __webpack_require__(233);
+	
+	var _item2 = _interopRequireDefault(_item);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ItemListActive = function ItemListActive(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'item-list-active' },
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'item-list-active-title' },
+	      props.title
+	    ),
+	    props.items.map(function (item, idx) {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'item-list-active-item', key: idx },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-6' },
+	          item.name
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-6' },
+	          '$',
+	          item.amount
+	        )
+	      );
+	    })
+	  );
+	};
+	
+	exports.default = ItemListActive;
 
 /***/ }
 /******/ ]);

@@ -22,3 +22,34 @@ export const goBackChapters = (spec) => ({
   type: GO_BACK_CHAPTERS,
   payload: spec
 })
+
+export const SELECT_ITEM = "SELECT_ITEM";
+export const STOP_MOVE_PROGRESS = "STOP_MOVE_PROGRESS";
+export const SELECT_TARGET_ITEM = "SELECT_TARGET_LIST";
+export const DESELECT_TARGET_ITEM = "DESELECT_TARGET_LIST";
+export const MOVE_CARD = "MOVE_CARD";
+
+export const selectItem = (spec) => ({
+  type: SELECT_ITEM,
+  payload: spec
+})
+
+export const stopMoveProgress = (spec) => ({
+  type: STOP_MOVE_PROGRESS,
+  payload: spec
+})
+
+export const selectTargetItem = (spec) => ({
+  type: SELECT_TARGET_ITEM,
+  payload: spec
+})
+
+export const deselectTargetItem = (spec) => ({
+  type: DESELECT_TARGET_ITEM,
+  payload: spec
+})
+
+export const moveItem = (spec) => ({
+  type: MOVE_ITEM,
+  payload: spec
+})

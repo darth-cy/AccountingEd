@@ -5,6 +5,13 @@ import { CHAPTERS } from './chapters/chapters';
 const _initState = {
   outputText: "(none)",
   mode: "chapters", // chapters, chapter
+  cardMoveStates: {
+    moveInProgress: false,
+    currentSelectedList: undefined,
+    currentSelectedItem: undefined,
+    currentTargetList: undefined,
+    currentTargetItem: undefined,
+  },
   currentState: CHAPTERS[1],
   currentChapter: CHAPTERS[1],
   chapters: CHAPTERS,

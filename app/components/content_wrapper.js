@@ -12,7 +12,13 @@ var ContentWrapper = (props) => {
       break;
     case "chapter":
       return (
-        <Chapter chapter={props.states.currentChapter} currentChapter={props.states.currentChapter} switchMode={props.states.switchMode} goBackChapters={props.states.goBackChapters}/>
+        <Chapter chapter={props.states.currentChapter} currentChapter={props.states.currentChapter} switchMode={props.states.switchMode} goBackChapters={props.states.goBackChapters}
+          selectItem={props.states.selectItem}
+          stopMoveProgress={props.states.stopMoveProgress}
+          selectTargetItem={props.states.selectTargetItem}
+          deselectTargetItem={props.states.deselectTargetItem}
+          moveItem={props.states.moveItem}
+        />
       );
       break;
   }
