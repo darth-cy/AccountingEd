@@ -23844,10 +23844,42 @@
 	
 	var _chapters = __webpack_require__(226);
 	
+	function findCurrentStateListByName(states, name) {
+	  debugger;
+	  switch (name) {
+	    case "income":
+	      return state.statements.cash_flow_statement.income;
+	    case "expenses":
+	      return states.statements.cash_flow_statement.expenses;
+	    case "assets":
+	      return states.statements.balance_sheet.assets;
+	    case "liabilities":
+	      return states.statements.balance_sheet.liabilities;
+	    default:
+	      for (var i = 0; i < states.steps.length; i++) {
+	        if (states.steps[i].step_title == name) {
+	          return states.steps[i].action_items;
+	        }
+	      }
+	      return NULL;
+	  }
+	  return NULL;
+	}
+	
+	function findIdxByNameInList(list, name) {
+	  debugger;
+	  for (var i = 0; i < list.length; i++) {
+	    if (list[i].name == name) {
+	      return i;
+	    }
+	  }
+	  return -1;
+	}
+	
 	var _initState = {
 	  outputText: "(none)",
 	  mode: "chapters", // chapters, chapter
-	  cardMoveStates: {
+	  itemMoveStates: {
 	    moveInProgress: false,
 	    currentSelectedList: undefined,
 	    currentSelectedItem: undefined,
@@ -23883,6 +23915,41 @@
 	      newState.mode = "chapters";
 	      newState.currentState = newState.currentChapter;
 	      newState.currentState.statements["deleted"] = [];
+	      return newState;
+	    case "SELECT_ITEM":
+	      if (newState.itemMoveStates.moveInProgress) {
+	        newState.itemMoveStates.moveInProgress = false;
+	        newState.itemMoveStates.currentSelectedList = undefined;
+	        newState.itemMoveStates.currentSelectedItem = undefined;
+	      } else {
+	        newState.itemMoveStates.moveInProgress = true;
+	        newState.itemMoveStates.currentSelectedList = action.payload.list;
+	        newState.itemMoveStates.currentSelectedItem = action.payload.item;
+	      }
+	      return newState;
+	    case "SELECT_TARGET_ITEM":
+	      console.log("select_target");
+	      newState.itemMoveStates.currentTargetList = action.payload.list;
+	      newState.itemMoveStates.currentTargetItem = action.payload.item;
+	      return newState;
+	    case "MOVE_ITEM":
+	      console.log("move");
+	      if (newState.itemMoveStates.currentSelectedList == newState.itemMoveStates.currentTargetList) {} else {
+	        var from = findCurrentStateListByName(newState.currentState, newState.itemMoveStates.currentSelectedList);
+	        var to = findCurrentStateListByName(newState.currentState, newState.itemMoveStates.currentTargetList);
+	        var selected = newState.itemMoveStates.currentSelectedItem;
+	        var target = newState.itemMoveStates.currentTargetItem;
+	
+	        from.splice(findIdxByNameInList(from, selected.name), 1);
+	        to.splice(findIdxByNameInList(to, target.name) + 1, 0, selected);
+	      }
+	      newState.itemMoveStates = {
+	        moveInProgress: false,
+	        currentSelectedList: undefined,
+	        currentSelectedItem: undefined,
+	        currentTargetList: undefined,
+	        currentTargetItem: undefined
+	      };
 	      return newState;
 	    default:
 	      return prevState;
@@ -23971,9 +24038,9 @@
 	
 	var SELECT_ITEM = exports.SELECT_ITEM = "SELECT_ITEM";
 	var STOP_MOVE_PROGRESS = exports.STOP_MOVE_PROGRESS = "STOP_MOVE_PROGRESS";
-	var SELECT_TARGET_ITEM = exports.SELECT_TARGET_ITEM = "SELECT_TARGET_LIST";
-	var DESELECT_TARGET_ITEM = exports.DESELECT_TARGET_ITEM = "DESELECT_TARGET_LIST";
-	var MOVE_CARD = exports.MOVE_CARD = "MOVE_CARD";
+	var SELECT_TARGET_ITEM = exports.SELECT_TARGET_ITEM = "SELECT_TARGET_ITEM";
+	var DESELECT_TARGET_ITEM = exports.DESELECT_TARGET_ITEM = "DESELECT_TARGET_ITEM";
+	var MOVE_ITEM = exports.MOVE_ITEM = "MOVE_ITEM";
 	
 	var selectItem = exports.selectItem = function selectItem(spec) {
 	  return {
@@ -23996,7 +24063,7 @@
 	  };
 	};
 	
-	var deselectTargetItem = exports.deselectTargetItem = function deselectTargetItem(spec) {
+	var deSelectTargetItem = exports.deSelectTargetItem = function deSelectTargetItem(spec) {
 	  return {
 	    type: DESELECT_TARGET_ITEM,
 	    payload: spec
@@ -24120,71 +24187,21 @@
 	    goBackChapters: function goBackChapters(specs) {
 	      return dispatch((0, _actions.goBackChapters)(specs));
 	    },
-	    selectItem: function (_selectItem) {
-	      function selectItem(_x) {
-	        return _selectItem.apply(this, arguments);
-	      }
-	
-	      selectItem.toString = function () {
-	        return _selectItem.toString();
-	      };
-	
-	      return selectItem;
-	    }(function (specs) {
-	      return dispatch(selectItem(specs));
-	    }),
-	    stopMoveProgress: function (_stopMoveProgress) {
-	      function stopMoveProgress(_x2) {
-	        return _stopMoveProgress.apply(this, arguments);
-	      }
-	
-	      stopMoveProgress.toString = function () {
-	        return _stopMoveProgress.toString();
-	      };
-	
-	      return stopMoveProgress;
-	    }(function (specs) {
-	      return dispatch(stopMoveProgress(specs));
-	    }),
-	    selectTargetItem: function (_selectTargetItem) {
-	      function selectTargetItem(_x3) {
-	        return _selectTargetItem.apply(this, arguments);
-	      }
-	
-	      selectTargetItem.toString = function () {
-	        return _selectTargetItem.toString();
-	      };
-	
-	      return selectTargetItem;
-	    }(function (specs) {
-	      return dispatch(selectTargetItem(specs));
-	    }),
-	    deselectTargetItem: function (_deselectTargetItem) {
-	      function deselectTargetItem(_x4) {
-	        return _deselectTargetItem.apply(this, arguments);
-	      }
-	
-	      deselectTargetItem.toString = function () {
-	        return _deselectTargetItem.toString();
-	      };
-	
-	      return deselectTargetItem;
-	    }(function (specs) {
-	      return dispatch(deselectTargetItem(specs));
-	    }),
-	    moveItem: function (_moveItem) {
-	      function moveItem(_x5) {
-	        return _moveItem.apply(this, arguments);
-	      }
-	
-	      moveItem.toString = function () {
-	        return _moveItem.toString();
-	      };
-	
-	      return moveItem;
-	    }(function (specs) {
-	      return dispatch(moveItem(specs));
-	    })
+	    selectItem: function selectItem(specs) {
+	      return dispatch((0, _actions.selectItem)(specs));
+	    },
+	    stopMoveProgress: function stopMoveProgress(specs) {
+	      return dispatch((0, _actions.stopMoveProgress)(specs));
+	    },
+	    selectTargetItem: function selectTargetItem(specs) {
+	      return dispatch((0, _actions.selectTargetItem)(specs));
+	    },
+	    deSelectTargetItem: function deSelectTargetItem(specs) {
+	      return dispatch((0, _actions.deSelectTargetItem)(specs));
+	    },
+	    moveItem: function moveItem(specs) {
+	      return dispatch((0, _actions.moveItem)(specs));
+	    }
 	  };
 	};
 	
@@ -24252,16 +24269,16 @@
 	var ContentWrapper = function ContentWrapper(props) {
 	  switch (props.states.mode) {
 	    case "chapters":
-	      debugger;
 	      return _react2.default.createElement(_chapters2.default, { chapters: props.states.chapters, currentChapter: props.states.currentChapter, selectChapter: props.states.selectChapter, startChapter: props.states.startChapter });
 	      break;
 	    case "chapter":
-	      return _react2.default.createElement(_chapter2.default, { chapter: props.states.currentChapter, currentChapter: props.states.currentChapter, switchMode: props.states.switchMode, goBackChapters: props.states.goBackChapters,
+	      return _react2.default.createElement(_chapter2.default, { chapter: props.states.currentChapter, currentState: props.states.currentState, switchMode: props.states.switchMode, goBackChapters: props.states.goBackChapters,
 	        selectItem: props.states.selectItem,
 	        stopMoveProgress: props.states.stopMoveProgress,
 	        selectTargetItem: props.states.selectTargetItem,
 	        deselectTargetItem: props.states.deselectTargetItem,
-	        moveItem: props.states.moveItem
+	        moveItem: props.states.moveItem,
+	        itemMoveStates: props.states.itemMoveStates
 	      });
 	      break;
 	  }
@@ -24524,13 +24541,13 @@
 	      _react2.default.createElement(
 	        'h3',
 	        null,
-	        props.currentChapter.title
+	        props.currentState.title
 	      ),
 	      _react2.default.createElement(
 	        'div',
 	        null,
-	        props.currentChapter.steps.map(function (step, idx) {
-	          return _react2.default.createElement(_step_in_chapter2.default, { key: idx, index: idx + 1, step: step, moveUtilities: moveUtilities });
+	        props.currentState.steps.map(function (step, idx) {
+	          return _react2.default.createElement(_step_in_chapter2.default, { itemMoveStates: props.itemMoveStates, key: idx, index: idx + 1, step: step, moveUtilities: moveUtilities });
 	        })
 	      )
 	    ),
@@ -24601,7 +24618,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Chapter = function Chapter(props) {
+	var StepInChapter = function StepInChapter(props) {
 	  return _react2.default.createElement(
 	    'div',
 	    { className: 'step-in-chapter' },
@@ -24625,12 +24642,12 @@
 	    _react2.default.createElement(
 	      'div',
 	      { className: 'col-sm-12' },
-	      _react2.default.createElement(_item_list_active2.default, { title: 'Action Items', items: props.step.action_items })
+	      _react2.default.createElement(_item_list_active2.default, { moveUtilities: props.moveUtilities, itemMoveStates: props.itemMoveStates, isStatement: false, id: props.step.step_title, title: 'Action Items', items: props.step.action_items })
 	    )
 	  );
 	};
 	
-	exports.default = Chapter;
+	exports.default = StepInChapter;
 
 /***/ },
 /* 237 */
@@ -24653,30 +24670,102 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var ItemListActive = function ItemListActive(props) {
+	  var moveInProgress = props.itemMoveStates.moveInProgress;
+	  var currentSelectedItem = props.itemMoveStates.currentSelectedItem;
+	  var currentSelectedList = props.itemMoveStates.currentSelectedList;
+	  var currentTargetItem = props.itemMoveStates.currentTargetItem;
+	  var currentTargetList = props.itemMoveStates.currentTargetList;
 	  return _react2.default.createElement(
 	    'div',
-	    { className: 'item-list-active' },
+	    { className: 'item-list-active', onMouseLeave: props.moveUtilities.deSelectTargetItem },
 	    _react2.default.createElement(
 	      'div',
-	      { className: 'item-list-active-title' },
+	      { className: 'item-list-active-title', onMouseEnter: function onMouseEnter() {
+	          if (moveInProgress) {
+	            props.moveUtilities.selectTargetItem({
+	              list: props.id,
+	              item: { name: "_init" }
+	            });
+	          } else {
+	            console.log("enter");
+	          }
+	        },
+	        onClick: function onClick() {
+	          props.moveUtilities.moveItem();
+	        } },
+	      props.items.length > 0 ? _react2.default.createElement(
+	        'span',
+	        { className: 'star' },
+	        '\u2605 \xA0\xA0'
+	      ) : _react2.default.createElement(
+	        'span',
+	        { className: 'star' },
+	        '\u2606 \xA0\xA0'
+	      ),
+	      ' ',
 	      props.title
 	    ),
+	    moveInProgress && !!currentTargetItem && currentTargetItem.name == "_init" && currentTargetList == props.id && currentSelectedList != props.id ? _react2.default.createElement(
+	      'div',
+	      { className: 'item-list-placeholder', onClick: function onClick() {
+	          props.moveUtilities.moveItem();
+	        } },
+	      'placeholder'
+	    ) : _react2.default.createElement('div', null),
 	    props.items.map(function (item, idx) {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'item-list-active-item', key: idx },
-	        _react2.default.createElement(
+	      if (!!currentSelectedItem && item.name == currentSelectedItem.name) {
+	        return _react2.default.createElement(
 	          'div',
-	          { className: 'col-sm-6' },
-	          item.name
-	        ),
-	        _react2.default.createElement(
+	          { className: 'item-list-placeholder', key: idx },
+	          'placeholder'
+	        );
+	      } else {
+	        return _react2.default.createElement(
 	          'div',
-	          { className: 'col-sm-6' },
-	          '$',
-	          item.amount
-	        )
-	      );
+	          { key: idx },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'item-list-active-item', onClick: function onClick() {
+	                if (moveInProgress) {
+	                  props.moveUtilities.moveItem();
+	                } else {
+	                  props.moveUtilities.selectItem({
+	                    list: props.id,
+	                    item: item
+	                  });
+	                }
+	              },
+	              onMouseEnter: function onMouseEnter() {
+	                if (moveInProgress) {
+	                  props.moveUtilities.selectTargetItem({
+	                    list: props.id,
+	                    item: item
+	                  });
+	                } else {
+	                  console.log("enter");
+	                }
+	              } },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-6' },
+	              item.name
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-6' },
+	              '$',
+	              item.amount
+	            )
+	          ),
+	          moveInProgress && !!currentTargetItem && item.name == currentTargetItem.name && currentSelectedList != props.id ? _react2.default.createElement(
+	            'div',
+	            { className: 'item-list-placeholder', onClick: function onClick() {
+	                props.moveUtilities.moveItem();
+	              } },
+	            'placeholder'
+	          ) : _react2.default.createElement('div', null)
+	        );
+	      }
 	    })
 	  );
 	};

@@ -14,11 +14,11 @@ var Chapter = (props) => {
   return (
     <div>
       <div className="col-md-4 chapters-list">
-        <h3>{props.currentChapter.title}</h3>
+        <h3>{props.currentState.title}</h3>
         <div>
-          {props.currentChapter.steps.map((step, idx) => {
+          {props.currentState.steps.map((step, idx) => {
             return (
-              <StepInChapter key={idx} index={idx + 1} step={step} moveUtilities={moveUtilities}/>
+              <StepInChapter itemMoveStates={props.itemMoveStates} key={idx} index={idx + 1} step={step} moveUtilities={moveUtilities}/>
             )
           })}
         </div>

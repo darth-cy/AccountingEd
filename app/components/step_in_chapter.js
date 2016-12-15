@@ -1,7 +1,7 @@
 import React from 'react'
 import ItemListActive from './item_list_active'
 
-var Chapter = (props) => {
+var StepInChapter = (props) => {
   return (
     <div className="step-in-chapter">
       <div className="col-sm-12">
@@ -9,10 +9,10 @@ var Chapter = (props) => {
         <p>{props.step.description}</p>
       </div>
       <div className="col-sm-12">
-        <ItemListActive title="Action Items" items={props.step.action_items}/>
+        <ItemListActive moveUtilities={props.moveUtilities} itemMoveStates={props.itemMoveStates} isStatement={false} id={props.step.step_title} title="Action Items" items={props.step.action_items}/>
       </div>
     </div>
   );
 }
 
-export default Chapter;
+export default StepInChapter;

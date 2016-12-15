@@ -93,7 +93,11 @@ body{
 
 .item-list-active-title{
   background-color: purple;
+  cursor: pointer;
 }
 .item-list-active-item{
   background-color: white;
+}
+.star{
+  font-size: 1.5rem;
 }
