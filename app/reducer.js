@@ -2,10 +2,9 @@ import { OUTPUT_TEONT, SELECT_CHAPTER, START_CHAPTER, GO_BACK_CHAPTERS, DESELECT
 import { CHAPTERS } from './chapters/chapters';
 
 function findCurrentStateListByName(states, name){
-  debugger;
   switch (name) {
     case "income":
-      return state.statements.cash_flow_statement.income;
+      return states.statements.cash_flow_statement.income;
     case "expenses":
       return states.statements.cash_flow_statement.expenses;
     case "assets":
@@ -82,12 +81,10 @@ const reducer = (prevState=_initState, action) => {
       }
       return newState;
     case "SELECT_TARGET_ITEM":
-      console.log("select_target");
       newState.itemMoveStates.currentTargetList = action.payload.list;
       newState.itemMoveStates.currentTargetItem = action.payload.item;
       return newState;
     case "MOVE_ITEM":
-      console.log("move");
       if(newState.itemMoveStates.currentSelectedList == newState.itemMoveStates.currentTargetList){
       }else{
         var from = findCurrentStateListByName(newState.currentState, newState.itemMoveStates.currentSelectedList);

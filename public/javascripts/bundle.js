@@ -23845,10 +23845,9 @@
 	var _chapters = __webpack_require__(226);
 	
 	function findCurrentStateListByName(states, name) {
-	  debugger;
 	  switch (name) {
 	    case "income":
-	      return state.statements.cash_flow_statement.income;
+	      return states.statements.cash_flow_statement.income;
 	    case "expenses":
 	      return states.statements.cash_flow_statement.expenses;
 	    case "assets":
@@ -23928,12 +23927,10 @@
 	      }
 	      return newState;
 	    case "SELECT_TARGET_ITEM":
-	      console.log("select_target");
 	      newState.itemMoveStates.currentTargetList = action.payload.list;
 	      newState.itemMoveStates.currentTargetItem = action.payload.item;
 	      return newState;
 	    case "MOVE_ITEM":
-	      console.log("move");
 	      if (newState.itemMoveStates.currentSelectedList == newState.itemMoveStates.currentTargetList) {} else {
 	        var from = findCurrentStateListByName(newState.currentState, newState.itemMoveStates.currentSelectedList);
 	        var to = findCurrentStateListByName(newState.currentState, newState.itemMoveStates.currentTargetList);
@@ -24225,7 +24222,7 @@
 	
 	var _content_wrapper2 = _interopRequireDefault(_content_wrapper);
 	
-	var _navbar = __webpack_require__(235);
+	var _navbar = __webpack_require__(237);
 	
 	var _navbar2 = _interopRequireDefault(_navbar);
 	
@@ -24320,7 +24317,7 @@
 	    null,
 	    _react2.default.createElement(
 	      'div',
-	      { className: 'col-md-4 chapters-list' },
+	      { className: 'col-md-4 chapters-list height-align' },
 	      _react2.default.createElement(
 	        'h3',
 	        null,
@@ -24342,7 +24339,7 @@
 	    ),
 	    _react2.default.createElement(
 	      'div',
-	      { className: 'col-md-8 chapters-detailed' },
+	      { className: 'col-md-8 chapters-detailed height-align' },
 	      _react2.default.createElement(
 	        'h2',
 	        null,
@@ -24516,90 +24513,178 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _step_in_chapter = __webpack_require__(236);
+	var _step_in_chapter = __webpack_require__(235);
 	
 	var _step_in_chapter2 = _interopRequireDefault(_step_in_chapter);
 	
+	var _statement_item_list = __webpack_require__(238);
+	
+	var _statement_item_list2 = _interopRequireDefault(_statement_item_list);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Chapter = function Chapter(props) {
-	  var thisView = undefined;
-	  var moveUtilities = {
-	    selectItem: props.selectItem,
-	    stopMoveProgress: props.stopMoveProgress,
-	    selectTargetItem: props.selectTargetItem,
-	    deselectTargetItem: props.deselectTargetItem,
-	    moveItem: props.moveItem
-	  };
+	var Chapter = _react2.default.createClass({
+	  displayName: 'Chapter',
 	
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
+	  getInitialState: function getInitialState() {
+	    return {};
+	  },
+	  render: function render() {
+	    debugger;
+	    var props = this.props;
+	    var thisView = this;
+	    var moveUtilities = {
+	      selectItem: props.selectItem,
+	      stopMoveProgress: props.stopMoveProgress,
+	      selectTargetItem: props.selectTargetItem,
+	      deselectTargetItem: props.deselectTargetItem,
+	      moveItem: props.moveItem
+	    };
+	
+	    var incomeList = props.currentState.statements.cash_flow_statement.income;
+	    var expensesList = props.currentState.statements.cash_flow_statement.expenses;
+	    var assetsList = props.currentState.statements.balance_sheet.assets;
+	    var liabilitiesList = props.currentState.statements.balance_sheet.liabilities;
+	
+	    var netIncome = incomeList.reduce(function (total, item) {
+	      return total + item.amount;
+	    }, 0) - expensesList.reduce(function (total, item) {
+	      return total + item.amount;
+	    }, 0);
+	    var equity = assetsList.reduce(function (total, item) {
+	      return total + item.amount;
+	    }, 0) - liabilitiesList.reduce(function (total, item) {
+	      return total + item.amount;
+	    }, 0);
+	
+	    return _react2.default.createElement(
 	      'div',
-	      { className: 'col-md-4 chapters-list' },
+	      { className: 'row' },
 	      _react2.default.createElement(
-	        'h3',
-	        null,
-	        props.currentState.title
+	        'div',
+	        { className: 'col-md-4 chapters-list height-align' },
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          props.currentState.title
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          props.currentState.steps.map(function (step, idx) {
+	            return _react2.default.createElement(_step_in_chapter2.default, { itemMoveStates: props.itemMoveStates, key: idx, index: idx + 1, step: step, moveUtilities: moveUtilities });
+	          })
+	        )
 	      ),
 	      _react2.default.createElement(
 	        'div',
-	        null,
-	        props.currentState.steps.map(function (step, idx) {
-	          return _react2.default.createElement(_step_in_chapter2.default, { itemMoveStates: props.itemMoveStates, key: idx, index: idx + 1, step: step, moveUtilities: moveUtilities });
-	        })
+	        { className: 'col-md-8 chapters-detailed height-align' },
+	        _react2.default.createElement(
+	          'button',
+	          { className: 'btn btn-default chapter-go-button', onClick: function onClick() {
+	              props.goBackChapters();
+	            } },
+	          'Back to Chapters'
+	        ),
+	        _react2.default.createElement('hr', null),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row statement-holder' },
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'Cash Flow Statment'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-6' },
+	            _react2.default.createElement(_statement_item_list2.default, { name: 'income', list: incomeList, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-6' },
+	            _react2.default.createElement(_statement_item_list2.default, { name: 'expenses', list: expensesList, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities })
+	          )
+	        ),
+	        _react2.default.createElement('hr', null),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row statement-holder' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-6' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'item-list-active' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'col-sm-6' },
+	                'Net Income: '
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'col-sm-6' },
+	                netIncome < 0 ? "- $" : "$",
+	                Math.abs(netIncome)
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row statement-holder' },
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'Balance Sheet'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-6' },
+	            _react2.default.createElement(_statement_item_list2.default, { name: 'assets', list: assetsList, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-6' },
+	            _react2.default.createElement(_statement_item_list2.default, { name: 'liabilities', list: liabilitiesList, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities })
+	          )
+	        ),
+	        _react2.default.createElement('hr', null),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row statement-holder' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-6' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'item-list-active' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'col-sm-6' },
+	                'Net Equity: '
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'col-sm-6' },
+	                equity < 0 ? "- $" : "$",
+	                Math.abs(equity)
+	              )
+	            )
+	          )
+	        )
 	      )
-	    ),
-	    _react2.default.createElement(
-	      'div',
-	      { className: 'col-md-8 chapters-detailed' },
-	      _react2.default.createElement(
-	        'button',
-	        { className: 'btn btn-default chapter-go-button', onClick: function onClick() {
-	            props.goBackChapters();
-	          } },
-	        'Back to Chapters'
-	      ),
-	      _react2.default.createElement('hr', null)
-	    )
-	  );
-	};
+	    );
+	  },
+	  componentDidMount: function componentDidMount() {
+	    $('.height-align').matchHeight();
+	  }
+	});
 	
 	exports.default = Chapter;
 
 /***/ },
 /* 235 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Navbar = function Navbar() {
-	  return _react2.default.createElement(
-	    "div",
-	    { className: "container-fluid navbar" },
-	    _react2.default.createElement(
-	      "h3",
-	      null,
-	      "Polsight Accounting Suite"
-	    )
-	  );
-	};
-	
-	exports.default = Navbar;
-
-/***/ },
-/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24612,7 +24697,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _item_list_active = __webpack_require__(237);
+	var _item_list_active = __webpack_require__(236);
 	
 	var _item_list_active2 = _interopRequireDefault(_item_list_active);
 	
@@ -24650,7 +24735,7 @@
 	exports.default = StepInChapter;
 
 /***/ },
-/* 237 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24771,6 +24856,160 @@
 	};
 	
 	exports.default = ItemListActive;
+
+/***/ },
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Navbar = function Navbar() {
+	  return _react2.default.createElement(
+	    "div",
+	    { className: "container-fluid navbar" },
+	    _react2.default.createElement(
+	      "h3",
+	      null,
+	      "Polsight Accounting Suite"
+	    )
+	  );
+	};
+	
+	exports.default = Navbar;
+
+/***/ },
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _item = __webpack_require__(233);
+	
+	var _item2 = _interopRequireDefault(_item);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var StatementItemList = function StatementItemList(props) {
+	  var moveInProgress = props.itemMoveStates.moveInProgress;
+	  var currentSelectedItem = props.itemMoveStates.currentSelectedItem;
+	  var currentSelectedList = props.itemMoveStates.currentSelectedList;
+	  var currentTargetItem = props.itemMoveStates.currentTargetItem;
+	  var currentTargetList = props.itemMoveStates.currentTargetList;
+	
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'item-list-active' },
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'item-list-active-title', onMouseEnter: function onMouseEnter() {
+	          if (moveInProgress) {
+	            props.moveUtilities.selectTargetItem({
+	              list: props.name,
+	              item: { name: "_init" }
+	            });
+	          } else {
+	            console.log("enter");
+	          }
+	        },
+	        onClick: function onClick() {
+	          props.moveUtilities.moveItem();
+	        } },
+	      props.list.length > 0 ? _react2.default.createElement(
+	        'span',
+	        { className: 'star' },
+	        '\u2605 \xA0\xA0'
+	      ) : _react2.default.createElement(
+	        'span',
+	        { className: 'star' },
+	        '\u2606 \xA0\xA0'
+	      ),
+	      ' ',
+	      props.name.charAt(0).toUpperCase() + props.name.slice(1)
+	    ),
+	    moveInProgress && !!currentTargetItem && currentTargetItem.name == "_init" && currentTargetList == props.name && currentSelectedList != props.name ? _react2.default.createElement(
+	      'div',
+	      { className: 'item-list-placeholder', onClick: function onClick() {
+	          props.moveUtilities.moveItem();
+	        } },
+	      'placeholder'
+	    ) : _react2.default.createElement('div', null),
+	    props.list.map(function (item, idx) {
+	      if (!!currentSelectedItem && item.name == currentSelectedItem.name) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'item-list-placeholder', key: idx },
+	          'placeholder'
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          { key: idx },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'item-list-active-item', onClick: function onClick() {
+	                if (moveInProgress) {
+	                  props.moveUtilities.moveItem();
+	                } else {
+	                  props.moveUtilities.selectItem({
+	                    list: props.name,
+	                    item: item
+	                  });
+	                }
+	              },
+	              onMouseEnter: function onMouseEnter() {
+	                if (moveInProgress) {
+	                  props.moveUtilities.selectTargetItem({
+	                    list: props.name,
+	                    item: item
+	                  });
+	                } else {
+	                  console.log("enter");
+	                }
+	              } },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-6' },
+	              item.name
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-6' },
+	              '$',
+	              item.amount
+	            )
+	          ),
+	          moveInProgress && !!currentTargetItem && item.name == currentTargetItem.name && currentSelectedList != props.name ? _react2.default.createElement(
+	            'div',
+	            { className: 'item-list-placeholder', onClick: function onClick() {
+	                props.moveUtilities.moveItem();
+	              } },
+	            'placeholder'
+	          ) : _react2.default.createElement('div', null)
+	        );
+	      }
+	    })
+	  );
+	};
+	
+	exports.default = StatementItemList;
 
 /***/ }
 /******/ ]);

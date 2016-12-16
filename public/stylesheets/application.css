@@ -1,3 +1,7 @@
+html, body{
+  overflow-x: hidden;
+}
+
 *{
   border-radius: 0px;
 }
@@ -24,9 +28,11 @@ body{
 .chapters-list{
   background-color: #4B1952;
   min-height: 100vh;
+  height: 100%;
   color: white;
   padding-left: 2.5%;
   padding-top: 2.5%;
+  padding-right: 2.5%;
 }
 
 .chapters-list-item{
@@ -45,17 +51,16 @@ body{
 .chapters-list-item:hover{
   background-color: #9F59C8;
 }
-
 .chapters-detailed{
   padding-left: 2.5%;
   padding-top: 2.5%;
+  padding-bottom: 20%;
 }
 .chapter-go-button{
   padding-left: 2.5rem;
   padding-right: 2.5rem;
   border-radius: 0px;
 }
-
 .step-in-chapters{
   display: flex;
   position: relative;
@@ -64,6 +69,10 @@ body{
   padding-bottom: 2rem;
 }
 .step-in-chapters > .col-sm-6{
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+}
+.statement-holder{
   padding-left: 2.5%;
   padding-right: 2.5%;
 }

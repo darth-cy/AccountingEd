@@ -6,7 +6,7 @@ var Chapters = (props) => {
 
   return (
     <div>
-      <div className="col-md-4 chapters-list">
+      <div className="col-md-4 chapters-list height-align">
         <h3>Available Chapters ></h3>
         <div>
           {$.map(props.chapters, (chapter, idx) => (
@@ -16,7 +16,7 @@ var Chapters = (props) => {
           ))}
         </div>
       </div>
-      <div className="col-md-8 chapters-detailed">
+      <div className="col-md-8 chapters-detailed height-align">
         <h2>{props.currentChapter.title}</h2>
         <p>{props.currentChapter.description}</p>
         <button className="btn btn-default chapter-go-button" onClick={() => {
