@@ -24143,6 +24143,36 @@
 	      should_not_be_present: [],
 	      should_be: [["equity"]]
 	    }
+	  },
+	  "3": {
+	    id: "3",
+	    title: "Publishing a New Book",
+	    description: "You've published a new book.",
+	    steps: [{
+	      step_title: "Publishing Rights Settlement",
+	      description: "The publishing house is offering you an upfront cash of $4000 plus $450 every month for the publishing rights of your new book.",
+	      action_items: [{ name: "Book Cash Front", description: "Reward for publishing rights", amount: 4000 }, { name: "New Monthly Book Royalty", description: "The stream for continuous profit generation.", amount: 450 }]
+	    }, {
+	      step_title: "Right Back Provision",
+	      description: "The publishing house offered you an option to buy back the publishing right of the book after 10 years at the optional price of $2000 upfront. You graciously took the offer.",
+	      action_items: [{ name: "Right Back Provision", description: "A contract that grants you the right to buy back the publishing rights of your book after 10 years.", amount: 2000 }, { name: "Right Back Payment", description: "Out of pocket payment for the rights of buying back your book publishing rights.", amount: 2000 }]
+	    }],
+	    statements: {
+	      cash_flow_statement: {
+	        income: [{ name: "Book Royalty", item_description: "Elon Century, Ltd. is paying $200 in royalty for the publishing rights of your biography.", amount: 200 }],
+	        expenses: [{ name: "Mortgage Payment", item_description: "A comfortable home services you physically, but you service it financially.", amount: 1450 }, { name: "Car Loan Payment", item_description: "A symbol of adulthood worth fighting for.", amount: 240 }, { name: "School Loan Payment", item_description: "The doubt is not in its usefulness, but the boundary of its usefulness.", amount: 370 }, { name: "Misc. Expenses", item_description: "The entry you most worry about it when you're poor.", amount: 1400 }]
+	      },
+	      balance_sheet: {
+	        assets: [{ name: "Cash", item_description: "Simple, cold, and sure.", amount: 14370 }, { name: "3/2/1 House", item_description: "Home.", amount: 145000 }, { name: "Car", item_description: "The other home.", amount: 26000 }],
+	        liabilities: [{ name: "Mortgage", item_description: "Home Mortgage for the 3/2/1 house you own.", amount: 85000 }, { name: "Car Loan", item_description: "A loan on your second-hand Mercedes.", amount: 13000 }, { name: "School Loan", item_description: "A loan on your education.", amount: 12000 }]
+	      }
+	    },
+	    equity: 75370,
+	    criteria: {
+	      should_contain: [["income", "Salary"], ["income", "Book Royalty"], ["expenses", "Mortgage Payment"], ["expenses", "Car Loan Payment"], ["expenses", "School Loan Payment"], ["expenses", "Misc. Expenses"], ["expenses", "Share Purchase Payment"], ["assets", "Cash"], ["assets", "3/2/1 House"], ["assets", "Car"], ["assets", "25,500 Shares StarDust"], ["liabilities", "Mortgage"], ["liabilities", "Car Loan"], ["liabilities", "School Loan"]],
+	      should_not_be_present: [],
+	      should_be: [["equity"]]
+	    }
 	  }
 	};
 
