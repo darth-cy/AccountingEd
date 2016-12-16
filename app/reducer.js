@@ -23,7 +23,6 @@ function findCurrentStateListByName(states, name){
 }
 
 function findIdxByNameInList(list, name){
-  debugger;
   for(var i=0; i< list.length; i++){
     if(list[i].name == name){
       return i

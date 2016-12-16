@@ -23866,7 +23866,6 @@
 	}
 	
 	function findIdxByNameInList(list, name) {
-	  debugger;
 	  for (var i = 0; i < list.length; i++) {
 	    if (list[i].name == name) {
 	      return i;
@@ -24222,9 +24221,13 @@
 	
 	var _content_wrapper2 = _interopRequireDefault(_content_wrapper);
 	
-	var _navbar = __webpack_require__(237);
+	var _navbar = __webpack_require__(238);
 	
 	var _navbar2 = _interopRequireDefault(_navbar);
+	
+	var _item_float = __webpack_require__(239);
+	
+	var _item_float2 = _interopRequireDefault(_item_float);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -24232,6 +24235,7 @@
 	  return _react2.default.createElement(
 	    'div',
 	    { className: 'container-fluid' },
+	    _react2.default.createElement(_item_float2.default, { currentSelectedItem: props.itemMoveStates.currentSelectedItem }),
 	    _react2.default.createElement(_navbar2.default, null),
 	    _react2.default.createElement(_content_wrapper2.default, { states: props })
 	  );
@@ -24529,7 +24533,7 @@
 	
 	var _step_in_chapter2 = _interopRequireDefault(_step_in_chapter);
 	
-	var _statement_item_list = __webpack_require__(238);
+	var _statement_item_list = __webpack_require__(237);
 	
 	var _statement_item_list2 = _interopRequireDefault(_statement_item_list);
 	
@@ -24883,36 +24887,6 @@
 /* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Navbar = function Navbar() {
-	  return _react2.default.createElement(
-	    "div",
-	    { className: "container-fluid navbar" },
-	    _react2.default.createElement(
-	      "h3",
-	      null,
-	      "Ray's Accounting EdSuite"
-	    )
-	  );
-	};
-	
-	exports.default = Navbar;
-
-/***/ },
-/* 238 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
@@ -25032,6 +25006,85 @@
 	};
 	
 	exports.default = StatementItemList;
+
+/***/ },
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Navbar = function Navbar() {
+	  return _react2.default.createElement(
+	    "div",
+	    { className: "container-fluid navbar" },
+	    _react2.default.createElement(
+	      "h3",
+	      null,
+	      "Ray's Accounting EdSuite"
+	    )
+	  );
+	};
+	
+	exports.default = Navbar;
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ItemFloat = _react2.default.createClass({
+	  displayName: 'ItemFloat',
+	
+	  getInitialState: function getInitialState() {
+	    return {};
+	  },
+	  render: function render() {
+	    var selectedItem = this.props.currentSelectedItem;
+	    if (!!selectedItem) {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'item-float' },
+	        selectedItem.name,
+	        ' | ',
+	        selectedItem.amount
+	      );
+	    } else {
+	      return _react2.default.createElement('div', null);
+	    }
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var mouseX;
+	    var mouseY;
+	    $(document).mousemove(function (e) {
+	      mouseX = e.pageX;
+	      mouseY = e.pageY;
+	      $('.item-float').css({ 'top': mouseY, 'left': mouseX });
+	    });
+	  }
+	});
+	
+	exports.default = ItemFloat;
 
 /***/ }
 /******/ ]);
