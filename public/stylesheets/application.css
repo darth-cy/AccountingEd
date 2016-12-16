@@ -56,7 +56,7 @@ body{
   padding-top: 2.5%;
   padding-bottom: 20%;
 }
-.chapter-go-button{
+.chapter-go-button, .chapter-check-button{
   padding-left: 2.5rem;
   padding-right: 2.5rem;
   border-radius: 0px;
@@ -67,6 +67,7 @@ body{
   height: inherit;
   padding-top: 2rem;
   padding-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 .step-in-chapters > .col-sm-6{
   padding-left: 2.5%;

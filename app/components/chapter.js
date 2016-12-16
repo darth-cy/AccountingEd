@@ -5,7 +5,6 @@ import StatementItemList from './statement_item_list'
 var Chapter = React.createClass({
   getInitialState: () => ({}),
   render: function(){
-    debugger;
     var props = this.props;
     var thisView = this;
     var moveUtilities = {
@@ -40,9 +39,11 @@ var Chapter = React.createClass({
           <button className="btn btn-default chapter-go-button" onClick={() => {
              props.goBackChapters();
           }}>Back to Chapters</button>
+          <span>&nbsp;&nbsp;</span>
+          <button className="btn btn-success chapter-check-button">Submit Answer</button>
           <hr/>
           <div className="row statement-holder">
-            <h3>Cash Flow Statment</h3>
+            <h3>Month Cash Flow Statment</h3>
             <div className="col-sm-6">
               <StatementItemList name={'income'} list={incomeList} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities}/>
             </div>
@@ -54,13 +55,13 @@ var Chapter = React.createClass({
           <div className="row statement-holder">
             <div className="col-sm-6">
               <div className="item-list-active">
-              <div className="col-sm-6">Net Income: </div>
+              <div className="col-sm-6">Month Net Income: </div>
               <div className="col-sm-6">{netIncome < 0 ? "- $": "$"}{Math.abs(netIncome)}</div>
               </div>
             </div>
           </div>
           <div className="row statement-holder">
-            <h3>Balance Sheet</h3>
+            <h3>Month Balance Sheet</h3>
             <div className="col-sm-6">
               <StatementItemList name={'assets'} list={assetsList} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities}/>
             </div>
@@ -72,7 +73,7 @@ var Chapter = React.createClass({
           <div className="row statement-holder">
             <div className="col-sm-6">
               <div className="item-list-active">
-                <div className="col-sm-6">Net Equity: </div>
+                <div className="col-sm-6">Month Net Equity: </div>
                 <div className="col-sm-6">{equity < 0 ? "- $": "$"}{Math.abs(equity)}</div>
               </div>
             </div>

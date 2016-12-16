@@ -73,21 +73,25 @@ export const CHAPTERS = {
 
   "2": {
     id: "2",
-    title: "Advancement",
-    description: "First line task for your to get used to the interface.",
+    title: "Second Car",
+    description: "Asset purchasing and leverages.",
     steps: [
       {
-        step_title: "A New Job",
-        description: "You're offered a job at an early-stage venture-backed startup called StarDust, Ltd. You performed very well on the interviews and earned yourself a handsome salary.",
+        step_title: "A New Car",
+        description: "You have decided to fully burden your garage by purchasing another car.",
         action_items: [
-          {name: "Salary", description: "A more tangible evaluation of your interview performance.", amount: 3700},
+          {name: "New Car Down Payment", description: "Cash-front for the car", amount: 12000},
+          {name: "New Car Loan", description: "Second car loan", amount: 37000},
+          {name: "New Car", description: "The second car you own", amount: 49000},
         ]
-      },{
-        step_title: "Share in the Company",
-        description: "The new job also includes a starter equity package of 25,500 shares in the company, par value $0.01 per share. You need to buy them out of pocket.",
+      },
+      {
+        step_title: "Small Loan Liquidity",
+        description: "Since you purchased the car, your liquidity is at risk. You decided to take out a private loan.",
         action_items: [
-          {name: "25,500 Shares StarDust", description: "Time will tell their value, not investment bankers.", amount: 255},
-          {name: "Share Purchase Payment", description: "Out of pocket expense for the shares in StarDust", amount: 255}
+          {name: "Loan Cash", description: "Cash from private loan", amount: 20000},
+          {name: "Private Loan Interest", description: "Monthly service rate for the private loan", amount: 570},
+          {name: "Private Loan", description: "Yet another liability", amount: 20000},
         ]
       }
     ],

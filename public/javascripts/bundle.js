@@ -24117,16 +24117,16 @@
 	
 	  "2": {
 	    id: "2",
-	    title: "Advancement",
-	    description: "First line task for your to get used to the interface.",
+	    title: "Second Car",
+	    description: "Asset purchasing and leverages.",
 	    steps: [{
-	      step_title: "A New Job",
-	      description: "You're offered a job at an early-stage venture-backed startup called StarDust, Ltd. You performed very well on the interviews and earned yourself a handsome salary.",
-	      action_items: [{ name: "Salary", description: "A more tangible evaluation of your interview performance.", amount: 3700 }]
+	      step_title: "A New Car",
+	      description: "You have decided to fully burden your garage by purchasing another car.",
+	      action_items: [{ name: "New Car Down Payment", description: "Cash-front for the car", amount: 12000 }, { name: "New Car Loan", description: "Second car loan", amount: 37000 }, { name: "New Car", description: "The second car you own", amount: 49000 }]
 	    }, {
-	      step_title: "Share in the Company",
-	      description: "The new job also includes a starter equity package of 25,500 shares in the company, par value $0.01 per share. You need to buy them out of pocket.",
-	      action_items: [{ name: "25,500 Shares StarDust", description: "Time will tell their value, not investment bankers.", amount: 255 }, { name: "Share Purchase Payment", description: "Out of pocket expense for the shares in StarDust", amount: 255 }]
+	      step_title: "Small Loan Liquidity",
+	      description: "Since you purchased the car, your liquidity is at risk. You decided to take out a private loan.",
+	      action_items: [{ name: "Loan Cash", description: "Cash from private loan", amount: 20000 }, { name: "Private Loan Interest", description: "Monthly service rate for the private loan", amount: 570 }, { name: "Private Loan", description: "Yet another liability", amount: 20000 }]
 	    }],
 	    statements: {
 	      cash_flow_statement: {
@@ -24309,65 +24309,76 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Chapters = function Chapters(props) {
-	  var thisView = undefined;
+	var Chapters = _react2.default.createClass({
+	  displayName: 'Chapters',
 	
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
+	  getInitialState: function getInitialState() {
+	    return {};
+	  },
+	  render: function render() {
+	    var props = this.props;
+	    var thisView = this;
+	
+	    return _react2.default.createElement(
 	      'div',
-	      { className: 'col-md-4 chapters-list height-align' },
+	      null,
 	      _react2.default.createElement(
-	        'h3',
-	        null,
-	        'Available Chapters >'
+	        'div',
+	        { className: 'col-md-4 chapters-list height-align' },
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          'Available Chapters'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          $.map(props.chapters, function (chapter, idx) {
+	            return _react2.default.createElement(
+	              'div',
+	              { className: 'chapters-list-item', onClick: function onClick() {
+	                  props.selectChapter(chapter.id);
+	                }, key: chapter.id },
+	              idx + ". " + chapter.title
+	            );
+	          })
+	        )
 	      ),
 	      _react2.default.createElement(
 	        'div',
-	        null,
-	        $.map(props.chapters, function (chapter, idx) {
-	          return _react2.default.createElement(
-	            'div',
-	            { className: 'chapters-list-item', onClick: function onClick() {
-	                props.selectChapter(chapter.id);
-	              }, key: chapter.id },
-	            idx + ". " + chapter.title
-	          );
-	        })
+	        { className: 'col-md-8 chapters-detailed height-align' },
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          props.currentChapter.title
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          props.currentChapter.description
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { className: 'btn btn-default chapter-go-button', onClick: function onClick() {
+	              props.startChapter(props.currentChapter.id);
+	            } },
+	          'Start Chapter Exercises'
+	        ),
+	        _react2.default.createElement('hr', null),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          props.currentChapter.steps.map(function (step, idx) {
+	            return _react2.default.createElement(_step_in_chapters2.default, { key: idx, index: idx + 1, step: step });
+	          })
+	        )
 	      )
-	    ),
-	    _react2.default.createElement(
-	      'div',
-	      { className: 'col-md-8 chapters-detailed height-align' },
-	      _react2.default.createElement(
-	        'h2',
-	        null,
-	        props.currentChapter.title
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        props.currentChapter.description
-	      ),
-	      _react2.default.createElement(
-	        'button',
-	        { className: 'btn btn-default chapter-go-button', onClick: function onClick() {
-	            props.startChapter(props.currentChapter.id);
-	          } },
-	        'Start Chapter Exercises'
-	      ),
-	      _react2.default.createElement('hr', null),
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        props.currentChapter.steps.map(function (step, idx) {
-	          return _react2.default.createElement(_step_in_chapters2.default, { key: idx, index: idx + 1, step: step });
-	        })
-	      )
-	    )
-	  );
-	};
+	    );
+	  },
+	  componentDidMount: function componentDidMount() {
+	    $('.height-align').matchHeight();
+	  }
+	});
 	
 	exports.default = Chapters;
 
@@ -24412,6 +24423,7 @@
 	        props.step.description
 	      )
 	    ),
+	    _react2.default.createElement('br', null),
 	    _react2.default.createElement(
 	      'div',
 	      { className: 'col-sm-6' },
@@ -24530,7 +24542,6 @@
 	    return {};
 	  },
 	  render: function render() {
-	    debugger;
 	    var props = this.props;
 	    var thisView = this;
 	    var moveUtilities = {
@@ -24586,6 +24597,16 @@
 	            } },
 	          'Back to Chapters'
 	        ),
+	        _react2.default.createElement(
+	          'span',
+	          null,
+	          '\xA0\xA0'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { className: 'btn btn-success chapter-check-button' },
+	          'Submit Answer'
+	        ),
 	        _react2.default.createElement('hr', null),
 	        _react2.default.createElement(
 	          'div',
@@ -24593,7 +24614,7 @@
 	          _react2.default.createElement(
 	            'h3',
 	            null,
-	            'Cash Flow Statment'
+	            'Month Cash Flow Statment'
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -24619,7 +24640,7 @@
 	              _react2.default.createElement(
 	                'div',
 	                { className: 'col-sm-6' },
-	                'Net Income: '
+	                'Month Net Income: '
 	              ),
 	              _react2.default.createElement(
 	                'div',
@@ -24636,7 +24657,7 @@
 	          _react2.default.createElement(
 	            'h3',
 	            null,
-	            'Balance Sheet'
+	            'Month Balance Sheet'
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -24662,7 +24683,7 @@
 	              _react2.default.createElement(
 	                'div',
 	                { className: 'col-sm-6' },
-	                'Net Equity: '
+	                'Month Net Equity: '
 	              ),
 	              _react2.default.createElement(
 	                'div',
@@ -24724,6 +24745,7 @@
 	        props.step.description
 	      )
 	    ),
+	    _react2.default.createElement('br', null),
 	    _react2.default.createElement(
 	      'div',
 	      { className: 'col-sm-12' },
@@ -24880,7 +24902,7 @@
 	    _react2.default.createElement(
 	      "h3",
 	      null,
-	      "Polsight Accounting Suite"
+	      "Ray's Accounting EdSuite"
 	    )
 	  );
 	};

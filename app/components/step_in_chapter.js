@@ -8,6 +8,7 @@ var StepInChapter = (props) => {
         <h4>Step {props.index}. {props.step.step_title}</h4>
         <p>{props.step.description}</p>
       </div>
+      <br/>
       <div className="col-sm-12">
         <ItemListActive moveUtilities={props.moveUtilities} itemMoveStates={props.itemMoveStates} isStatement={false} id={props.step.step_title} title="Action Items" items={props.step.action_items}/>
       </div>
