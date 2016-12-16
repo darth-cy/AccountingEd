@@ -29,7 +29,7 @@ var Chapters = React.createClass({
           <div>
             {props.currentChapter.steps.map((step, idx) => {
               return (
-                <StepInChapters key={idx} index={idx + 1} step={step}/>
+                <StepInChapters key={idx} index={idx + 1} step={step} formatNumber={props.formatNumber}/>
               )
             })}
           </div>

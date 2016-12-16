@@ -30,7 +30,7 @@ var Chapter = React.createClass({
           <div>
             {props.currentState.steps.map((step, idx) => {
               return (
-                <StepInChapter itemMoveStates={props.itemMoveStates} key={idx} index={idx + 1} step={step} moveUtilities={moveUtilities}/>
+                <StepInChapter itemMoveStates={props.itemMoveStates} key={idx} index={idx + 1} step={step} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
               )
             })}
           </div>
@@ -45,10 +45,10 @@ var Chapter = React.createClass({
           <div className="row statement-holder">
             <h3>Month Cash Flow Statment</h3>
             <div className="col-sm-6">
-              <StatementItemList name={'income'} list={incomeList} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities}/>
+              <StatementItemList name={'income'} list={incomeList} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
             </div>
             <div className="col-sm-6">
-              <StatementItemList name={'expenses'} list={expensesList} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities}/>
+              <StatementItemList name={'expenses'} list={expensesList} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
             </div>
           </div>
           <hr/>
@@ -63,10 +63,10 @@ var Chapter = React.createClass({
           <div className="row statement-holder">
             <h3>Month Balance Sheet</h3>
             <div className="col-sm-6">
-              <StatementItemList name={'assets'} list={assetsList} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities}/>
+              <StatementItemList name={'assets'} list={assetsList} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
             </div>
             <div className="col-sm-6">
-              <StatementItemList name={'liabilities'} list={liabilitiesList} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities}/>
+              <StatementItemList name={'liabilities'} list={liabilitiesList} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
             </div>
           </div>
           <hr/>

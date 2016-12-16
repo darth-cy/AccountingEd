@@ -3,10 +3,14 @@ import Chapters from './chapters.js'
 import Chapter from './chapter.js'
 
 var ContentWrapper = (props) => {
+  function formatNumber(num){
+    return num.toString().replace(/\B(?=(\d{3))+(?!\d)/g, ",");
+  }
+
   switch (props.states.mode) {
     case "chapters":
       return (
-        <Chapters chapters={props.states.chapters} currentChapter={props.states.currentChapter} selectChapter={props.states.selectChapter} startChapter={props.states.startChapter} />
+        <Chapters chapters={props.states.chapters} currentChapter={props.states.currentChapter} selectChapter={props.states.selectChapter} startChapter={props.states.startChapter} formatNumber={formatNumber}/>
       );
       break;
     case "chapter":
@@ -18,6 +22,7 @@ var ContentWrapper = (props) => {
           deselectTargetItem={props.states.deselectTargetItem}
           moveItem={props.states.moveItem}
           itemMoveStates={props.states.itemMoveStates}
+          formatNumber={formatNumber}
         />
       );
       break;

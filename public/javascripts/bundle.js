@@ -24268,9 +24268,13 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var ContentWrapper = function ContentWrapper(props) {
+	  function formatNumber(num) {
+	    return num.toString().replace(/\B(?=(\d{3))+(?!\d)/g, ",");
+	  }
+	
 	  switch (props.states.mode) {
 	    case "chapters":
-	      return _react2.default.createElement(_chapters2.default, { chapters: props.states.chapters, currentChapter: props.states.currentChapter, selectChapter: props.states.selectChapter, startChapter: props.states.startChapter });
+	      return _react2.default.createElement(_chapters2.default, { chapters: props.states.chapters, currentChapter: props.states.currentChapter, selectChapter: props.states.selectChapter, startChapter: props.states.startChapter, formatNumber: formatNumber });
 	      break;
 	    case "chapter":
 	      return _react2.default.createElement(_chapter2.default, { chapter: props.states.currentChapter, currentState: props.states.currentState, switchMode: props.states.switchMode, goBackChapters: props.states.goBackChapters,
@@ -24279,7 +24283,8 @@
 	        selectTargetItem: props.states.selectTargetItem,
 	        deselectTargetItem: props.states.deselectTargetItem,
 	        moveItem: props.states.moveItem,
-	        itemMoveStates: props.states.itemMoveStates
+	        itemMoveStates: props.states.itemMoveStates,
+	        formatNumber: formatNumber
 	      });
 	      break;
 	  }
@@ -24373,7 +24378,7 @@
 	          'div',
 	          null,
 	          props.currentChapter.steps.map(function (step, idx) {
-	            return _react2.default.createElement(_step_in_chapters2.default, { key: idx, index: idx + 1, step: step });
+	            return _react2.default.createElement(_step_in_chapters2.default, { key: idx, index: idx + 1, step: step, formatNumber: props.formatNumber });
 	          })
 	        )
 	      )
@@ -24431,7 +24436,7 @@
 	    _react2.default.createElement(
 	      'div',
 	      { className: 'col-sm-6' },
-	      _react2.default.createElement(_item_list2.default, { title: 'Action Items', items: props.step.action_items })
+	      _react2.default.createElement(_item_list2.default, { title: 'Action Items', items: props.step.action_items, formatNumber: props.formatNumber })
 	    )
 	  );
 	};
@@ -24480,7 +24485,7 @@
 	          'div',
 	          { className: 'col-sm-6' },
 	          '$',
-	          item.amount
+	          props.formatNumber(item.amount)
 	        )
 	      );
 	    })
@@ -24587,7 +24592,7 @@
 	          'div',
 	          null,
 	          props.currentState.steps.map(function (step, idx) {
-	            return _react2.default.createElement(_step_in_chapter2.default, { itemMoveStates: props.itemMoveStates, key: idx, index: idx + 1, step: step, moveUtilities: moveUtilities });
+	            return _react2.default.createElement(_step_in_chapter2.default, { itemMoveStates: props.itemMoveStates, key: idx, index: idx + 1, step: step, moveUtilities: moveUtilities, formatNumber: props.formatNumber });
 	          })
 	        )
 	      ),
@@ -24623,12 +24628,12 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-6' },
-	            _react2.default.createElement(_statement_item_list2.default, { name: 'income', list: incomeList, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities })
+	            _react2.default.createElement(_statement_item_list2.default, { name: 'income', list: incomeList, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-6' },
-	            _react2.default.createElement(_statement_item_list2.default, { name: 'expenses', list: expensesList, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities })
+	            _react2.default.createElement(_statement_item_list2.default, { name: 'expenses', list: expensesList, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
 	          )
 	        ),
 	        _react2.default.createElement('hr', null),
@@ -24666,12 +24671,12 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-6' },
-	            _react2.default.createElement(_statement_item_list2.default, { name: 'assets', list: assetsList, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities })
+	            _react2.default.createElement(_statement_item_list2.default, { name: 'assets', list: assetsList, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-6' },
-	            _react2.default.createElement(_statement_item_list2.default, { name: 'liabilities', list: liabilitiesList, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities })
+	            _react2.default.createElement(_statement_item_list2.default, { name: 'liabilities', list: liabilitiesList, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
 	          )
 	        ),
 	        _react2.default.createElement('hr', null),
@@ -24753,7 +24758,7 @@
 	    _react2.default.createElement(
 	      'div',
 	      { className: 'col-sm-12' },
-	      _react2.default.createElement(_item_list_active2.default, { moveUtilities: props.moveUtilities, itemMoveStates: props.itemMoveStates, isStatement: false, id: props.step.step_title, title: 'Action Items', items: props.step.action_items })
+	      _react2.default.createElement(_item_list_active2.default, { moveUtilities: props.moveUtilities, itemMoveStates: props.itemMoveStates, isStatement: false, id: props.step.step_title, title: 'Action Items', items: props.step.action_items, formatNumber: props.formatNumber })
 	    )
 	  );
 	};
@@ -24865,7 +24870,7 @@
 	              'div',
 	              { className: 'col-sm-6' },
 	              '$',
-	              item.amount
+	              props.formatNumber(item.amount)
 	            )
 	          ),
 	          moveInProgress && !!currentTargetItem && item.name == currentTargetItem.name && currentSelectedList != props.id ? _react2.default.createElement(
@@ -24989,7 +24994,7 @@
 	              'div',
 	              { className: 'col-sm-6' },
 	              '$',
-	              item.amount
+	              props.formatNumber(item.amount)
 	            )
 	          ),
 	          moveInProgress && !!currentTargetItem && item.name == currentTargetItem.name && currentSelectedList != props.name ? _react2.default.createElement(
@@ -25041,7 +25046,7 @@
 /* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -25054,23 +25059,26 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var ItemFloat = _react2.default.createClass({
-	  displayName: 'ItemFloat',
+	  displayName: "ItemFloat",
 	
 	  getInitialState: function getInitialState() {
 	    return {};
+	  },
+	  formatNumber: function formatNumber(num) {
+	    return num.toString().replace(/\B(?=(\d{3))+(?!\d)/g, ",");
 	  },
 	  render: function render() {
 	    var selectedItem = this.props.currentSelectedItem;
 	    if (!!selectedItem) {
 	      return _react2.default.createElement(
-	        'div',
-	        { className: 'item-float' },
+	        "div",
+	        { className: "item-float" },
 	        selectedItem.name,
-	        ' | ',
-	        selectedItem.amount
+	        " | ",
+	        this.formatNumber(selectedItem.amount)
 	      );
 	    } else {
-	      return _react2.default.createElement('div', null);
+	      return _react2.default.createElement("div", null);
 	    }
 	  },
 	  componentDidMount: function componentDidMount() {

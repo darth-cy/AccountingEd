@@ -56,7 +56,7 @@ var StatementItemList = (props) => {
                   {item.name}
                 </div>
                 <div className="col-sm-6">
-                ${item.amount}
+                ${props.formatNumber(item.amount)}
                 </div>
               </div>
               {moveInProgress && !!currentTargetItem && item.name == currentTargetItem.name && currentSelectedList != props.name ? (<div className="item-list-placeholder" onClick={()=>{

@@ -11,7 +11,7 @@ var ItemList = (props) => {
             {item.name}
           </div>
           <div className="col-sm-6">
-            ${item.amount}
+            ${props.formatNumber(item.amount)}
           </div>
         </div>
       ))}
