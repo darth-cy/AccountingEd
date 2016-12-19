@@ -12,6 +12,7 @@ var StepInChapters = (props) => {
       <div className="col-sm-6">
         <ItemList title="Action Items" items={props.step.action_items} formatNumber={props.formatNumber}/>
       </div>
+      <span className="separate"></span>
     </div>
   );
 }

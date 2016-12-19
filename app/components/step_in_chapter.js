@@ -11,6 +11,7 @@ var StepInChapter = (props) => {
       <br/>
       <div className="col-sm-12">
         <ItemListActive moveUtilities={props.moveUtilities} itemMoveStates={props.itemMoveStates} isStatement={false} id={props.step.step_title} title="Action Items" items={props.step.action_items} formatNumber={props.formatNumber}/>
+        <span className="separate"></span>
       </div>
     </div>
   );

@@ -8,12 +8,12 @@ var ItemFloat = React.createClass({
   render: function(){
     var selectedItem = this.props.currentSelectedItem;
     if(!!selectedItem){
-      return (<div className="item-float">{selectedItem.name} | {this.formatNumber(selectedItem.amount)}</div>);
+      return (<div className="item-float">{selectedItem.name} <span>&nbsp;&nbsp;</span>| <span>&nbsp;&nbsp;</span>${this.formatNumber(selectedItem.amount)}</div>);
     }else{
       return (<div></div>);
     }
   },
-  componentDidMount: function(){
+  componentDidUpdate: function(){
     var mouseX;
     var mouseY;
     $(document).mousemove( function(e) {
@@ -21,6 +21,7 @@ var ItemFloat = React.createClass({
        mouseY = e.pageY;
        $('.item-float').css({'top':mouseY,'left':mouseX});
     });
+    $('.item-float').css({'top':this.props.mouseY,'left':this.props.mouseX});
   }
 })
 

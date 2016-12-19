@@ -16,7 +16,7 @@ body{
 }
 
 .navbar{
-  background-color: #24003B;
+  background-color: #136a9b;
   color: white;
   margin: 0px;
   padding-left: 2.5%;
@@ -26,7 +26,7 @@ body{
 }
 
 .chapters-list{
-  background-color: #4B1952;
+  background-color: #3d3d3d;
   min-height: 100vh;
   height: 100%;
   color: white;
@@ -36,7 +36,7 @@ body{
 }
 
 .chapters-list-item{
-  background-color: #B57FD5;
+  background-color: #36a0ce;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   padding: 1.5rem;
@@ -53,6 +53,7 @@ body{
 }
 .chapters-detailed{
   padding-left: 2.5%;
+  padding-right: 2.5%;
   padding-top: 2.5%;
   padding-bottom: 20%;
 }
@@ -63,6 +64,13 @@ body{
 }
 .step-in-chapters{
   display: flex;
+  position: relative;
+  height: inherit;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+}
+.step-in-chapter{
   position: relative;
   height: inherit;
   padding-top: 2rem;
@@ -81,11 +89,19 @@ body{
 .item-list, .item-list-active{
   text-align: center;
 }
+span.separate{
+  display: block;
+  height: 2rem;
+}
 .item-list-title, .item-list-active-title{
-  background-color: #e6c200;
+  background-color: #fcc914;
   color: white;
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+.item-list-active-title{
+  background-color:#b2167a;
+  cursor: pointer;
 }
 .item-list-item, .item-list-placeholder, .item-list-active-item{
   display: flex;
@@ -101,10 +117,7 @@ body{
   color: gray;
 }
 
-.item-list-active-title{
-  background-color: purple;
-  cursor: pointer;
-}
+
 .item-list-active-item{
   background-color: white;
 }

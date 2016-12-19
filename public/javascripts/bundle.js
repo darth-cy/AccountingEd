@@ -24261,15 +24261,38 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var MainApplication = function MainApplication(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    { className: 'container-fluid' },
-	    _react2.default.createElement(_item_float2.default, { currentSelectedItem: props.itemMoveStates.currentSelectedItem }),
-	    _react2.default.createElement(_navbar2.default, null),
-	    _react2.default.createElement(_content_wrapper2.default, { states: props })
-	  );
-	};
+	var MainApplication = _react2.default.createClass({
+	  displayName: 'MainApplication',
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      mouseX: 0,
+	      mouseY: 0
+	    };
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'container-fluid' },
+	      _react2.default.createElement(_item_float2.default, { currentSelectedItem: this.props.itemMoveStates.currentSelectedItem,
+	        mouseX: this.state.mouseX,
+	        mouseY: this.state.mouseY
+	      }),
+	      _react2.default.createElement(_navbar2.default, null),
+	      _react2.default.createElement(_content_wrapper2.default, { states: this.props })
+	    );
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var thisView = this;
+	
+	    $(document).mousemove(function (e) {
+	      thisView.setState({
+	        mouseX: e.pageX,
+	        mouseY: e.pageY
+	      });
+	    });
+	  }
+	});
 	
 	exports.default = MainApplication;
 
@@ -24467,7 +24490,8 @@
 	      'div',
 	      { className: 'col-sm-6' },
 	      _react2.default.createElement(_item_list2.default, { title: 'Action Items', items: props.step.action_items, formatNumber: props.formatNumber })
-	    )
+	    ),
+	    _react2.default.createElement('span', { className: 'separate' })
 	  );
 	};
 	
@@ -24788,7 +24812,8 @@
 	    _react2.default.createElement(
 	      'div',
 	      { className: 'col-sm-12' },
-	      _react2.default.createElement(_item_list_active2.default, { moveUtilities: props.moveUtilities, itemMoveStates: props.itemMoveStates, isStatement: false, id: props.step.step_title, title: 'Action Items', items: props.step.action_items, formatNumber: props.formatNumber })
+	      _react2.default.createElement(_item_list_active2.default, { moveUtilities: props.moveUtilities, itemMoveStates: props.itemMoveStates, isStatement: false, id: props.step.step_title, title: 'Action Items', items: props.step.action_items, formatNumber: props.formatNumber }),
+	      _react2.default.createElement('span', { className: 'separate' })
 	    )
 	  );
 	};
@@ -25065,7 +25090,12 @@
 	    _react2.default.createElement(
 	      "h3",
 	      null,
-	      "Ray's Accounting EdSuite"
+	      "Lanyard Blue"
+	    ),
+	    _react2.default.createElement(
+	      "span",
+	      null,
+	      "Automated Personal Accounting Exercises"
 	    )
 	  );
 	};
@@ -25104,14 +25134,26 @@
 	        "div",
 	        { className: "item-float" },
 	        selectedItem.name,
-	        " | ",
+	        " ",
+	        _react2.default.createElement(
+	          "span",
+	          null,
+	          "\xA0\xA0"
+	        ),
+	        "| ",
+	        _react2.default.createElement(
+	          "span",
+	          null,
+	          "\xA0\xA0"
+	        ),
+	        "$",
 	        this.formatNumber(selectedItem.amount)
 	      );
 	    } else {
 	      return _react2.default.createElement("div", null);
 	    }
 	  },
-	  componentDidMount: function componentDidMount() {
+	  componentDidUpdate: function componentDidUpdate() {
 	    var mouseX;
 	    var mouseY;
 	    $(document).mousemove(function (e) {
@@ -25119,6 +25161,7 @@
 	      mouseY = e.pageY;
 	      $('.item-float').css({ 'top': mouseY, 'left': mouseX });
 	    });
+	    $('.item-float').css({ 'top': this.props.mouseY, 'left': this.props.mouseX });
 	  }
 	});
 	
