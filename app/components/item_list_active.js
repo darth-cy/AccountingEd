@@ -27,7 +27,9 @@ var ItemListActive = (props) => {
       }}>placeholder</div>): (<div></div>)}
       {props.items.map((item, idx) => {
         if(!!currentSelectedItem && item.name == currentSelectedItem.name){
-          return (<div className="item-list-placeholder" key={idx}>placeholder</div>);
+          return (<div className="item-list-placeholder" key={idx} onClick={()=>{
+            props.moveUtilities.moveItem();
+          }}>placeholder</div>);
         }else{
           return (
             <div key={idx}>

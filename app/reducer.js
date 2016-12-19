@@ -84,7 +84,7 @@ const reducer = (prevState=_initState, action) => {
       newState.itemMoveStates.currentTargetItem = action.payload.item;
       return newState;
     case "MOVE_ITEM":
-      if(newState.itemMoveStates.currentSelectedList == newState.itemMoveStates.currentTargetList){
+      if(newState.itemMoveStates.currentSelectedList == newState.itemMoveStates.currentTargetList || !(!!newState.itemMoveStates.currentTargetList)){
       }else{
         var from = findCurrentStateListByName(newState.currentState, newState.itemMoveStates.currentSelectedList);
         var to = findCurrentStateListByName(newState.currentState, newState.itemMoveStates.currentTargetList);
