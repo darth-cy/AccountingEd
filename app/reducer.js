@@ -67,6 +67,13 @@ const reducer = (prevState=_initState, action) => {
       newState.mode = "chapters";
       newState.currentState = newState.currentChapter;
       newState.currentState.statements["deleted"] = [];
+      newState.itemMoveStates = {
+        moveInProgress: false,
+        currentSelectedList: undefined,
+        currentSelectedItem: undefined,
+        currentTargetList: undefined,
+        currentTargetItem: undefined,
+      };
       return newState;
     case "SELECT_ITEM":
       if(newState.itemMoveStates.moveInProgress){
