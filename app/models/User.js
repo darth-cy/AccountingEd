@@ -2,11 +2,11 @@ if(typeof User == 'undefined'){
   var mongoose = require('mongoose');
 
   var userSchema = new mongoose.Schema({
-    name: String,
     username: String,
     email: String,
     password_digest: String,
-    sessionToken: String
+    sessionToken: String,
+    data: mongoose.Schema.Types.Mixed,
   });
 
   User = mongoose.model("User", userSchema);

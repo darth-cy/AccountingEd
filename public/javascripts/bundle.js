@@ -25094,6 +25094,23 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function logout() {
+	  $.ajax({
+	    url: "/api/session/delete",
+	    method: "DELETE",
+	    dataType: "json",
+	    contentType: "application/json",
+	    success: function success(response) {
+	      var user = response.user;
+	      window.location = "/";
+	    },
+	
+	    error: function error(response) {
+	      addError("not successful");
+	    }
+	  });
+	}
+	
 	var Navbar = function Navbar() {
 	  return _react2.default.createElement(
 	    "div",
@@ -25107,7 +25124,8 @@
 	      "span",
 	      null,
 	      "Automated Personal Accounting Exercises"
-	    )
+	    ),
+	    _react2.default.createElement("img", { className: "navbar-img", src: "/images/logout.png", onClick: logout })
 	  );
 	};
 	

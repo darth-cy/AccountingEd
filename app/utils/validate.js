@@ -1,9 +1,9 @@
 // The module for verifying different database fields
-if(typeof Validate == 'undefined'){
-  Validate = {};
+if(typeof validate == 'undefined'){
+  validate = {};
 }
 
-Validate.username = function(str){
+validate.username = function(str){
   var result = { success: true, errors: [] };
 
   if(str.length > 25){
@@ -14,7 +14,7 @@ Validate.username = function(str){
   return result;
 };
 
-Validate.password = function(str){
+validate.password = function(str){
   var result = { success: true, errors: [] };
 
   if(str.length < 6){
@@ -25,4 +25,4 @@ Validate.password = function(str){
   return result;
 };
 
-module.exports = Validate;
+module.exports = validate;
