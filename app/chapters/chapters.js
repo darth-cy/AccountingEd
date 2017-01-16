@@ -6,7 +6,7 @@ export const CHAPTERS = {
     steps: [
       {
         step_title: "An Extra Something",
-        description: "Your colleagues recommended you for a professional award and you stood out from all the candidates. The award grants an extra $2,500 for your income this month.",
+        description: "Your colleagues secretly recommended you for a professional award and you stood out from all the candidates. The award grants an unexpected $2,500 for your income this month.",
         hint: "Click on the item you wish to move. Then, move your mouse around until the item hovers over a desirable location. Click again to snap the item to its new location.",
         action_items: [
           {name: "Cash Reward", descriptions: "Good professional!", amount: 2500}
@@ -35,7 +35,7 @@ export const CHAPTERS = {
       },
       deleted: []
     },
-    equity: 75370,
+    equity: 810,
     criteria: {
       should_contain: [
         ["income", "On-Campus Work Salary"],
@@ -51,6 +51,113 @@ export const CHAPTERS = {
       ]
     }
   },
+
+  "2": {
+    id: "2",
+    title: "Shedding Liabilities",
+    description: "In this exercise, we learn to cross off our liability entries and their service payments. Eliminating negative income is equivalent to increasing your net income and is therefore favorable in most situations. The bank you loaned the amount from quotes $75 for early settlement processing.",
+    steps: [
+      {
+        step_title: "Pay Bank the Fee",
+        description: "You've decided to pay back your student loan early. Loans generate service payments every month, but they also generate processing fees. Fortunately, they're usually not too high.",
+        action_items: [
+          {name: "Settlement Fee", descriptions: "gone.", amount: 75}
+        ]
+      },
+      {
+        step_title: "Settle the Loan",
+        description: "Pay the full sum of your student loan as an expense, then drop the loan entry and its service expense from the sheets.",
+        hint: "To drop an item, move it to the 'Removed Items' list.",
+        action_items: [
+          {name: "Loan Payback", description: "ahead of time", amount: 5000}
+        ]
+      }
+    ],
+
+    statements: {
+      cash_flow_statement: {
+        income: [
+          {name: "Part-time Salary", item_description: "student's work", amount: 1670},
+          {name: "Book Lending", item_description: "book service", amount: 20}
+        ],
+        expenses: [
+          {name: "Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 850},
+          {name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 600},
+          {name: "Loan Monthly Service", item_description: "payback", amount: 140}
+        ],
+      },
+      balance_sheet: {
+        assets: [
+          {name: "Cash", item_description: "Home.", amount: 6500},
+          {name: "Rare Book Collection", item_description: "Simple, cold, and sure.", amount: 240},
+        ],
+        liabilities: [
+          {name: "Student Loan", item_description: "everyone's doing it", amount: 5000}
+        ],
+      },
+      deleted: []
+    },
+    equity: 1740,
+    criteria: {
+      should_contain: [
+        ["income", "Part-time Salary"],
+        ["income", "Book Lending"],
+        ["expenses", "Rent"],
+        ["expenses", "Other Expenses"],
+        ["deleted", "Loan Monthly Service"],
+        ["assets", "Cash"],
+        ["assets", "Rare Book Collection"],
+        ["deleted", "Student Loan"],
+      ],
+      should_be: [
+      ]
+    }
+  },
+
+  // "3": {
+  //   id: "3",
+  //   title: "",
+  //   description: "",
+  //   steps: [
+  //     {
+  //       step_title: "",
+  //       description: "",
+  //       hint: "",
+  //       action_items: [
+  //         // here
+  //       ]
+  //     },
+  //   ],
+  //
+  //   statements: {
+  //     cash_flow_statement: {
+  //       income: [
+  //         // here
+  //       ],
+  //       expenses: [
+  //         // here
+  //       ],
+  //     },
+  //     balance_sheet: {
+  //       assets: [
+  //         // here
+  //       ],
+  //       liabilities: [
+  //         // here
+  //       ],
+  //     },
+  //     deleted: []
+  //   },
+  //   equity: 0,
+  //   criteria: {
+  //     should_contain: [
+  //       // here
+  //     ],
+  //     should_be: [
+  //       // here
+  //     ]
+  //   }
+  // },
 
 
   "4": {

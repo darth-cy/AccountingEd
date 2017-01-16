@@ -26,6 +26,7 @@ var Chapter = React.createClass({
     var netIncome = incomeList.reduce((total, item) => { return total + item.amount; }, 0) - expensesList.reduce((total, item) => { return total + item.amount }, 0);
     var equity = assetsList.reduce((total, item) => { return total + item.amount; }, 0) - liabilitiesList.reduce((total, item) => { return total + item.amount }, 0);
     var monthEndEquity = equity + netIncome;
+    var startEquity = props.currentState.equity;
 
     var verifyAnswer = function(){
       props.checkAnswer();
@@ -84,7 +85,7 @@ var Chapter = React.createClass({
             <div className="col-sm-6 gross-account">
               <div className="item-list-active">
                 <div className="col-sm-6">Month Start Net Equity: </div>
-                <div className="col-sm-6">{equity < 0 ? "- $": "$"}{Math.abs(equity)}</div>
+                <div className="col-sm-6">{startEquity < 0 ? "- $": "$"}{Math.abs(startEquity)}</div>
               </div>
             </div>
           </div>
