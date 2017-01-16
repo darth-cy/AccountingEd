@@ -2,6 +2,8 @@ export const OUTPUT_CONTENT = "OUTPUT_CONTENT";
 export const SELECT_CHAPTER = "SELECT_CHAPTER";
 export const START_CHAPTER = "START_CHAPTER";
 export const GO_BACK_CHAPTERS = "GO_BACK_CHAPTERS";
+export const CHECK_ANSWER = "CHECK_ANSWER";
+export const SAVE_USER = "SAVE_USER";
 
 export const outputContent = (spec) => ({
   type: OUTPUT_CONTENT,
@@ -20,6 +22,16 @@ export const startChapter = (spec) => ({
 
 export const goBackChapters = (spec) => ({
   type: GO_BACK_CHAPTERS,
+  payload: spec
+})
+
+export const checkAnswer = (spec) => ({
+  type: CHECK_ANSWER,
+  payoad: spec
+})
+
+export const saveUser = (spec) => ({
+  type: SAVE_USER,
   payload: spec
 })
 

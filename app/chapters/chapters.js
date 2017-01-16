@@ -1,6 +1,59 @@
 export const CHAPTERS = {
   "1": {
     id: "1",
+    title: "First Task: A Cash Bonus",
+    description: "In this task, you'll learn how to account for your extra income, along with learning about your application interface. We click-drag accounting items from the left list to the accounting sheets on the right. When you believe all items are in their correct statements, click on 'Submit Answer'. You'll receive instant feedback on the assignment.",
+    steps: [
+      {
+        step_title: "An Extra Something",
+        description: "Your colleagues recommended you for a professional award and you stood out from all the candidates. The award grants an extra $2,500 for your income this month.",
+        action_items: [
+          {name: "Cash Reward", descriptions: "Good professional!", amount: 2500}
+        ]
+      }
+    ],
+
+    statements: {
+      cash_flow_statement: {
+        income: [
+          {name: "On-Campus Work Salary", item_description: "The campus employes you to lower the cost of the personnels here at the department.", amount: 1400}
+        ],
+        expenses: [
+          {name: "Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 750},
+          {name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 560},
+        ],
+      },
+      balance_sheet: {
+        assets: [
+          {name: "Cash", item_description: "Home.", amount: 3460},
+          {name: "Macbook", item_description: "Simple, cold, and sure.", amount: 1350},
+        ],
+        liabilities: [
+          {name: "Parent Support", item_description: "Your parents support your expenses", amount: 4000},
+        ],
+      },
+      deleted: []
+    },
+    equity: 75370,
+    criteria: {
+      should_contain: [
+        ["income", "On-Campus Work Salary"],
+        ["income", "Cash Reward"],
+        ["expenses", "Rent"],
+        ["expenses", "Other Expenses"],
+        ["assets", "Cash"],
+        ["assets", "Macbook"],
+        ["liabilities", "Parent Support"],
+      ],
+      should_be: [
+        ["equity": 75370]
+      ]
+    }
+  },
+
+
+  "4": {
+    id: "4",
     title: "Getting Started",
     description: "First line task for your to get used to the interface.",
     steps: [
@@ -71,8 +124,8 @@ export const CHAPTERS = {
     }
   },
 
-  "2": {
-    id: "2",
+  "5": {
+    id: "5",
     title: "Second Car",
     description: "Asset purchasing and leverages.",
     steps: [
@@ -146,8 +199,8 @@ export const CHAPTERS = {
       ]
     }
   },
-  "3": {
-    id: "3",
+  "6": {
+    id: "6",
     title: "Publishing a New Book",
     description: "You've published a new book.",
     steps: [

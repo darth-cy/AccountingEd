@@ -19,9 +19,15 @@ var Chapter = React.createClass({
     var expensesList = props.currentState.statements.cash_flow_statement.expenses;
     var assetsList = props.currentState.statements.balance_sheet.assets;
     var liabilitiesList = props.currentState.statements.balance_sheet.liabilities;
+    var deletedList = props.currentState.statements.deleted;
 
     var netIncome = incomeList.reduce((total, item) => { return total + item.amount; }, 0) - expensesList.reduce((total, item) => { return total + item.amount }, 0);
     var equity = assetsList.reduce((total, item) => { return total + item.amount; }, 0) - liabilitiesList.reduce((total, item) => { return total + item.amount }, 0);
+    var monthEndEquity = equity + netIncome;
+
+    var verifyAnswer = function(){
+      props.checkAnswer();
+    }
 
     return (
       <div className="row">
@@ -30,7 +36,7 @@ var Chapter = React.createClass({
           <div>
             {props.currentState.steps.map((step, idx) => {
               return (
-                <StepInChapter itemMoveStates={props.itemMoveStates} key={idx} index={idx + 1} step={step} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
+                <StepInChapter wrongItems={props.wrongItems} itemMoveStates={props.itemMoveStates} key={idx} index={idx + 1} step={step} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
               )
             })}
           </div>
@@ -40,44 +46,61 @@ var Chapter = React.createClass({
              props.goBackChapters();
           }}>Back to Chapters</button>
           <span>&nbsp;&nbsp;</span>
-          <button className="btn btn-success chapter-check-button">Submit Answer</button>
+          <button className="btn btn-success chapter-check-button" onClick={verifyAnswer}>Submit Answer</button>
           <hr/>
           <div className="row statement-holder">
             <h3>Month Cash Flow Statment</h3>
             <div className="col-sm-6">
-              <StatementItemList name={'income'} list={incomeList} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
+              <StatementItemList name={'income'} list={incomeList} wrongItems={props.wrongItems} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
             </div>
             <div className="col-sm-6">
-              <StatementItemList name={'expenses'} list={expensesList} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
+              <StatementItemList name={'expenses'} list={expensesList} wrongItems={props.wrongItems} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
             </div>
           </div>
-          <hr/>
+          <h6>&nbsp;</h6>
           <div className="row statement-holder">
-            <div className="col-sm-6">
+            <div className="col-sm-6 gross-account">
               <div className="item-list-active">
               <div className="col-sm-6">Month Net Income: </div>
               <div className="col-sm-6">{netIncome < 0 ? "- $": "$"}{Math.abs(netIncome)}</div>
               </div>
             </div>
           </div>
+          <h3>&nbsp;</h3>
           <div className="row statement-holder">
             <h3>Month Balance Sheet</h3>
             <div className="col-sm-6">
-              <StatementItemList name={'assets'} list={assetsList} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
+              <StatementItemList name={'assets'} list={assetsList} wrongItems={props.wrongItems} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
             </div>
             <div className="col-sm-6">
-              <StatementItemList name={'liabilities'} list={liabilitiesList} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
+              <StatementItemList name={'liabilities'} list={liabilitiesList} wrongItems={props.wrongItems} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
             </div>
           </div>
-          <hr/>
+          <h6>&nbsp;</h6>
           <div className="row statement-holder">
-            <div className="col-sm-6">
+            <div className="col-sm-6 gross-account">
               <div className="item-list-active">
-                <div className="col-sm-6">Month Net Equity: </div>
+                <div className="col-sm-6">Month Start Net Equity: </div>
                 <div className="col-sm-6">{equity < 0 ? "- $": "$"}{Math.abs(equity)}</div>
               </div>
             </div>
           </div>
+          <div className="row statement-holder">
+            <div className="col-sm-6 gross-account">
+              <div className="item-list-active">
+                <div className="col-sm-6">Month End Net Equity: </div>
+                <div className="col-sm-6">{monthEndEquity < 0 ? "- $": "$"}{Math.abs(monthEndEquity)}</div>
+              </div>
+            </div>
+          </div>
+          <h3>&nbsp;</h3>
+          <div className="row statement-holder">
+            <h3>Removed Items</h3>
+            <div className="col-sm-6">
+              <StatementItemList name={'deleted'} list={deletedList} wrongItems={props.wrongItems} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
+            </div>
+          </div>
+          <hr/>
         </div>
       </div>
     );

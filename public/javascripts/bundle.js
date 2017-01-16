@@ -23854,6 +23854,8 @@
 	      return states.statements.balance_sheet.assets;
 	    case "liabilities":
 	      return states.statements.balance_sheet.liabilities;
+	    case "deleted":
+	      return states.statements.deleted;
 	    default:
 	      for (var i = 0; i < states.steps.length; i++) {
 	        if (states.steps[i].step_title == name) {
@@ -23874,9 +23876,13 @@
 	  return -1;
 	}
 	
+	// Initial State
 	var _initState = {
 	  outputText: "(none)",
 	  mode: "chapters", // chapters, chapter
+	  user: globalUserData,
+	  wrongItems: {},
+	  currentChapterEvaluation: "incomplete",
 	  itemMoveStates: {
 	    moveInProgress: false,
 	    currentSelectedList: undefined,
@@ -23920,6 +23926,7 @@
 	        currentTargetList: undefined,
 	        currentTargetItem: undefined
 	      };
+	      newState.wrongItems = {};
 	      return newState;
 	    case "SELECT_ITEM":
 	      if (newState.itemMoveStates.moveInProgress) {
@@ -23931,6 +23938,7 @@
 	        newState.itemMoveStates.currentSelectedList = action.payload.list;
 	        newState.itemMoveStates.currentSelectedItem = action.payload.item;
 	      }
+	      delete newState.wrongItems[action.payload.item.name];
 	      return newState;
 	    case "SELECT_TARGET_ITEM":
 	      newState.itemMoveStates.currentTargetList = action.payload.list;
@@ -23953,6 +23961,24 @@
 	        currentTargetList: undefined,
 	        currentTargetItem: undefined
 	      };
+	      return newState;
+	    case "CHECK_ANSWER":
+	      var shouldContain = newState.currentChapter.criteria.should_contain;
+	      var shouldBe = newState.currentChapter.criteria.should_be;
+	      var correct = true;
+	      newState.currentChapterEvaluation = "correct";
+	
+	      shouldContain.forEach(function (criteriaItem) {
+	        if (findIdxByNameInList(findCurrentStateListByName(newState.currentState, criteriaItem[0]), criteriaItem[1]) < 0) {
+	          newState.wrongItems[criteriaItem[1]] = true;
+	          correct = false;
+	          newState.currentChapterEvaluation = "incorrect";
+	        }
+	      });
+	
+	      return newState;
+	    case "SAVE_USER":
+	      debugger;
 	      return newState;
 	    default:
 	      return prevState;
@@ -24010,6 +24036,8 @@
 	var SELECT_CHAPTER = exports.SELECT_CHAPTER = "SELECT_CHAPTER";
 	var START_CHAPTER = exports.START_CHAPTER = "START_CHAPTER";
 	var GO_BACK_CHAPTERS = exports.GO_BACK_CHAPTERS = "GO_BACK_CHAPTERS";
+	var CHECK_ANSWER = exports.CHECK_ANSWER = "CHECK_ANSWER";
+	var SAVE_USER = exports.SAVE_USER = "SAVE_USER";
 	
 	var outputContent = exports.outputContent = function outputContent(spec) {
 	  return {
@@ -24035,6 +24063,20 @@
 	var goBackChapters = exports.goBackChapters = function goBackChapters(spec) {
 	  return {
 	    type: GO_BACK_CHAPTERS,
+	    payload: spec
+	  };
+	};
+	
+	var checkAnswer = exports.checkAnswer = function checkAnswer(spec) {
+	  return {
+	    type: CHECK_ANSWER,
+	    payoad: spec
+	  };
+	};
+	
+	var saveUser = exports.saveUser = function saveUser(spec) {
+	  return {
+	    type: SAVE_USER,
 	    payload: spec
 	  };
 	};
@@ -24092,6 +24134,34 @@
 	var CHAPTERS = exports.CHAPTERS = {
 	  "1": {
 	    id: "1",
+	    title: "First Task: A Cash Bonus",
+	    description: "In this task, you'll learn how to account for your extra income, along with learning about your application interface. We click-drag accounting items from the left list to the accounting sheets on the right. When you believe all items are in their correct statements, click on 'Submit Answer'. You'll receive instant feedback on the assignment.",
+	    steps: [{
+	      step_title: "An Extra Something",
+	      description: "Your colleagues recommended you for a professional award and you stood out from all the candidates. The award grants an extra $2,500 for your income this month.",
+	      action_items: [{ name: "Cash Reward", descriptions: "Good professional!", amount: 2500 }]
+	    }],
+	
+	    statements: {
+	      cash_flow_statement: {
+	        income: [{ name: "On-Campus Work Salary", item_description: "The campus employes you to lower the cost of the personnels here at the department.", amount: 1400 }],
+	        expenses: [{ name: "Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 750 }, { name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 560 }]
+	      },
+	      balance_sheet: {
+	        assets: [{ name: "Cash", item_description: "Home.", amount: 3460 }, { name: "Macbook", item_description: "Simple, cold, and sure.", amount: 1350 }],
+	        liabilities: [{ name: "Parent Support", item_description: "Your parents support your expenses", amount: 4000 }]
+	      },
+	      deleted: []
+	    },
+	    equity: 75370,
+	    criteria: {
+	      should_contain: [["income", "On-Campus Work Salary"], ["income", "Cash Reward"], ["expenses", "Rent"], ["expenses", "Other Expenses"], ["assets", "Cash"], ["assets", "Macbook"], ["liabilities", "Parent Support"]],
+	      should_be: [["equity"]]
+	    }
+	  },
+	
+	  "4": {
+	    id: "4",
 	    title: "Getting Started",
 	    description: "First line task for your to get used to the interface.",
 	    steps: [{
@@ -24121,8 +24191,8 @@
 	    }
 	  },
 	
-	  "2": {
-	    id: "2",
+	  "5": {
+	    id: "5",
 	    title: "Second Car",
 	    description: "Asset purchasing and leverages.",
 	    steps: [{
@@ -24151,8 +24221,8 @@
 	      should_be: [["equity"]]
 	    }
 	  },
-	  "3": {
-	    id: "3",
+	  "6": {
+	    id: "6",
 	    title: "Publishing a New Book",
 	    description: "You've published a new book.",
 	    steps: [{
@@ -24234,6 +24304,12 @@
 	    },
 	    moveItem: function moveItem(specs) {
 	      return dispatch((0, _actions.moveItem)(specs));
+	    },
+	    checkAnswer: function checkAnswer(specs) {
+	      return dispatch((0, _actions.checkAnswer)(specs));
+	    },
+	    saveUser: function saveUser(specs) {
+	      return dispatch((0, _actions.saveUser)(specs));
 	    }
 	  };
 	};
@@ -24344,7 +24420,10 @@
 	        deselectTargetItem: props.states.deselectTargetItem,
 	        moveItem: props.states.moveItem,
 	        itemMoveStates: props.states.itemMoveStates,
-	        formatNumber: formatNumber
+	        formatNumber: formatNumber,
+	        checkAnswer: props.states.checkAnswer,
+	        saveUser: props.states.saveUser,
+	        wrongItems: props.states.wrongItems
 	      });
 	      break;
 	  }
@@ -24626,6 +24705,7 @@
 	    var expensesList = props.currentState.statements.cash_flow_statement.expenses;
 	    var assetsList = props.currentState.statements.balance_sheet.assets;
 	    var liabilitiesList = props.currentState.statements.balance_sheet.liabilities;
+	    var deletedList = props.currentState.statements.deleted;
 	
 	    var netIncome = incomeList.reduce(function (total, item) {
 	      return total + item.amount;
@@ -24637,6 +24717,11 @@
 	    }, 0) - liabilitiesList.reduce(function (total, item) {
 	      return total + item.amount;
 	    }, 0);
+	    var monthEndEquity = equity + netIncome;
+	
+	    var verifyAnswer = function verifyAnswer() {
+	      props.checkAnswer();
+	    };
 	
 	    return _react2.default.createElement(
 	      'div',
@@ -24653,7 +24738,7 @@
 	          'div',
 	          null,
 	          props.currentState.steps.map(function (step, idx) {
-	            return _react2.default.createElement(_step_in_chapter2.default, { itemMoveStates: props.itemMoveStates, key: idx, index: idx + 1, step: step, moveUtilities: moveUtilities, formatNumber: props.formatNumber });
+	            return _react2.default.createElement(_step_in_chapter2.default, { wrongItems: props.wrongItems, itemMoveStates: props.itemMoveStates, key: idx, index: idx + 1, step: step, moveUtilities: moveUtilities, formatNumber: props.formatNumber });
 	          })
 	        )
 	      ),
@@ -24674,7 +24759,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'button',
-	          { className: 'btn btn-success chapter-check-button' },
+	          { className: 'btn btn-success chapter-check-button', onClick: verifyAnswer },
 	          'Submit Answer'
 	        ),
 	        _react2.default.createElement('hr', null),
@@ -24689,21 +24774,25 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-6' },
-	            _react2.default.createElement(_statement_item_list2.default, { name: 'income', list: incomeList, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
+	            _react2.default.createElement(_statement_item_list2.default, { name: 'income', list: incomeList, wrongItems: props.wrongItems, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-6' },
-	            _react2.default.createElement(_statement_item_list2.default, { name: 'expenses', list: expensesList, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
+	            _react2.default.createElement(_statement_item_list2.default, { name: 'expenses', list: expensesList, wrongItems: props.wrongItems, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
 	          )
 	        ),
-	        _react2.default.createElement('hr', null),
+	        _react2.default.createElement(
+	          'h6',
+	          null,
+	          '\xA0'
+	        ),
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'row statement-holder' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'col-sm-6' },
+	            { className: 'col-sm-6 gross-account' },
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'item-list-active' },
@@ -24722,6 +24811,11 @@
 	          )
 	        ),
 	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          '\xA0'
+	        ),
+	        _react2.default.createElement(
 	          'div',
 	          { className: 'row statement-holder' },
 	          _react2.default.createElement(
@@ -24732,28 +24826,32 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-6' },
-	            _react2.default.createElement(_statement_item_list2.default, { name: 'assets', list: assetsList, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
+	            _react2.default.createElement(_statement_item_list2.default, { name: 'assets', list: assetsList, wrongItems: props.wrongItems, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-6' },
-	            _react2.default.createElement(_statement_item_list2.default, { name: 'liabilities', list: liabilitiesList, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
+	            _react2.default.createElement(_statement_item_list2.default, { name: 'liabilities', list: liabilitiesList, wrongItems: props.wrongItems, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
 	          )
 	        ),
-	        _react2.default.createElement('hr', null),
+	        _react2.default.createElement(
+	          'h6',
+	          null,
+	          '\xA0'
+	        ),
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'row statement-holder' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'col-sm-6' },
+	            { className: 'col-sm-6 gross-account' },
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'item-list-active' },
 	              _react2.default.createElement(
 	                'div',
 	                { className: 'col-sm-6' },
-	                'Month Net Equity: '
+	                'Month Start Net Equity: '
 	              ),
 	              _react2.default.createElement(
 	                'div',
@@ -24763,7 +24861,50 @@
 	              )
 	            )
 	          )
-	        )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row statement-holder' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-6 gross-account' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'item-list-active' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'col-sm-6' },
+	                'Month End Net Equity: '
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'col-sm-6' },
+	                monthEndEquity < 0 ? "- $" : "$",
+	                Math.abs(monthEndEquity)
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          '\xA0'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row statement-holder' },
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'Removed Items'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-6' },
+	            _react2.default.createElement(_statement_item_list2.default, { name: 'deleted', list: deletedList, wrongItems: props.wrongItems, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
+	          )
+	        ),
+	        _react2.default.createElement('hr', null)
 	      )
 	    );
 	  },
@@ -24819,7 +24960,7 @@
 	    _react2.default.createElement(
 	      'div',
 	      { className: 'col-sm-12' },
-	      _react2.default.createElement(_item_list_active2.default, { moveUtilities: props.moveUtilities, itemMoveStates: props.itemMoveStates, isStatement: false, id: props.step.step_title, title: 'Action Items', items: props.step.action_items, formatNumber: props.formatNumber }),
+	      _react2.default.createElement(_item_list_active2.default, { wrongItems: props.wrongItems, moveUtilities: props.moveUtilities, itemMoveStates: props.itemMoveStates, isStatement: false, id: props.step.step_title, title: 'Action Items', items: props.step.action_items, formatNumber: props.formatNumber }),
 	      _react2.default.createElement('span', { className: 'separate' })
 	    )
 	  );
@@ -24905,7 +25046,7 @@
 	          { key: idx },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'item-list-active-item', onClick: function onClick() {
+	            { className: "item-list-active-item " + (props.wrongItems[item.name] ? "wrong" : ""), onClick: function onClick() {
 	                if (moveInProgress) {
 	                  props.moveUtilities.moveItem();
 	                } else {
@@ -25031,7 +25172,7 @@
 	          { key: idx },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'item-list-active-item', onClick: function onClick() {
+	            { className: "item-list-active-item " + (props.wrongItems[item.name] ? "wrong" : ""), onClick: function onClick() {
 	                if (moveInProgress) {
 	                  props.moveUtilities.moveItem();
 	                } else {
@@ -25102,7 +25243,7 @@
 	    contentType: "application/json",
 	    success: function success(response) {
 	      var user = response.user;
-	      window.location = "/";
+	      window.location = "/login";
 	    },
 	
 	    error: function error(response) {

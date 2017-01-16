@@ -8,7 +8,7 @@ function logout(){
     contentType: "application/json",
     success: function(response){
       var user = response.user;
-      window.location = "/";
+      window.location = "/login";
     },
 
     error: function(response){

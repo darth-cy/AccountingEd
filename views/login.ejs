@@ -1,6 +1,10 @@
 <link rel="stylesheet" text="text/css" href="/stylesheets/bootstrap.min.css" media="all" title="no title">
 <link rel="stylesheet" text="text/css" href="/stylesheets/application.css" media="all" title="no title">
 
+<div class="container-fluid navbar">
+  <h3>Lanyard Blue</h3>
+</div>
+
 <form id="log-in-form">
   <label>Email</label>
   <input type="text" name="user[email]"/>
@@ -51,7 +55,7 @@
       }),
 
       success: function(response){
-        window.location = "/";
+        window.location = "/dashboard";
       },
 
       error: function(response){
@@ -80,7 +84,7 @@
       }),
 
       success: function(response){
-        window.location = "/";
+        window.location = "/dashboard";
       },
 
       error: function(response){

@@ -11,6 +11,8 @@ function findCurrentStateListByName(states, name){
       return states.statements.balance_sheet.assets;
     case "liabilities":
       return states.statements.balance_sheet.liabilities;
+    case "deleted":
+      return states.statements.deleted;
     default:
       for(let i = 0; i < states.steps.length; i++){
         if(states.steps[i].step_title == name){
@@ -31,9 +33,13 @@ function findIdxByNameInList(list, name){
   return -1;
 }
 
+// Initial State
 const _initState = {
   outputText: "(none)",
   mode: "chapters", // chapters, chapter
+  user: globalUserData,
+  wrongItems: {},
+  currentChapterEvaluation: "incomplete",
   itemMoveStates: {
     moveInProgress: false,
     currentSelectedList: undefined,
@@ -74,6 +80,7 @@ const reducer = (prevState=_initState, action) => {
         currentTargetList: undefined,
         currentTargetItem: undefined,
       };
+      newState.wrongItems = {};
       return newState;
     case "SELECT_ITEM":
       if(newState.itemMoveStates.moveInProgress){
@@ -85,6 +92,7 @@ const reducer = (prevState=_initState, action) => {
         newState.itemMoveStates.currentSelectedList = action.payload.list;
         newState.itemMoveStates.currentSelectedItem = action.payload.item;
       }
+      delete newState.wrongItems[action.payload.item.name];
       return newState;
     case "SELECT_TARGET_ITEM":
       newState.itemMoveStates.currentTargetList = action.payload.list;
@@ -108,6 +116,24 @@ const reducer = (prevState=_initState, action) => {
         currentTargetList: undefined,
         currentTargetItem: undefined,
       };
+      return newState;
+    case "CHECK_ANSWER":
+      var shouldContain = newState.currentChapter.criteria.should_contain;
+      var shouldBe = newState.currentChapter.criteria.should_be;
+      var correct = true;
+      newState.currentChapterEvaluation = "correct";
+
+      shouldContain.forEach(function(criteriaItem){
+        if(findIdxByNameInList(findCurrentStateListByName(newState.currentState, criteriaItem[0]), criteriaItem[1]) < 0){
+          newState.wrongItems[criteriaItem[1]] = true;
+          correct = false;
+          newState.currentChapterEvaluation = "incorrect";
+        }
+      });
+
+      return newState;
+    case "SAVE_USER":
+      debugger;
       return newState;
     default:
       return prevState;

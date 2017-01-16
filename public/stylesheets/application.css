@@ -6,6 +6,10 @@ html, body{
   border-radius: 0px;
 }
 
+p {
+  font-size: 1.7rem;
+}
+
 [class*="col"], [class*="container"]{
   padding: 0px;
 }
@@ -50,7 +54,7 @@ body{
   margin-bottom: 0.5rem;
   padding: 1.5rem;
   padding-left: 2rem;
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   cursor: pointer;
   color: white;
   width: inherit;
@@ -97,6 +101,7 @@ body{
 
 .item-list, .item-list-active{
   text-align: center;
+  font-size: 1.7rem;
 }
 span.separate{
   display: block;
@@ -120,13 +125,23 @@ span.separate{
   color: black;
   padding-bottom: 1rem;
   cursor: pointer;
+  font-size: 1.7rem;
+  border-bottom: 1px solid #C0C0C0;
+}
+.gross-account{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: #fbfde1;
+}
+.wrong{
+  background-color: #7c0f1e !important;
+  color: white !important;
+  border-bottom: 1px solid white;
 }
 .item-list-placeholder{
   background-color: gray;
   color: gray;
 }
-
-
 .item-list-active-item{
   background-color: white;
 }

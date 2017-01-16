@@ -23,6 +23,9 @@ var ContentWrapper = (props) => {
           moveItem={props.states.moveItem}
           itemMoveStates={props.states.itemMoveStates}
           formatNumber={formatNumber}
+          checkAnswer={props.states.checkAnswer}
+          saveUser={props.states.saveUser}
+          wrongItems={props.states.wrongItems}
         />
       );
       break;

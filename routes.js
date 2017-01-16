@@ -25,7 +25,7 @@ function writeResponse(res, data){
 }
 
 var addRoutes = function(app){
-  app.get("/", function(req, res){
+  app.get("/dashboard", function(req, res){
     if(!req.cookies){
       res.render("login", { messages: ["No sessions detected"] });
       return 1;
@@ -42,6 +42,38 @@ var addRoutes = function(app){
         res.render("login", { username: undefined });
       }
     })
+  });
+
+  app.get("/login", function(req, res){
+    if(!req.cookies){
+      res.render("login", { messages: ["No sessions detected"] });
+      return 0;
+    }else{
+      var sessionToken = req.cookies["lanyardblue-session"];
+      User.findOne({ sessionToken: sessionToken }, 'username email sessionToken data', function(err, currentUser){
+        if(currentUser){
+          res.render("index", { username: currentUser.username, userId: currentUser._id, userSessionToken: currentUser.sessionToken });
+        }else{
+          res.render("login", { username: undefined });
+        }
+      })
+    }
+  })
+
+  app.get("/", function(req, res){
+    if(!req.cookies){
+      res.render("splash", { messages: ["No sessions detected"] });
+      return 0;
+    }else{
+      var sessionToken = req.cookies["lanyardblue-session"];
+      User.findOne({ sessionToken: sessionToken }, 'username email sessionToken data', function(err, currentUser){
+        if(currentUser){
+          res.render("index", { username: currentUser.username, userId: currentUser._id, userSessionToken: currentUser.sessionToken });
+        }else{
+          res.render("splash", { username: undefined });
+        }
+      })
+    }
   });
 
   app.post("/api/users/new", function(req, res){
