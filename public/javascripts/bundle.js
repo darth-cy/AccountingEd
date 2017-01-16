@@ -24158,8 +24158,8 @@
 	var CHAPTERS = exports.CHAPTERS = {
 	  "1": {
 	    id: "1",
-	    title: "First Task: A Cash Bonus",
-	    description: "In this task, you'll learn how to account for your extra income, along with learning about your application interface. We click-drag accounting items from the left list to the accounting sheets on the right. When you believe all items are in their correct statements, click on 'Submit Answer'. You'll receive instant feedback on the assignment.",
+	    title: "First Course: A Cash Bonus",
+	    description: "In this first exercise, we study the origin of wealth -- income. Extra income contributes an increase to our equity and is usually favorable in any financial situation.",
 	    steps: [{
 	      step_title: "An Extra Something",
 	      description: "Your colleagues recommended you for a professional award and you stood out from all the candidates. The award grants an extra $2,500 for your income this month.",
@@ -24518,7 +24518,9 @@
 	              { className: "chapters-list-item " + (props.user.chaptersPassed[chapter.id] ? "passed" : ""), onClick: function onClick() {
 	                  props.selectChapter(chapter.id);
 	                }, key: chapter.id },
-	              idx + ". " + chapter.title
+	              idx + ". ",
+	              '\xA0\xA0',
+	              chapter.title
 	            );
 	          })
 	        )
@@ -24593,7 +24595,7 @@
 	        null,
 	        'Step ',
 	        props.index,
-	        '. ',
+	        '. \xA0 ',
 	        props.step.step_title
 	      ),
 	      _react2.default.createElement(
@@ -25418,7 +25420,7 @@
 	      return _react2.default.createElement(
 	        "div",
 	        { id: "notification", className: "alert alert-dismissible alert-success" },
-	        "\xA0\xA0Fantastic! You have passed all criterias for this exercise! \xA0\xA0",
+	        "\xA0\xA0Fantastic! You have passed this exercise! \xA0\xA0",
 	        _react2.default.createElement(
 	          "button",
 	          { className: "dismiss-success-button", onClick: thisView.props.goBackChapters },

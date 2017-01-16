@@ -10,7 +10,7 @@ var ChapterNotification = React.createClass({
     if(this.props.evaluation == "correct"){
       return (
         <div id="notification" className="alert alert-dismissible alert-success">
-          &nbsp;&nbsp;Fantastic! You have passed all criterias for this exercise!
+          &nbsp;&nbsp;Fantastic! You have passed this exercise!
           &nbsp;&nbsp;<button className="dismiss-success-button" onClick={thisView.props.goBackChapters}>back to the chapters</button>
         </div>
       )

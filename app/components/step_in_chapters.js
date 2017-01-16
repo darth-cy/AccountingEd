@@ -5,7 +5,7 @@ var StepInChapters = (props) => {
   return (
     <div className="step-in-chapters">
       <div className="col-sm-6">
-        <h4>Step {props.index}. {props.step.step_title}</h4>
+        <h4>Step {props.index}. &nbsp; {props.step.step_title}</h4>
         <p>{props.step.description}</p>
       </div>
       <br/>
