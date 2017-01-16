@@ -17,7 +17,7 @@ var StatementItemList = (props) => {
             item: {name: "_init"}
           })
         }else{
-          console.log("enter");
+           
         }
       }}
       onClick={()=>{
@@ -53,7 +53,7 @@ var StatementItemList = (props) => {
                     item: item
                   })
                 }else{
-                  console.log("enter");
+                   
                 }
               }}>
                 <div className="col-sm-6">

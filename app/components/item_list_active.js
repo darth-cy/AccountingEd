@@ -52,7 +52,7 @@ var ItemListActive = (props) => {
                     item: item
                   })
                 }else{
-                  console.log("enter");
+                   
                 }
               }}>
                 <div className="col-sm-6">

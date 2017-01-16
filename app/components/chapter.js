@@ -32,6 +32,7 @@ var Chapter = React.createClass({
     var verifyAnswer = function(){
       props.checkAnswer();
     };
+    console.log(props.wrongItems);
 
     return (
       <div className="row">
@@ -66,7 +67,7 @@ var Chapter = React.createClass({
           <div className="row statement-holder">
             <div className="col-sm-6 gross-account">
               <div className="item-list-active">
-              <div className="col-sm-6">Month Net Income: </div>
+              <div className="col-sm-6">Month Net Cash Flow: </div>
               <div className="col-sm-6">{netIncome < 0 ? "- $": "$"}{Math.abs(netIncome)}</div>
               </div>
             </div>
