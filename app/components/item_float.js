@@ -21,6 +21,9 @@ var ItemFloat = React.createClass({
        mouseY = e.pageY;
        $('.item-float').css({'top':mouseY,'left':mouseX});
     });
+    if(!this.props.currentSelectedItem){
+      $(document).off("mousemove");
+    }
     $('.item-float').css({'top':this.props.mouseY,'left':this.props.mouseX});
   }
 })

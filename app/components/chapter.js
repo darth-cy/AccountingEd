@@ -1,9 +1,11 @@
 import React from 'react'
 import StepInChapter from './step_in_chapter'
 import StatementItemList from './statement_item_list'
+import ChapterNotification from './chapter_notification'
 
 var Chapter = React.createClass({
   getInitialState: () => ({}),
+
   render: function(){
     var props = this.props;
     var thisView = this;
@@ -27,18 +29,11 @@ var Chapter = React.createClass({
 
     var verifyAnswer = function(){
       props.checkAnswer();
-    }
-
-    var notification;
-    if(props.chapterEvaluation == "correct"){
-      notification = (<div className="col-md-12">You have passed all criterias for this exercise!</div>);
-    }else if(props.chapterEvaluation == "incorrect"){
-      notification = (<div className="col-md-12">Oops! It seems some items are in the wrong lists.</div>);
-    }
+    };
 
     return (
       <div className="row">
-        {notification}
+        <ChapterNotification evaluation={props.chapterEvaluation} changeNotificationState={props.changeNotificationState}/>
         <div className="col-md-4 chapters-list height-align">
           <h3>{props.currentState.title}</h3>
           <div>

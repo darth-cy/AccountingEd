@@ -27,6 +27,7 @@ var ContentWrapper = (props) => {
           saveUser={props.states.saveUser}
           wrongItems={props.states.wrongItems}
           chapterEvaluation={props.states.currentChapterEvaluation}
+          changeNotificationState={props.states.changeNotificationState}
         />
       );
       break;

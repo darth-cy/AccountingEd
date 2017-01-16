@@ -4,6 +4,7 @@ export const START_CHAPTER = "START_CHAPTER";
 export const GO_BACK_CHAPTERS = "GO_BACK_CHAPTERS";
 export const CHECK_ANSWER = "CHECK_ANSWER";
 export const SAVE_USER = "SAVE_USER";
+export const CHANGE_NOTIFICATION_STATE = "CHANGE_NOTIFICATION_STATE";
 
 export const outputContent = (spec) => ({
   type: OUTPUT_CONTENT,
@@ -32,6 +33,11 @@ export const checkAnswer = (spec) => ({
 
 export const saveUser = (spec) => ({
   type: SAVE_USER,
+  payload: spec
+})
+
+export const changeNotificationState = (spec) => ({
+  type: CHANGE_NOTIFICATION_STATE,
   payload: spec
 })
 

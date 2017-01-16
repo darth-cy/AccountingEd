@@ -23977,6 +23977,13 @@
 	        }
 	      });
 	
+	      newState.user.checkCount += 1;
+	
+	      return newState;
+	
+	    case "CHANGE_NOTIFICATION_STATE":
+	      debugger;
+	      newState.currentChapterEvaluation = action.payload;
 	      return newState;
 	    case "SAVE_USER":
 	      debugger;
@@ -24039,6 +24046,7 @@
 	var GO_BACK_CHAPTERS = exports.GO_BACK_CHAPTERS = "GO_BACK_CHAPTERS";
 	var CHECK_ANSWER = exports.CHECK_ANSWER = "CHECK_ANSWER";
 	var SAVE_USER = exports.SAVE_USER = "SAVE_USER";
+	var CHANGE_NOTIFICATION_STATE = exports.CHANGE_NOTIFICATION_STATE = "CHANGE_NOTIFICATION_STATE";
 	
 	var outputContent = exports.outputContent = function outputContent(spec) {
 	  return {
@@ -24078,6 +24086,13 @@
 	var saveUser = exports.saveUser = function saveUser(spec) {
 	  return {
 	    type: SAVE_USER,
+	    payload: spec
+	  };
+	};
+	
+	var changeNotificationState = exports.changeNotificationState = function changeNotificationState(spec) {
+	  return {
+	    type: CHANGE_NOTIFICATION_STATE,
 	    payload: spec
 	  };
 	};
@@ -24311,6 +24326,9 @@
 	    },
 	    saveUser: function saveUser(specs) {
 	      return dispatch((0, _actions.saveUser)(specs));
+	    },
+	    changeNotificationState: function changeNotificationState(specs) {
+	      return dispatch((0, _actions.changeNotificationState)(specs));
 	    }
 	  };
 	};
@@ -24425,7 +24443,8 @@
 	        checkAnswer: props.states.checkAnswer,
 	        saveUser: props.states.saveUser,
 	        wrongItems: props.states.wrongItems,
-	        chapterEvaluation: props.states.currentChapterEvaluation
+	        chapterEvaluation: props.states.currentChapterEvaluation,
+	        changeNotificationState: props.states.changeNotificationState
 	      });
 	      break;
 	  }
@@ -24684,6 +24703,10 @@
 	
 	var _statement_item_list2 = _interopRequireDefault(_statement_item_list);
 	
+	var _chapter_notification = __webpack_require__(240);
+	
+	var _chapter_notification2 = _interopRequireDefault(_chapter_notification);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Chapter = _react2.default.createClass({
@@ -24692,6 +24715,7 @@
 	  getInitialState: function getInitialState() {
 	    return {};
 	  },
+	
 	  render: function render() {
 	    var props = this.props;
 	    var thisView = this;
@@ -24725,25 +24749,10 @@
 	      props.checkAnswer();
 	    };
 	
-	    var notification;
-	    if (props.chapterEvaluation == "correct") {
-	      notification = _react2.default.createElement(
-	        'div',
-	        { className: 'col-md-12' },
-	        'You have passed all criterias for this exercise!'
-	      );
-	    } else if (props.chapterEvaluation == "incorrect") {
-	      notification = _react2.default.createElement(
-	        'div',
-	        { className: 'col-md-12' },
-	        'Oops! It seems some items are in the wrong lists.'
-	      );
-	    }
-	
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'row' },
-	      notification,
+	      _react2.default.createElement(_chapter_notification2.default, { evaluation: props.chapterEvaluation, changeNotificationState: props.changeNotificationState }),
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'col-md-4 chapters-list height-align' },
@@ -25349,11 +25358,64 @@
 	      mouseY = e.pageY;
 	      $('.item-float').css({ 'top': mouseY, 'left': mouseX });
 	    });
+	    if (!this.props.currentSelectedItem) {
+	      $(document).off("mousemove");
+	    }
 	    $('.item-float').css({ 'top': this.props.mouseY, 'left': this.props.mouseX });
 	  }
 	});
 	
 	exports.default = ItemFloat;
+
+/***/ },
+/* 240 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ChapterNotification = _react2.default.createClass({
+	  displayName: "ChapterNotification",
+	
+	  render: function render() {
+	    var thisView = this;
+	    var dismissNotification = function dismissNotification() {
+	      thisView.props.changeNotificationState("incomplete");
+	    };
+	
+	    if (this.props.evaluation == "correct") {
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "col-md-12" },
+	        "You have passed all criterias for this exercise!"
+	      );
+	    } else if (this.props.evaluation == "incorrect") {
+	      return _react2.default.createElement(
+	        "div",
+	        { id: "notification", className: "alert alert-dismissible alert-danger" },
+	        "\xA0\xA0Oops! It seems some items are in the wrong lists. \xA0\xA0",
+	        _react2.default.createElement(
+	          "button",
+	          { className: "dismiss-error-button", onClick: dismissNotification },
+	          "dismiss"
+	        )
+	      );
+	    } else {
+	      return _react2.default.createElement("div", null);
+	    }
+	  }
+	});
+	
+	exports.default = ChapterNotification;
 
 /***/ }
 /******/ ]);

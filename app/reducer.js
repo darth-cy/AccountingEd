@@ -132,6 +132,13 @@ const reducer = (prevState=_initState, action) => {
         }
       });
 
+      newState.user.checkCount += 1;
+
+      return newState;
+
+    case "CHANGE_NOTIFICATION_STATE":
+      debugger;
+      newState.currentChapterEvaluation = action.payload;
       return newState;
     case "SAVE_USER":
       debugger;

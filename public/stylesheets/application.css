@@ -161,3 +161,18 @@ span.separate{
   padding-right: 3rem;
   border: 1px dotted gray;
 }
+
+.alert{
+  margin: 0px;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.dismiss-error-button{
+  border-radius: 2rem;
+  background-color: #f0938a;
+  color: white;
+  border: 1px solid white;
+}
+.dismiss-success-button{
+
+}
