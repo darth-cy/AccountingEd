@@ -23927,6 +23927,7 @@
 	        currentTargetItem: undefined
 	      };
 	      newState.wrongItems = {};
+	      newState.currentChapterEvaluation = "none";
 	      return newState;
 	    case "SELECT_ITEM":
 	      if (newState.itemMoveStates.moveInProgress) {
@@ -24410,7 +24411,7 @@
 	
 	  switch (props.states.mode) {
 	    case "chapters":
-	      return _react2.default.createElement(_chapters2.default, { chapters: props.states.chapters, currentChapter: props.states.currentChapter, selectChapter: props.states.selectChapter, startChapter: props.states.startChapter, formatNumber: formatNumber });
+	      return _react2.default.createElement(_chapters2.default, { user: props.user, chapters: props.states.chapters, currentChapter: props.states.currentChapter, selectChapter: props.states.selectChapter, startChapter: props.states.startChapter, formatNumber: formatNumber });
 	      break;
 	    case "chapter":
 	      return _react2.default.createElement(_chapter2.default, { chapter: props.states.currentChapter, currentState: props.states.currentState, switchMode: props.states.switchMode, goBackChapters: props.states.goBackChapters,
@@ -24423,7 +24424,8 @@
 	        formatNumber: formatNumber,
 	        checkAnswer: props.states.checkAnswer,
 	        saveUser: props.states.saveUser,
-	        wrongItems: props.states.wrongItems
+	        wrongItems: props.states.wrongItems,
+	        chapterEvaluation: props.states.currentChapterEvaluation
 	      });
 	      break;
 	  }
@@ -24723,9 +24725,25 @@
 	      props.checkAnswer();
 	    };
 	
+	    var notification;
+	    if (props.chapterEvaluation == "correct") {
+	      notification = _react2.default.createElement(
+	        'div',
+	        { className: 'col-md-12' },
+	        'You have passed all criterias for this exercise!'
+	      );
+	    } else if (props.chapterEvaluation == "incorrect") {
+	      notification = _react2.default.createElement(
+	        'div',
+	        { className: 'col-md-12' },
+	        'Oops! It seems some items are in the wrong lists.'
+	      );
+	    }
+	
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'row' },
+	      notification,
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'col-md-4 chapters-list height-align' },

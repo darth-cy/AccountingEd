@@ -29,8 +29,16 @@ var Chapter = React.createClass({
       props.checkAnswer();
     }
 
+    var notification;
+    if(props.chapterEvaluation == "correct"){
+      notification = (<div className="col-md-12">You have passed all criterias for this exercise!</div>);
+    }else if(props.chapterEvaluation == "incorrect"){
+      notification = (<div className="col-md-12">Oops! It seems some items are in the wrong lists.</div>);
+    }
+
     return (
       <div className="row">
+        {notification}
         <div className="col-md-4 chapters-list height-align">
           <h3>{props.currentState.title}</h3>
           <div>

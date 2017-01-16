@@ -81,6 +81,7 @@ const reducer = (prevState=_initState, action) => {
         currentTargetItem: undefined,
       };
       newState.wrongItems = {};
+      newState.currentChapterEvaluation = "none";
       return newState;
     case "SELECT_ITEM":
       if(newState.itemMoveStates.moveInProgress){
