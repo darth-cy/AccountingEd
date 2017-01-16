@@ -33,7 +33,7 @@ var Chapter = React.createClass({
 
     return (
       <div className="row">
-        <ChapterNotification evaluation={props.chapterEvaluation} changeNotificationState={props.changeNotificationState}/>
+        <ChapterNotification evaluation={props.chapterEvaluation} changeNotificationState={props.changeNotificationState} goBackChapters={props.goBackChapters}/>
         <div className="col-md-4 chapters-list height-align">
           <h3>{props.currentState.title}</h3>
           <div>

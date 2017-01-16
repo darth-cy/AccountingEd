@@ -34,13 +34,15 @@ var StatementItemList = (props) => {
         }else{
           return (
             <div key={idx}>
-              <div className={"item-list-active-item " + (props.wrongItems[item.name] ? "wrong" : "")} onClick={() => {
+              <div className={"item-list-active-item " + (props.wrongItems[item.name] ? "wrong" : "")} onClick={(e) => {
                 if(moveInProgress){
                   props.moveUtilities.moveItem();
                 }else{
                   props.moveUtilities.selectItem({
                     list: props.name,
-                    item: item
+                    item: item,
+                    posX: e.pageX,
+                    posY: e.pageY
                   })
                 }
               }}

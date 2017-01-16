@@ -12,8 +12,8 @@ const MainApplication = React.createClass({
     return(
       <div className="container-fluid">
       <ItemFloat currentSelectedItem={this.props.itemMoveStates.currentSelectedItem}
-        mouseX={this.state.mouseX}
-        mouseY={this.state.mouseY}
+        mouseX={this.props.posX}
+        mouseY={this.props.posY}
       />
       <Navbar />
       <ContentWrapper states={this.props}/>

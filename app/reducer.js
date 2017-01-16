@@ -93,6 +93,8 @@ const reducer = (prevState=_initState, action) => {
         newState.itemMoveStates.currentSelectedList = action.payload.list;
         newState.itemMoveStates.currentSelectedItem = action.payload.item;
       }
+      newState.posX = action.payload.posX;
+      newState.posY = action.payload.posY;
       delete newState.wrongItems[action.payload.item.name];
       return newState;
     case "SELECT_TARGET_ITEM":

@@ -23939,6 +23939,8 @@
 	        newState.itemMoveStates.currentSelectedList = action.payload.list;
 	        newState.itemMoveStates.currentSelectedItem = action.payload.item;
 	      }
+	      newState.posX = action.payload.posX;
+	      newState.posY = action.payload.posY;
 	      delete newState.wrongItems[action.payload.item.name];
 	      return newState;
 	    case "SELECT_TARGET_ITEM":
@@ -24377,8 +24379,8 @@
 	      'div',
 	      { className: 'container-fluid' },
 	      _react2.default.createElement(_item_float2.default, { currentSelectedItem: this.props.itemMoveStates.currentSelectedItem,
-	        mouseX: this.state.mouseX,
-	        mouseY: this.state.mouseY
+	        mouseX: this.props.posX,
+	        mouseY: this.props.posY
 	      }),
 	      _react2.default.createElement(_navbar2.default, null),
 	      _react2.default.createElement(_content_wrapper2.default, { states: this.props })
@@ -24433,6 +24435,7 @@
 	      break;
 	    case "chapter":
 	      return _react2.default.createElement(_chapter2.default, { chapter: props.states.currentChapter, currentState: props.states.currentState, switchMode: props.states.switchMode, goBackChapters: props.states.goBackChapters,
+	        selectChapter: props.states.selectChapter,
 	        selectItem: props.states.selectItem,
 	        stopMoveProgress: props.states.stopMoveProgress,
 	        selectTargetItem: props.states.selectTargetItem,
@@ -24752,7 +24755,7 @@
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'row' },
-	      _react2.default.createElement(_chapter_notification2.default, { evaluation: props.chapterEvaluation, changeNotificationState: props.changeNotificationState }),
+	      _react2.default.createElement(_chapter_notification2.default, { evaluation: props.chapterEvaluation, changeNotificationState: props.changeNotificationState, goBackChapters: props.goBackChapters }),
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'col-md-4 chapters-list height-align' },
@@ -25073,13 +25076,15 @@
 	          { key: idx },
 	          _react2.default.createElement(
 	            'div',
-	            { className: "item-list-active-item " + (props.wrongItems[item.name] ? "wrong" : ""), onClick: function onClick() {
+	            { className: "item-list-active-item " + (props.wrongItems[item.name] ? "wrong" : ""), onClick: function onClick(e) {
 	                if (moveInProgress) {
 	                  props.moveUtilities.moveItem();
 	                } else {
 	                  props.moveUtilities.selectItem({
 	                    list: props.id,
-	                    item: item
+	                    item: item,
+	                    posX: e.pageX,
+	                    posY: e.pageY
 	                  });
 	                }
 	              },
@@ -25199,13 +25204,15 @@
 	          { key: idx },
 	          _react2.default.createElement(
 	            'div',
-	            { className: "item-list-active-item " + (props.wrongItems[item.name] ? "wrong" : ""), onClick: function onClick() {
+	            { className: "item-list-active-item " + (props.wrongItems[item.name] ? "wrong" : ""), onClick: function onClick(e) {
 	                if (moveInProgress) {
 	                  props.moveUtilities.moveItem();
 	                } else {
 	                  props.moveUtilities.selectItem({
 	                    list: props.name,
-	                    item: item
+	                    item: item,
+	                    posX: e.pageX,
+	                    posY: e.pageY
 	                  });
 	                }
 	              },
@@ -25395,8 +25402,13 @@
 	    if (this.props.evaluation == "correct") {
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "col-md-12" },
-	        "You have passed all criterias for this exercise!"
+	        { id: "notification", className: "alert alert-dismissible alert-success" },
+	        "\xA0\xA0You have passed all criterias for this exercise! \xA0\xA0",
+	        _react2.default.createElement(
+	          "button",
+	          { className: "dismiss-success-button", onClick: thisView.props.goBackChapters },
+	          "back to the chapters"
+	        )
 	      );
 	    } else if (this.props.evaluation == "incorrect") {
 	      return _react2.default.createElement(

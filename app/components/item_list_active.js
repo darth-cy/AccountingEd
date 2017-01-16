@@ -13,7 +13,7 @@ var ItemListActive = (props) => {
         if(moveInProgress){
           props.moveUtilities.selectTargetItem({
             list: props.id,
-            item: {name: "_init"}
+            item: {name: "_init"},
           })
         }else{
           console.log("enter");
@@ -33,13 +33,15 @@ var ItemListActive = (props) => {
         }else{
           return (
             <div key={idx}>
-              <div className={"item-list-active-item " + (props.wrongItems[item.name] ? "wrong" : "")} onClick={() => {
+              <div className={"item-list-active-item " + (props.wrongItems[item.name] ? "wrong" : "")} onClick={(e) => {
                 if(moveInProgress){
                   props.moveUtilities.moveItem();
                 }else{
                   props.moveUtilities.selectItem({
                     list: props.id,
-                    item: item
+                    item: item,
+                    posX: e.pageX,
+                    posY: e.pageY,
                   })
                 }
               }}

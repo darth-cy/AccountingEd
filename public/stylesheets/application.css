@@ -174,5 +174,8 @@ span.separate{
   border: 1px solid white;
 }
 .dismiss-success-button{
-
+  border-radius: 2rem;
+  background-color: #7fddc5;
+  color: white;
+  border: 1px solid white;
 }

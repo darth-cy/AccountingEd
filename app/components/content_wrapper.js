@@ -16,6 +16,7 @@ var ContentWrapper = (props) => {
     case "chapter":
       return (
         <Chapter chapter={props.states.currentChapter} currentState={props.states.currentState} switchMode={props.states.switchMode} goBackChapters={props.states.goBackChapters}
+          selectChapter={props.states.selectChapter}
           selectItem={props.states.selectItem}
           stopMoveProgress={props.states.stopMoveProgress}
           selectTargetItem={props.states.selectTargetItem}
