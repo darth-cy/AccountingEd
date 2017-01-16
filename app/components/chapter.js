@@ -25,6 +25,7 @@ var Chapter = React.createClass({
 
     var netIncome = incomeList.reduce((total, item) => { return total + item.amount; }, 0) - expensesList.reduce((total, item) => { return total + item.amount }, 0);
     var equity = assetsList.reduce((total, item) => { return total + item.amount; }, 0) - liabilitiesList.reduce((total, item) => { return total + item.amount }, 0);
+    console.log(equity);
     var monthEndEquity = equity + netIncome;
     var startEquity = props.currentState.equity;
 

@@ -24218,6 +24218,42 @@
 	    }
 	  },
 	
+	  "3": {
+	    id: "3",
+	    title: "Company Stock",
+	    description: "In this exercise you'll deal with stock purchase accounting. Although the stock may appreciate in value, it's not certain. Instead of creating an illusion of wealth by adding speculative values, stocks are usually accounted using their purchase price.",
+	    steps: [{
+	      step_title: "Stock Purchase",
+	      description: "The company you work for is eager to grant you 165,000 shares of its stock. The par value is $0.001 and you'll purchase it out-of-pocket.",
+	      hint: "",
+	      action_items: [{ name: "165,000 Shares of Corp, Inc.", description: "stock", amount: 165 }, { name: "Stock Purchase Payment", description: "pay", amount: 165 }]
+	    }, {
+	      step_title: "83(b) Election",
+	      description: "Due to the fact that IRS intend to tax every dollar off your capital gain, it's not wise to pay the capital tax when the stock appreciates. Instead, IRS provides an option called 83(b) which allows you to pay tax on the stock at the moment of purchase. The taxpayer will only pay tax on the par value.",
+	      hint: "Tax is usually considered as expenses, income tax included.",
+	      action_items: [{ name: "83(b) Election Payment", description: "smart", amount: 14 }]
+	    }],
+	
+	    statements: {
+	      cash_flow_statement: {
+	        income: [{ name: "Part-time Salary", item_description: "student's work", amount: 1870 }, { name: "Book Lending", item_description: "book service", amount: 70 }],
+	        expenses: [{ name: "Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 850 }, { name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 650 }]
+	      },
+	      balance_sheet: {
+	        assets: [{ name: "Cash", item_description: "Home.", amount: 3400 }, { name: "Rare Book Collection", item_description: "Simple, cold, and sure.", amount: 240 }],
+	        liabilities: [{ name: "Friend-covered Expenses", item_description: "friend", amount: 250 }]
+	      },
+	      deleted: []
+	    },
+	    equity: 3390,
+	    criteria: {
+	      should_contain: [["income", "Part-time Salary"], ["income", "Book Lending"], ["expenses", "Rent"], ["expenses", "Other Expenses"], ["assets", "Cash"], ["assets", "Rare Book Collection"], ["liabilities", "Friend-covered Expenses"], ["assets", "165,000 Shares of Corp, Inc."], ["expenses", "Stock Purchase Payment"], ["expenses", "83(b) Election Payment"]],
+	      should_be: [
+	        // here
+	      ]
+	    }
+	  },
+	
 	  // "3": {
 	  //   id: "3",
 	  //   title: "",
@@ -24834,6 +24870,7 @@
 	    }, 0) - liabilitiesList.reduce(function (total, item) {
 	      return total + item.amount;
 	    }, 0);
+	    console.log(equity);
 	    var monthEndEquity = equity + netIncome;
 	    var startEquity = props.currentState.equity;
 	
