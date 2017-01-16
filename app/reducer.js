@@ -24,6 +24,11 @@ function findCurrentStateListByName(states, name){
   return NULL;
 }
 
+function saveUser(newState){
+  debugger;
+  return 0;
+}
+
 function findIdxByNameInList(list, name){
   for(var i=0; i< list.length; i++){
     if(list[i].name == name){
@@ -134,12 +139,13 @@ const reducer = (prevState=_initState, action) => {
         }
       });
 
-      newState.user.checkCount += 1;
+      if(correct){
+        newState.user.chaptersPassed[newState.currentChapter.id] = true;
+        saveUser(newState);
+      }
 
       return newState;
-
     case "CHANGE_NOTIFICATION_STATE":
-      debugger;
       newState.currentChapterEvaluation = action.payload;
       return newState;
     case "SAVE_USER":

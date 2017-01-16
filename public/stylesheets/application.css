@@ -61,6 +61,9 @@ body{
   display: inline-block;
   min-width: 90%;
 }
+.chapters-list-item.passed{
+  background-color: #00bc8c;
+}
 .chapters-list-item:hover{
   background-color: #5fb3d8;
 }

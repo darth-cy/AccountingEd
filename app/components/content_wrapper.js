@@ -10,7 +10,7 @@ var ContentWrapper = (props) => {
   switch (props.states.mode) {
     case "chapters":
       return (
-        <Chapters user={props.user} chapters={props.states.chapters} currentChapter={props.states.currentChapter} selectChapter={props.states.selectChapter} startChapter={props.states.startChapter} formatNumber={formatNumber}/>
+        <Chapters user={props.states.user} chapters={props.states.chapters} currentChapter={props.states.currentChapter} selectChapter={props.states.selectChapter} startChapter={props.states.startChapter} formatNumber={formatNumber}/>
       );
       break;
     case "chapter":

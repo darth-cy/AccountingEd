@@ -23867,6 +23867,11 @@
 	  return NULL;
 	}
 	
+	function saveUser(newState) {
+	  debugger;
+	  return 0;
+	}
+	
 	function findIdxByNameInList(list, name) {
 	  for (var i = 0; i < list.length; i++) {
 	    if (list[i].name == name) {
@@ -23979,12 +23984,13 @@
 	        }
 	      });
 	
-	      newState.user.checkCount += 1;
+	      if (correct) {
+	        newState.user.chaptersPassed[newState.currentChapter.id] = true;
+	        saveUser(newState);
+	      }
 	
 	      return newState;
-	
 	    case "CHANGE_NOTIFICATION_STATE":
-	      debugger;
 	      newState.currentChapterEvaluation = action.payload;
 	      return newState;
 	    case "SAVE_USER":
@@ -24431,7 +24437,7 @@
 	
 	  switch (props.states.mode) {
 	    case "chapters":
-	      return _react2.default.createElement(_chapters2.default, { user: props.user, chapters: props.states.chapters, currentChapter: props.states.currentChapter, selectChapter: props.states.selectChapter, startChapter: props.states.startChapter, formatNumber: formatNumber });
+	      return _react2.default.createElement(_chapters2.default, { user: props.states.user, chapters: props.states.chapters, currentChapter: props.states.currentChapter, selectChapter: props.states.selectChapter, startChapter: props.states.startChapter, formatNumber: formatNumber });
 	      break;
 	    case "chapter":
 	      return _react2.default.createElement(_chapter2.default, { chapter: props.states.currentChapter, currentState: props.states.currentState, switchMode: props.states.switchMode, goBackChapters: props.states.goBackChapters,
@@ -24508,7 +24514,7 @@
 	          $.map(props.chapters, function (chapter, idx) {
 	            return _react2.default.createElement(
 	              'div',
-	              { className: 'chapters-list-item', onClick: function onClick() {
+	              { className: "chapters-list-item " + (props.user.chaptersPassed[chapter.id] ? "passed" : ""), onClick: function onClick() {
 	                  props.selectChapter(chapter.id);
 	                }, key: chapter.id },
 	              idx + ". " + chapter.title

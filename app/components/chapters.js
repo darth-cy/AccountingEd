@@ -13,7 +13,7 @@ var Chapters = React.createClass({
           <h3>Available Chapters</h3>
           <div>
             {$.map(props.chapters, (chapter, idx) => (
-              <div className="chapters-list-item" onClick={function(){
+              <div className={"chapters-list-item " + (props.user.chaptersPassed[chapter.id] ? "passed" : "")}  onClick={function(){
                 props.selectChapter(chapter.id);
               }} key={chapter.id}>{idx + ". " + chapter.title}</div>
             ))}
