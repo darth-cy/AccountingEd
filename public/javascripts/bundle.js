@@ -24329,6 +24329,141 @@
 	      should_not_be_present: [],
 	      should_be: [["equity"]]
 	    }
+	  },
+	
+	  "5": {
+	    id: "5",
+	    title: "Selling Assets",
+	    description: "In this exercise, we'll cross off an asset from your balance sheet and the income associated with it. Selling assets grants you a cash payment which can be used to purchase other more lucrative assets. Therefore, it's usually favorable to convert current assets with new ones with higher cash flow.",
+	    steps: [{
+	      step_title: "Book Buyer",
+	      description: "A rare book collector noticed your book collection and he's willing to acquire it with a cash payment of $750. Drop any assets and income related to this transaction.",
+	      action_items: [{ name: "Cash from Selling Books", description: "sell book", amount: 750 }]
+	    }],
+	
+	    statements: {
+	      cash_flow_statement: {
+	        income: [{ name: "Part-time Salary", item_description: "student's work", amount: 1870 }, { name: "Book Lending", item_description: "book service", amount: 70 }],
+	        expenses: [{ name: "Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 850 }, { name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 650 }]
+	      },
+	      balance_sheet: {
+	        assets: [{ name: "Cash", item_description: "Home.", amount: 2750 }, { name: "Rare Book Collection", item_description: "Simple, cold, and sure.", amount: 240 }],
+	        liabilities: [{ name: "Parent Support", item_description: "friend", amount: 1000 }]
+	      },
+	      deleted: []
+	    },
+	    equity: 0,
+	    criteria: {
+	      should_contain: [["income", "Cash from Selling Books"], ["income", "Part-time Salary"], ["deleted", "Book Lending"], ["expenses", "Rent"], ["expenses", "Other Expenses"], ["assets", "Cash"], ["deleted", "Rare Book Collection"], ["liabilities", "Parent Support"]],
+	      should_be: []
+	    }
+	  },
+	
+	  "6": {
+	    id: "6",
+	    title: "Trade between Multiple Stocks",
+	    description: "In this exercise, we'll account for a two step stock transaction. Stocks fluctuate in value and usually don't generate any income every month. The transactions themselves also generate fees. Therefore, it is usually not advised to trade stock unless you're highly sophisticated and robust against risk.",
+	    steps: [{
+	      step_title: "EvanCore Cash Out",
+	      description: "The EvanCore, Inc. stock you purchased about 2 months ago surprisingly appreciated more than 30%. Apparently the company has surprised the market by acquiring a major competitor. However, to diversify your portfolio, you decided to cash out on EvanCore's shares.",
+	      hint: "Don't forget to drop the stock you sold from the balance sheet.",
+	      action_items: [{ name: "Cash from Selling Stocks", description: "sell stock", amount: 7500 }, { name: "Tax on Capital Gain", description: "gain tax", amount: 545 }, { name: "Settlement Fee 1", description: "settlement1", amount: 70 }]
+	    }, {
+	      step_title: "Buy Promissing Startup",
+	      description: "A new startup called Ryan Blain specialized in sports wear has just went public and looks very promising in terms of earning abilities. You believe its stock will appreciate in value in the future so you acquired 2,500 shares of its share at $1.26 per share.",
+	      action_items: [{ name: "Stock Purchase Payment", description: "pay stock", amount: 3150 }, { name: "2,500 Shares Ryan Blain", description: "sports wear", amount: 3150 }, { name: "Settlement Fee 2", description: "settlement2", amount: 25 }]
+	    }],
+	
+	    statements: {
+	      cash_flow_statement: {
+	        income: [{ name: "Part-time Salary", item_description: "student's work", amount: 2870 }],
+	        expenses: [{ name: "Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 850 }, { name: "Broker Account Maintenance", item_description: "maintain it", amount: 29 }, { name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 650 }]
+	      },
+	      balance_sheet: {
+	        assets: [{ name: "Cash", item_description: "cold and sure", amount: 4680 }, { name: "4,600 Shares Daemon", item_description: "Simple, cold, and sure.", amount: 460 }, { name: "2,000 Shares EvanCore", item_description: "good share", amount: 2000 }, { name: "1,000 Shares NTCJ", item_description: "more stocks", amount: 500 }],
+	        liabilities: [{ name: "Parent Support", item_description: "friend", amount: 3000 }, { name: "Small Bank Loan", item_description: "small loan", amount: 550 }]
+	      },
+	      deleted: []
+	    },
+	    equity: 4090,
+	    criteria: {
+	      should_contain: [["income", "Cash from Selling Stocks"], ["expenses", "Tax on Capital Gain"], ["expenses", "Settlement Fee 1"], ["expenses", "Stock Purchase Payment"], ["assets", "2,500 Shares Ryan Blain"], ["expenses", "Settlement Fee 2"], ["income", "Part-time Salary"], ["expenses", "Rent"], ["expenses", "Broker Account Maintenance"], ["expenses", "Other Expenses"], ["assets", "Cash"], ["assets", "4,600 Shares Daemon"], ["deleted", "2,000 Shares EvanCore"], ["assets", "1,000 Shares NTCJ"], ["liabilities", "Parent Support"], ["liabilities", "Small Bank Loan"]],
+	      should_be: []
+	    }
+	  },
+	
+	  "7": {
+	    id: "7",
+	    title: "Become a New Homeowner",
+	    description: "In this exercise, we'll manage what many believe to be the symbolic transaction of United States -- buying a home. Apart from purchasing the home, many insurance policies and other add-on items may lower the risk of you losing your home or suffering damage to it. Also, new homes may also be rented to offset the mortgage payments.",
+	    steps: [{
+	      step_title: "Home Owner!",
+	      description: "You've got your eye on a nice 3BR/2BA house in west Kentucky. The quiet neighborhood does have its charm and you decided to call the place a home for a long time. The downpayment is not too bad and the rate is good on the mortgage.",
+	      hint: "Don't forget to drop the rent item since you're no longer living in a rented home.",
+	      action_items: [{ name: "Down Payment", description: "down pay", amount: 25000 }, { name: "3BR/2BA House", description: "home", amount: 120000 }, { name: "30-year Mortgage", description: "mortgage", amount: 95000 }, { name: "30-year Mortgage Monthly Pay", description: "service pay", amount: 750 }]
+	    }, {
+	      step_title: "State Compliance",
+	      description: "The state of Kentucky mandates that new home owners must acquire a certificate of flood protection if in a flood zone. You'll have to pay for the certificate.",
+	      action_items: [{ name: "Flood Inspection and Certificate", description: "protection", amount: 1700 }]
+	    }, {
+	      step_title: "Rent out a Room",
+	      description: "You've got a single vacant room to yourself and you decided to rent it out to offset the mortgage payment. The house is near a high-school and an eager young man named Dylan took the offer.",
+	      action_items: [{ name: "Rent on 3BR/2BA", description: "rent", amount: 450 }]
+	    }],
+	
+	    statements: {
+	      cash_flow_statement: {
+	        income: [{ name: "Engineer Salary", item_description: "student's work", amount: 3460 }, { name: "Patent Commission", item_description: "patent commission", amount: 1150 }],
+	        expenses: [{ name: "Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 1550 }, { name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 875 }, { name: "Payment on Private Loan", item_description: "loan", amount: 650 }]
+	      },
+	      balance_sheet: {
+	        assets: [{ name: "Cash", item_description: "Home.", amount: 35750 }, { name: "Patent", item_description: "Simple, cold, and sure.", amount: 6700 }],
+	        liabilities: [{ name: "Private Loan", item_description: "friend", amount: 10000 }]
+	      },
+	      deleted: []
+	    },
+	    equity: 32450,
+	    criteria: {
+	      should_contain: [["liabilities", "Private Loan"], ["assets", "Patent"], ["assets", "Cash"], ["expenses", "Payment on Private Loan"], ["expenses", "Other Expenses"], ["deleted", "Rent"], ["income", "Patent Commission"], ["income", "Engineer Salary"], ["expenses", "Down Payment"], ["assets", "3BR/2BA House"], ["liabilities", "30-year Mortgage"], ["expenses", "30-year Mortgage Monthly Pay"], ["expenses", "Flood Inspection and Certificate"], ["income", "Rent on 3BR/2BA"]],
+	      should_be: []
+	    }
+	  },
+	
+	  "8": {
+	    id: "8",
+	    title: "Convert Income-generating Assets",
+	    description: "In this exercise, we convert a lower-earning house to a higher earning one. Converting assets are common place for real-estate investors as it's favorable to carry assets with higher rent to value ratio. Sometimes, the newly acquired asset can be renovated to generate an even higher return.",
+	    steps: [{
+	      step_title: "Selling an Low-earning Asset",
+	      description: "This 2BR/1BA has been generating great revenue for you. However, a local contruction firm was recently commissioned to build a industrial complex nearby for chemical processing. The news generated fear that the air and water quality will suffer due to the soon-to-be-present industry. You decided to sell the house in the midst of pressing demand from the tenant to lower the rent.",
+	      action_items: [{ name: "Cash from Selling Old 2BR/1BA", description: "cash", amount: 85000 }, { name: "Pay off Old Mortgage", description: "old settlement", amount: 70000 }]
+	    }, {
+	      step_title: "Acquiring a High-earning Asset",
+	      description: "The cash you obtained from selling 2BR/1BA won't be generating any income. After some research, you pinned down a duplex a few miles away that's near a soon-to-be-built town center. The asset value around the neighborhood is rising. There's also rumor that there will be a new school. You decided to buy the duplex and rent it out.",
+	      hint: "Notice that even though the service payment for the new duplex is higher, it will still generate a higher return because the higher rent will offset its service cost.",
+	      action_items: [{ name: "Rent on Duplex", description: "rent", amount: 2370 }, { name: "Down Payment", description: "down pay", amount: 55000 }, { name: "Duplex", description: "home", amount: 140000 }, { name: "New Mortgage on Duplex", description: "mortgage", amount: 85000 }, { name: "New Mortgage Monthly Pay", description: "service pay", amount: 1100 }]
+	    }, {
+	      step_title: "Squeez out the Last Drop",
+	      description: "You noticed that the duplex comes with a small shared basement. To squeez out the last drop of revenue, you decided to renovate the space and rent it out to a local student. Of course, you informed the two families occupying the duplex to steer clear of the basement.",
+	      action_items: [{ name: "Rent on Duplex Basement", description: "rent student", amount: 475 }, { name: "Renovation Cost", description: "fix garage", amount: 2700 }]
+	    }],
+	
+	    statements: {
+	      cash_flow_statement: {
+	        income: [{ name: "Fireman Salary", item_description: "student's work", amount: 2160 }, { name: "Rent from Old 2BR/1BA", item_description: "rent", amount: 250 }],
+	        expenses: [{ name: "Your Own Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 1200 }, { name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 605 }, { name: "Old Mortgage Monthly Pay", item_description: "old mortgage", amount: 55 }]
+	      },
+	      balance_sheet: {
+	        assets: [{ name: "Cash", item_description: "Home.", amount: 125750 }, { name: "Old 2BR/1BA House", description: "home", amount: 85000 }],
+	        liabilities: [{ name: "Old Mortgage on 2BR/1BA", description: "mortgage", amount: 70000 }]
+	      },
+	      deleted: []
+	    },
+	    equity: 180750,
+	    criteria: {
+	      should_contain: [["income", "Fireman Salary"], ["deleted", "Rent from Old 2BR/1BA"], ["expenses", "Your Own Rent"], ["expenses", "Other Expenses"], ["deleted", "Old Mortgage Monthly Pay"], ["assets", "Cash"], ["deleted", "Old 2BR/1BA House"], ["deleted", "Old Mortgage on 2BR/1BA"], ["income", "Cash from Selling Old 2BR/1BA"], ["expenses", "Pay off Old Mortgage"], ["income", "Rent on Duplex"], ["expenses", "Down Payment"], ["assets", "Duplex"], ["liabilities", "New Mortgage on Duplex"], ["expenses", "New Mortgage Monthly Pay"], ["income", "Rent on Duplex Basement"], ["expenses", "Renovation Cost"]],
+	      should_be: []
+	    }
 	  }
 	};
 

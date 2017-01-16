@@ -41,7 +41,7 @@ body{
 .chapters-list{
   background-color: #3d3d3d;
   min-height: 100vh;
-  height: 100%;
+  min-height: 150vh;
   color: white;
   padding-left: 2.5%;
   padding-top: 2.5%;
