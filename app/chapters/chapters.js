@@ -7,6 +7,7 @@ export const CHAPTERS = {
       {
         step_title: "An Extra Something",
         description: "Your colleagues recommended you for a professional award and you stood out from all the candidates. The award grants an extra $2,500 for your income this month.",
+        hint: "Click on the item you wish to move. Then, move your mouse around until the item hovers over a desirable location. Click again to snap the item to its new location.",
         action_items: [
           {name: "Cash Reward", descriptions: "Good professional!", amount: 2500}
         ]

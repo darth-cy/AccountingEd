@@ -16,7 +16,7 @@ var ItemListActive = (props) => {
             item: {name: "_init"},
           })
         }else{
-          console.log("enter");
+          
         }
       }}
       onClick={()=>{

@@ -24163,6 +24163,7 @@
 	    steps: [{
 	      step_title: "An Extra Something",
 	      description: "Your colleagues recommended you for a professional award and you stood out from all the candidates. The award grants an extra $2,500 for your income this month.",
+	      hint: "Click on the item you wish to move. Then, move your mouse around until the item hovers over a desirable location. Click again to snap the item to its new location.",
 	      action_items: [{ name: "Cash Reward", descriptions: "Good professional!", amount: 2500 }]
 	    }],
 	
@@ -24990,9 +24991,19 @@
 	        'p',
 	        null,
 	        props.step.description
-	      )
+	      ),
+	      props.step.hint ? _react2.default.createElement(
+	        'p',
+	        { className: 'hint' },
+	        'Hint: ',
+	        props.step.hint
+	      ) : ""
 	    ),
-	    _react2.default.createElement('br', null),
+	    _react2.default.createElement(
+	      'h6',
+	      null,
+	      '\xA0'
+	    ),
 	    _react2.default.createElement(
 	      'div',
 	      { className: 'col-sm-12' },
@@ -25041,9 +25052,7 @@
 	              list: props.id,
 	              item: { name: "_init" }
 	            });
-	          } else {
-	            console.log("enter");
-	          }
+	          } else {}
 	        },
 	        onClick: function onClick() {
 	          props.moveUtilities.moveItem();
@@ -25409,7 +25418,7 @@
 	      return _react2.default.createElement(
 	        "div",
 	        { id: "notification", className: "alert alert-dismissible alert-success" },
-	        "\xA0\xA0You have passed all criterias for this exercise! \xA0\xA0",
+	        "\xA0\xA0Fantastic! You have passed all criterias for this exercise! \xA0\xA0",
 	        _react2.default.createElement(
 	          "button",
 	          { className: "dismiss-success-button", onClick: thisView.props.goBackChapters },

@@ -97,6 +97,10 @@ body{
   padding-left: 2.5%;
   padding-right: 2.5%;
 }
+.hint{
+  font-size: 1.5rem;
+  color: #f5fab1;
+}
 .statement-holder{
   padding-left: 2.5%;
   padding-right: 2.5%;
