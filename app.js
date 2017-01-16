@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var db = mongoose.connection;
 db.on("error", console.error);
-mongoose.connect(process.env.MONGOLAB_URI || "mongodb://localhost/lanyardblue");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/lanyardblue");
 
 app.set("/views", __dirname + "/views");
 app.set("view engine", "ejs");
