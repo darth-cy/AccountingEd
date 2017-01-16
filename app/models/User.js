@@ -6,6 +6,7 @@ if(typeof User == 'undefined'){
     email: String,
     password_digest: String,
     sessionToken: String,
+    premium: Boolean,
     data: mongoose.Schema.Types.Mixed,
   });
 
