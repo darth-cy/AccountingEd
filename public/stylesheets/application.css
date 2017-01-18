@@ -2,6 +2,23 @@ html, body{
   overflow-x: hidden;
 }
 
+.link-normal{
+  color: white;
+  text-decoration: none;
+}
+.link-normal:hover{
+  color: white;
+  text-decoration: none;
+}
+.link-normal:active{
+  color: white;
+  text-decoration: none;
+}
+.link-normal:visited{
+  color: white;
+  text-decoration: none;
+}
+
 *{
   border-radius: 0px;
 }

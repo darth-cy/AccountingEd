@@ -24551,11 +24551,11 @@
 	
 	var _content_wrapper2 = _interopRequireDefault(_content_wrapper);
 	
-	var _navbar = __webpack_require__(238);
+	var _navbar = __webpack_require__(239);
 	
 	var _navbar2 = _interopRequireDefault(_navbar);
 	
-	var _item_float = __webpack_require__(239);
+	var _item_float = __webpack_require__(240);
 	
 	var _item_float2 = _interopRequireDefault(_item_float);
 	
@@ -24904,7 +24904,7 @@
 	
 	var _statement_item_list2 = _interopRequireDefault(_statement_item_list);
 	
-	var _chapter_notification = __webpack_require__(240);
+	var _chapter_notification = __webpack_require__(238);
 	
 	var _chapter_notification2 = _interopRequireDefault(_chapter_notification);
 	
@@ -25472,6 +25472,61 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var ChapterNotification = _react2.default.createClass({
+	  displayName: "ChapterNotification",
+	
+	  render: function render() {
+	    var thisView = this;
+	    var dismissNotification = function dismissNotification() {
+	      thisView.props.changeNotificationState("incomplete");
+	    };
+	
+	    if (this.props.evaluation == "correct") {
+	      return _react2.default.createElement(
+	        "div",
+	        { id: "notification", className: "alert alert-dismissible alert-success" },
+	        "\xA0\xA0Fantastic! You have passed this exercise! \xA0\xA0",
+	        _react2.default.createElement(
+	          "button",
+	          { className: "dismiss-success-button", onClick: thisView.props.goBackChapters },
+	          "back to the chapters"
+	        )
+	      );
+	    } else if (this.props.evaluation == "incorrect") {
+	      return _react2.default.createElement(
+	        "div",
+	        { id: "notification", className: "alert alert-dismissible alert-danger" },
+	        "\xA0\xA0Oops! It seems some items are in the wrong lists. \xA0\xA0",
+	        _react2.default.createElement(
+	          "button",
+	          { className: "dismiss-error-button", onClick: dismissNotification },
+	          "dismiss"
+	        )
+	      );
+	    } else {
+	      return _react2.default.createElement("div", null);
+	    }
+	  }
+	});
+	
+	exports.default = ChapterNotification;
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
 	function logout() {
 	  $.ajax({
 	    url: "/api/session/delete",
@@ -25510,7 +25565,7 @@
 	exports.default = Navbar;
 
 /***/ },
-/* 239 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25576,61 +25631,6 @@
 	});
 	
 	exports.default = ItemFloat;
-
-/***/ },
-/* 240 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var ChapterNotification = _react2.default.createClass({
-	  displayName: "ChapterNotification",
-	
-	  render: function render() {
-	    var thisView = this;
-	    var dismissNotification = function dismissNotification() {
-	      thisView.props.changeNotificationState("incomplete");
-	    };
-	
-	    if (this.props.evaluation == "correct") {
-	      return _react2.default.createElement(
-	        "div",
-	        { id: "notification", className: "alert alert-dismissible alert-success" },
-	        "\xA0\xA0Fantastic! You have passed this exercise! \xA0\xA0",
-	        _react2.default.createElement(
-	          "button",
-	          { className: "dismiss-success-button", onClick: thisView.props.goBackChapters },
-	          "back to the chapters"
-	        )
-	      );
-	    } else if (this.props.evaluation == "incorrect") {
-	      return _react2.default.createElement(
-	        "div",
-	        { id: "notification", className: "alert alert-dismissible alert-danger" },
-	        "\xA0\xA0Oops! It seems some items are in the wrong lists. \xA0\xA0",
-	        _react2.default.createElement(
-	          "button",
-	          { className: "dismiss-error-button", onClick: dismissNotification },
-	          "dismiss"
-	        )
-	      );
-	    } else {
-	      return _react2.default.createElement("div", null);
-	    }
-	  }
-	});
-	
-	exports.default = ChapterNotification;
 
 /***/ }
 /******/ ]);
