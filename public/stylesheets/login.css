@@ -68,3 +68,11 @@ body{
 #sign-up-form{
   display: none;
 }
+.login{
+  background-color: #136a9b;
+  color: white;
+}
+#demo{
+  background-color: #36A0CE;
+  color: white;
+}

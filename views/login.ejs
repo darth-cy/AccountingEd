@@ -17,7 +17,8 @@
 <div class="container-fluid">
   <div class="row login-row">
 
-    <h2>Login or Signup</h2>
+    <h3>Welcome Back!</h3>
+    <p>login or signup to access your dashboard</p>
     <br/>
     <div class="form-holder">
       <div class="btn-holder">
@@ -37,8 +38,8 @@
           <input type="password" name="user[password]" readonly onfocus="this.removeAttribute('readonly');"/>
         </label>
         <br/>
-        <input id="login" type="submit" value="submit">
-        <input id="demo-button" type="submit" value="try a demo">
+        <input class="login" type="submit" value="submit">
+        <input id="demo" type="submit" value="try a demo">
       </form>
 
       <form id="sign-up-form">
@@ -57,12 +58,10 @@
           <input type="password" name="user[password]" readonly onfocus="this.removeAttribute('readonly');"/>
         </label>
         <br/>
-        <label>
-          Confirm Password
-          <input type="password" name="user[confirm_password]" readonly onfocus="this.removeAttribute('readonly');"/>
-        </label>
+        <input type="checkbox" name="agreement" value="agreed" style="width: inherit; display: inline-block;"/>
+        <label for="agreement" style="display: inline-block; font-weight: normal;">I agree to not copy, sell and distribute for profit any of the chapter materials.</label>
         <br/>
-        <input type="submit" value="submit"/>
+        <input class="login" type="submit" value="submit"/>
       </form>
 
     </div>
@@ -113,6 +112,26 @@
         window.location = "/dashboard";
       },
 
+      error: function(response){
+        addError("not successful");
+      }
+    });
+  })
+
+  $("#demo").on("click", function(e){
+    e.preventDefault();
+    $.ajax({
+      url: "/api/session/new",
+      method: "POST",
+      dataType: "json",
+      contentType: "application/json",
+      data: JSON.stringify({
+        "email": "demony@lanyardblue.com",
+        "password": "demony",
+      }),
+      success: function(response){
+        window.location ="/dashboard";
+      },
       error: function(response){
         addError("not successful");
       }
