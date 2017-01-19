@@ -2,6 +2,10 @@ html, body{
   overflow-x: hidden;
 }
 
+#mobile-indicator{
+  display: none;
+}
+
 .link-normal{
   color: white;
   text-decoration: none;
@@ -57,12 +61,12 @@ body{
 
 .chapters-list{
   background-color: #3d3d3d;
-  min-height: 100vh;
   min-height: 150vh;
   color: white;
   padding-left: 2.5%;
   padding-top: 2.5%;
   padding-right: 2.5%;
+  padding-bottom: 2.5%;
 }
 
 .chapters-list-item{
@@ -78,6 +82,8 @@ body{
   display: inline-block;
   min-width: 90%;
 }
+
+
 .chapters-list-item.passed{
   background-color: #00bc8c;
 }
@@ -90,10 +96,17 @@ body{
   padding-top: 2.5%;
   padding-bottom: 20%;
 }
-.chapter-go-button, .chapter-check-button{
+
+
+.chapter-go-button, .chapter-check-button, .chapter-go-back-button{
   padding-left: 2.5rem;
   padding-right: 2.5rem;
   border-radius: 0px;
+}
+.chapter-go-back-button{
+  margin-left: 1rem;
+  background-color: #6d6b6b;
+  border-color: #6d6b6b;
 }
 .step-in-chapters{
   display: flex;
@@ -128,6 +141,53 @@ body{
   text-align: center;
   font-size: 1.7rem;
   pointer-events: auto;
+}
+.next-step-img{
+  height: 3rem;
+}
+
+@media (max-width: 990px) {
+  #mobile-indicator{
+    display: block;
+  }
+  .chapters-list{
+    height: inherit;
+    min-height: 0px;
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: center;
+  }
+  .chapters-list-item{
+    min-width: 70%;
+  }
+  .chapters-detailed{
+    display: none;
+  }
+  .chapters-detailed.inChapter{
+    display: block;
+  }
+  .move-item-list-group{
+    display: none;
+  }
+  .move-item-list-group-item{
+    padding: 0px;
+    border: none;
+    background-color: white;
+    border: none;
+    border: 1px solid #222222;
+    border-radius: 0px !important;
+  }
+  .move-item-list-group-item-btn{
+    border: none;
+    border-radius: 0px;
+    min-width: 15%;
+    color: black;
+  }
+  .move-item-list-group-item-btn-statement{
+    border: none;
+    border-radius: 0px;
+
+  }
 }
 span.separate{
   display: block;

@@ -42,12 +42,13 @@ var Chapter = React.createClass({
           <div>
             {props.currentState.steps.map((step, idx) => {
               return (
-                <StepInChapter wrongItems={props.wrongItems} itemMoveStates={props.itemMoveStates} key={idx} index={idx + 1} step={step} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
+                <StepInChapter device={props.device} wrongItems={props.wrongItems} itemMoveStates={props.itemMoveStates} key={idx} index={idx + 1} step={step} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
               )
             })}
+            <h3>&nbsp;</h3>
           </div>
         </div>
-        <div className="col-md-8 chapters-detailed height-align">
+        <div className="col-md-8 chapters-detailed height-align inChapter">
           <button className="btn btn-default chapter-go-button" onClick={() => {
              props.goBackChapters();
           }}>Back to Chapters</button>
@@ -57,10 +58,10 @@ var Chapter = React.createClass({
           <div className="row statement-holder">
             <h3>Month Cash Flow Statment</h3>
             <div className="col-sm-6">
-              <StatementItemList name={'income'} list={incomeList} wrongItems={props.wrongItems} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
+              <StatementItemList device={props.device} name={'income'} list={incomeList} wrongItems={props.wrongItems} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
             </div>
             <div className="col-sm-6">
-              <StatementItemList name={'expenses'} list={expensesList} wrongItems={props.wrongItems} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
+              <StatementItemList device={props.device} name={'expenses'} list={expensesList} wrongItems={props.wrongItems} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
             </div>
           </div>
           <h6>&nbsp;</h6>
@@ -76,10 +77,10 @@ var Chapter = React.createClass({
           <div className="row statement-holder">
             <h3>Month Balance Sheet</h3>
             <div className="col-sm-6">
-              <StatementItemList name={'assets'} list={assetsList} wrongItems={props.wrongItems} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
+              <StatementItemList device={props.device} name={'assets'} list={assetsList} wrongItems={props.wrongItems} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
             </div>
             <div className="col-sm-6">
-              <StatementItemList name={'liabilities'} list={liabilitiesList} wrongItems={props.wrongItems} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
+              <StatementItemList device={props.device} name={'liabilities'} list={liabilitiesList} wrongItems={props.wrongItems} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
             </div>
           </div>
           <h6>&nbsp;</h6>
@@ -103,7 +104,7 @@ var Chapter = React.createClass({
           <div className="row statement-holder">
             <h3>Removed Items</h3>
             <div className="col-sm-6">
-              <StatementItemList name={'deleted'} list={deletedList} wrongItems={props.wrongItems} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
+              <StatementItemList device={props.device} name={'deleted'} list={deletedList} wrongItems={props.wrongItems} itemMoveStates={props.itemMoveStates} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
             </div>
           </div>
           <hr/>

@@ -43,6 +43,7 @@ const _initState = {
   outputText: "(none)",
   mode: "chapters", // chapters, chapter
   user: globalUserData,
+  device: globalDeviceData,
   wrongItems: {},
   currentChapterEvaluation: "incomplete",
   itemMoveStates: {

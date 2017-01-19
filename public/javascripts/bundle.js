@@ -23886,6 +23886,7 @@
 	  outputText: "(none)",
 	  mode: "chapters", // chapters, chapter
 	  user: globalUserData,
+	  device: globalDeviceData,
 	  wrongItems: {},
 	  currentChapterEvaluation: "incomplete",
 	  itemMoveStates: {
@@ -24627,7 +24628,7 @@
 	
 	  switch (props.states.mode) {
 	    case "chapters":
-	      return _react2.default.createElement(_chapters2.default, { user: props.states.user, chapters: props.states.chapters, currentChapter: props.states.currentChapter, selectChapter: props.states.selectChapter, startChapter: props.states.startChapter, formatNumber: formatNumber });
+	      return _react2.default.createElement(_chapters2.default, { user: props.states.user, device: props.states.device, chapters: props.states.chapters, currentChapter: props.states.currentChapter, selectChapter: props.states.selectChapter, startChapter: props.states.startChapter, formatNumber: formatNumber });
 	      break;
 	    case "chapter":
 	      return _react2.default.createElement(_chapter2.default, { chapter: props.states.currentChapter, currentState: props.states.currentState, switchMode: props.states.switchMode, goBackChapters: props.states.goBackChapters,
@@ -24640,6 +24641,8 @@
 	        itemMoveStates: props.states.itemMoveStates,
 	        formatNumber: formatNumber,
 	        checkAnswer: props.states.checkAnswer,
+	        user: props.states.user,
+	        device: props.states.device,
 	        saveUser: props.states.saveUser,
 	        wrongItems: props.states.wrongItems,
 	        chapterEvaluation: props.states.currentChapterEvaluation,
@@ -24706,6 +24709,10 @@
 	              'div',
 	              { className: "chapters-list-item " + (props.user.chaptersPassed[chapter.id] ? "passed" : ""), onClick: function onClick() {
 	                  props.selectChapter(chapter.id);
+	                  if (props.device.isMobile) {
+	                    $(".chapters-detailed").css("display", "block");
+	                    $(".chapters-list").css("display", "none");
+	                  }
 	                }, key: chapter.id },
 	              idx + ". ",
 	              '\xA0\xA0',
@@ -24734,6 +24741,14 @@
 	            } },
 	          'Start Chapter Exercises'
 	        ),
+	        props.device.isMobile ? _react2.default.createElement(
+	          'button',
+	          { className: 'btn btn-default chapter-go-back-button', onClick: function onClick() {
+	              $(".chapters-detailed").css("display", "none");
+	              $(".chapters-list").css("display", "block");
+	            } },
+	          'Back to Chapters'
+	        ) : "",
 	        _react2.default.createElement('hr', null),
 	        _react2.default.createElement(
 	          'div',
@@ -24969,13 +24984,18 @@
 	          'div',
 	          null,
 	          props.currentState.steps.map(function (step, idx) {
-	            return _react2.default.createElement(_step_in_chapter2.default, { wrongItems: props.wrongItems, itemMoveStates: props.itemMoveStates, key: idx, index: idx + 1, step: step, moveUtilities: moveUtilities, formatNumber: props.formatNumber });
-	          })
+	            return _react2.default.createElement(_step_in_chapter2.default, { device: props.device, wrongItems: props.wrongItems, itemMoveStates: props.itemMoveStates, key: idx, index: idx + 1, step: step, moveUtilities: moveUtilities, formatNumber: props.formatNumber });
+	          }),
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            '\xA0'
+	          )
 	        )
 	      ),
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'col-md-8 chapters-detailed height-align' },
+	        { className: 'col-md-8 chapters-detailed height-align inChapter' },
 	        _react2.default.createElement(
 	          'button',
 	          { className: 'btn btn-default chapter-go-button', onClick: function onClick() {
@@ -25005,12 +25025,12 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-6' },
-	            _react2.default.createElement(_statement_item_list2.default, { name: 'income', list: incomeList, wrongItems: props.wrongItems, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
+	            _react2.default.createElement(_statement_item_list2.default, { device: props.device, name: 'income', list: incomeList, wrongItems: props.wrongItems, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-6' },
-	            _react2.default.createElement(_statement_item_list2.default, { name: 'expenses', list: expensesList, wrongItems: props.wrongItems, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
+	            _react2.default.createElement(_statement_item_list2.default, { device: props.device, name: 'expenses', list: expensesList, wrongItems: props.wrongItems, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -25057,12 +25077,12 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-6' },
-	            _react2.default.createElement(_statement_item_list2.default, { name: 'assets', list: assetsList, wrongItems: props.wrongItems, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
+	            _react2.default.createElement(_statement_item_list2.default, { device: props.device, name: 'assets', list: assetsList, wrongItems: props.wrongItems, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-6' },
-	            _react2.default.createElement(_statement_item_list2.default, { name: 'liabilities', list: liabilitiesList, wrongItems: props.wrongItems, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
+	            _react2.default.createElement(_statement_item_list2.default, { device: props.device, name: 'liabilities', list: liabilitiesList, wrongItems: props.wrongItems, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -25132,7 +25152,7 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-6' },
-	            _react2.default.createElement(_statement_item_list2.default, { name: 'deleted', list: deletedList, wrongItems: props.wrongItems, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
+	            _react2.default.createElement(_statement_item_list2.default, { device: props.device, name: 'deleted', list: deletedList, wrongItems: props.wrongItems, itemMoveStates: props.itemMoveStates, moveUtilities: moveUtilities, formatNumber: props.formatNumber })
 	          )
 	        ),
 	        _react2.default.createElement('hr', null)
@@ -25201,7 +25221,7 @@
 	    _react2.default.createElement(
 	      'div',
 	      { className: 'col-sm-12' },
-	      props.step.action_items.length > 0 ? _react2.default.createElement(_item_list_active2.default, { wrongItems: props.wrongItems, moveUtilities: props.moveUtilities, itemMoveStates: props.itemMoveStates, isStatement: false, id: props.step.step_title, title: 'Action Items', items: props.step.action_items, formatNumber: props.formatNumber }) : "",
+	      props.step.action_items.length > 0 ? _react2.default.createElement(_item_list_active2.default, { device: props.device, wrongItems: props.wrongItems, moveUtilities: props.moveUtilities, itemMoveStates: props.itemMoveStates, isStatement: false, id: props.step.step_title, title: 'Action Items', items: props.step.action_items, formatNumber: props.formatNumber }) : "",
 	      _react2.default.createElement('span', { className: 'separate' })
 	    )
 	  );
@@ -25235,6 +25255,110 @@
 	  var currentSelectedList = props.itemMoveStates.currentSelectedList;
 	  var currentTargetItem = props.itemMoveStates.currentTargetItem;
 	  var currentTargetList = props.itemMoveStates.currentTargetList;
+	  var isMobile = props.device.isMobile;
+	
+	  if (isMobile) {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'item-list-active' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'item-list-active-title' },
+	        props.items.length > 0 ? _react2.default.createElement(
+	          'span',
+	          { className: 'star' },
+	          '\u2605 \xA0\xA0'
+	        ) : _react2.default.createElement(
+	          'span',
+	          { className: 'star' },
+	          '\u2606 \xA0\xA0'
+	        ),
+	        ' ',
+	        props.title
+	      ),
+	      props.items.map(function (item, idx) {
+	        return _react2.default.createElement(
+	          'div',
+	          { key: idx },
+	          _react2.default.createElement(
+	            'div',
+	            { className: "item-list-active-item " + (props.wrongItems[item.name] ? "wrong" : ""), 'data-dropdown': false, onClick: function onClick(e) {
+	                var item = $(e.currentTarget);
+	                var isDropDown = item.data("dropdown");
+	                if (!isDropDown) {
+	                  item.find("img").css("transform", "rotate(0.25turn)");
+	                  item.next().css("display", "block");
+	                  item.data("dropdown", true);
+	                } else {
+	                  item.find("img").css("transform", "rotate(0turn)");
+	                  item.next().css("display", "none");
+	                  item.data("dropdown", false);
+	                }
+	              } },
+	            _react2.default.createElement('div', { className: 'col-sm-3' }),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-6' },
+	              item.name,
+	              _react2.default.createElement(
+	                'span',
+	                null,
+	                '\xA0\xA0\xA0\xA0\xA0'
+	              ),
+	              '$',
+	              props.formatNumber(item.amount),
+	              _react2.default.createElement(
+	                'span',
+	                null,
+	                '\xA0\xA0\xA0\xA0\xA0'
+	              ),
+	              _react2.default.createElement('img', { className: 'next-step-img', src: 'images/next.png' })
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'ul',
+	            { className: 'list-group move-item-list-group', key: idx },
+	            _react2.default.createElement(
+	              'li',
+	              { className: 'list-group-item move-item-list-group-item' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'btn move-item-list-group-item-btn' },
+	                'Move To:'
+	              ),
+	              _react2.default.createElement('br', null),
+	              _react2.default.createElement(
+	                'button',
+	                { className: 'btn move-item-list-group-item-btn' },
+	                'Income'
+	              ),
+	              _react2.default.createElement(
+	                'button',
+	                { className: 'btn move-item-list-group-item-btn' },
+	                'Expenses'
+	              ),
+	              _react2.default.createElement(
+	                'button',
+	                { className: 'btn move-item-list-group-item-btn' },
+	                'Assets'
+	              ),
+	              _react2.default.createElement(
+	                'button',
+	                { className: 'btn move-item-list-group-item-btn' },
+	                'Liabilities'
+	              ),
+	              _react2.default.createElement(
+	                'button',
+	                { className: 'btn move-item-list-group-item-btn' },
+	                'Deleted'
+	              )
+	            )
+	          )
+	        );
+	      })
+	    );
+	  }
+	
 	  return _react2.default.createElement(
 	    'div',
 	    { className: 'item-list-active', onMouseLeave: props.moveUtilities.deSelectTargetItem },
@@ -25358,6 +25482,109 @@
 	  var currentSelectedList = props.itemMoveStates.currentSelectedList;
 	  var currentTargetItem = props.itemMoveStates.currentTargetItem;
 	  var currentTargetList = props.itemMoveStates.currentTargetList;
+	  var isMobile = props.device.isMobile;
+	
+	  if (isMobile) {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'item-list-active' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'item-list-active-title' },
+	        props.list.length > 0 ? _react2.default.createElement(
+	          'span',
+	          { className: 'star' },
+	          '\u2605 \xA0\xA0'
+	        ) : _react2.default.createElement(
+	          'span',
+	          { className: 'star' },
+	          '\u2606 \xA0\xA0'
+	        ),
+	        ' ',
+	        props.name.charAt(0).toUpperCase() + props.name.slice(1)
+	      ),
+	      props.list.map(function (item, idx) {
+	        return _react2.default.createElement(
+	          'div',
+	          { key: idx },
+	          _react2.default.createElement(
+	            'div',
+	            { className: "item-list-active-item " + (props.wrongItems[item.name] ? "wrong" : ""), 'data-dropdown': false, onClick: function onClick(e) {
+	                var item = $(e.currentTarget);
+	                var isDropDown = item.data("dropdown");
+	                if (!isDropDown) {
+	                  item.find("img").css("transform", "rotate(0.25turn)");
+	                  item.next().css("display", "block");
+	                  item.data("dropdown", true);
+	                } else {
+	                  item.find("img").css("transform", "rotate(0turn)");
+	                  item.next().css("display", "none");
+	                  item.data("dropdown", false);
+	                }
+	              } },
+	            _react2.default.createElement('div', { className: 'col-sm-2' }),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-8' },
+	              item.name,
+	              _react2.default.createElement(
+	                'span',
+	                null,
+	                '\xA0\xA0\xA0\xA0\xA0'
+	              ),
+	              '$',
+	              props.formatNumber(item.amount),
+	              _react2.default.createElement(
+	                'span',
+	                null,
+	                '\xA0\xA0\xA0\xA0\xA0'
+	              ),
+	              _react2.default.createElement('img', { className: 'next-step-img', src: 'images/next.png' })
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'ul',
+	            { className: 'list-group move-item-list-group', key: idx },
+	            _react2.default.createElement(
+	              'li',
+	              { className: 'list-group-item move-item-list-group-item' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'btn move-item-list-group-item-btn' },
+	                'Move To:'
+	              ),
+	              _react2.default.createElement('br', null),
+	              _react2.default.createElement(
+	                'button',
+	                { className: 'btn move-item-list-group-item-btn-statement' },
+	                'Income'
+	              ),
+	              _react2.default.createElement(
+	                'button',
+	                { className: 'btn move-item-list-group-item-btn-statement' },
+	                'Expenses'
+	              ),
+	              _react2.default.createElement(
+	                'button',
+	                { className: 'btn move-item-list-group-item-btn-statement' },
+	                'Assets'
+	              ),
+	              _react2.default.createElement(
+	                'button',
+	                { className: 'btn move-item-list-group-item-btn-statement' },
+	                'Liabilities'
+	              ),
+	              _react2.default.createElement(
+	                'button',
+	                { className: 'btn move-item-list-group-item-btn-statement' },
+	                'Deleted'
+	              )
+	            )
+	          )
+	        );
+	      })
+	    );
+	  }
 	
 	  return _react2.default.createElement(
 	    'div',

@@ -10,7 +10,7 @@ var ContentWrapper = (props) => {
   switch (props.states.mode) {
     case "chapters":
       return (
-        <Chapters user={props.states.user} chapters={props.states.chapters} currentChapter={props.states.currentChapter} selectChapter={props.states.selectChapter} startChapter={props.states.startChapter} formatNumber={formatNumber}/>
+        <Chapters user={props.states.user} device={props.states.device} chapters={props.states.chapters} currentChapter={props.states.currentChapter} selectChapter={props.states.selectChapter} startChapter={props.states.startChapter} formatNumber={formatNumber}/>
       );
       break;
     case "chapter":
@@ -25,6 +25,8 @@ var ContentWrapper = (props) => {
           itemMoveStates={props.states.itemMoveStates}
           formatNumber={formatNumber}
           checkAnswer={props.states.checkAnswer}
+          user={props.states.user}
+          device={props.states.device}
           saveUser={props.states.saveUser}
           wrongItems={props.states.wrongItems}
           chapterEvaluation={props.states.currentChapterEvaluation}

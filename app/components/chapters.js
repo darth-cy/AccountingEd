@@ -15,6 +15,10 @@ var Chapters = React.createClass({
             {$.map(props.chapters, (chapter, idx) => (
               <div className={"chapters-list-item " + (props.user.chaptersPassed[chapter.id] ? "passed" : "")}  onClick={function(){
                 props.selectChapter(chapter.id);
+                if(props.device.isMobile){
+                  $(".chapters-detailed").css("display", "block");
+                  $(".chapters-list").css("display", "none");
+                }
               }} key={chapter.id}>{idx + ". "}&nbsp;&nbsp;{chapter.title}</div>
             ))}
           </div>
@@ -25,6 +29,10 @@ var Chapters = React.createClass({
           <button className="btn btn-default chapter-go-button" onClick={() => {
              props.startChapter(props.currentChapter.id);
           }}>Start Chapter Exercises</button>
+          {props.device.isMobile ? (<button className="btn btn-default chapter-go-back-button" onClick={() => {
+            $(".chapters-detailed").css("display", "none");
+            $(".chapters-list").css("display", "block");
+          }}>Back to Chapters</button>) : ""}
           <hr/>
           <div>
             {props.currentChapter.steps.map((step, idx) => {

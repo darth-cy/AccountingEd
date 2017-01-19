@@ -4,15 +4,6 @@
 <div class="container-fluid navbar">
   <a class="link-normal" href="/"><h3>LanyardBlue</h3></a>
 </div>
-<script>
-  function generateId(){
-    var result = [];
-    for(var i = 0; i < 15; i++){
-      result.push(Math.floor(Math.random()*100));
-    }
-    return result.join("-")
-  }
-</script>
 
 <div class="container-fluid">
   <div class="row login-row">
@@ -58,7 +49,12 @@
           <input type="password" name="user[password]" readonly onfocus="this.removeAttribute('readonly');"/>
         </label>
         <br/>
-        <input type="checkbox" name="agreement" value="agreed" style="width: inherit; display: inline-block;"/>
+        <label>
+          Confirm Password
+          <input type="password" name="user[password_confirm]" readonly onfocus="this.removeAttribute('readonly');"/>
+        </label>
+        <br/>
+        <input id="agreement-status" type="checkbox" name="agreement" value="agreed" style="width: inherit; display: inline-block;"/>
         <label for="agreement" style="display: inline-block; font-weight: normal;">I agree to not copy, sell and distribute for profit any of the chapter materials.</label>
         <br/>
         <input class="login" type="submit" value="submit"/>
@@ -91,7 +87,7 @@
 <script src="/javascripts/bundle.js"></script>
 <script>
   var addError = function(err){
-    console.log(err);
+    alert(err);
   };
 
   $("#log-in-form").on("submit", function(e){
@@ -133,13 +129,19 @@
         window.location ="/dashboard";
       },
       error: function(response){
-        addError("not successful");
+        addError("the credential failed.");
       }
     });
   })
 
   $("#sign-up-form").on("submit", function(e){
     e.preventDefault();
+
+    if(!$("#agreement-status")[0].checked){
+      addError("Please agree to preserve the copyright of this site.");
+      return 1;
+    }
+
     var data = $(e.currentTarget).serializeArray();
     if(data[2].value != data[3].value){
       addError("password must match");
@@ -162,7 +164,7 @@
       },
 
       error: function(response){
-        addError("not successful")
+        addError("signup failed for some reason.")
       }
     });
   })
