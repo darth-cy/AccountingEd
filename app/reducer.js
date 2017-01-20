@@ -132,6 +132,7 @@ const reducer = (prevState=_initState, action) => {
       var selected = from[findIdxByNameInList(from, action.payload.itemName)];
       from.splice(findIdxByNameInList(from, action.payload.itemName), 1);
       to.push(selected);
+      delete newState.wrongItems[action.payload.itemName];
       return newState;
     case "CHECK_ANSWER":
       var shouldContain = newState.currentChapter.criteria.should_contain;

@@ -8,6 +8,7 @@ var ChapterNotification = React.createClass({
     }
 
     if(this.props.evaluation == "correct"){
+      $(window).scrollTop(0);
       return (
         <div id="notification" className="alert alert-dismissible alert-success">
           &nbsp;&nbsp;Fantastic! You have passed this exercise!
@@ -15,6 +16,7 @@ var ChapterNotification = React.createClass({
         </div>
       )
     }else if(this.props.evaluation == "incorrect"){
+      $(window).scrollTop(0);
       return (
         <div id="notification" className="alert alert-dismissible alert-danger">
         &nbsp;&nbsp;Oops! It seems some items are in the wrong lists.

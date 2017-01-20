@@ -23977,6 +23977,7 @@
 	      var selected = from[findIdxByNameInList(from, action.payload.itemName)];
 	      from.splice(findIdxByNameInList(from, action.payload.itemName), 1);
 	      to.push(selected);
+	      delete newState.wrongItems[action.payload.itemName];
 	      return newState;
 	    case "CHECK_ANSWER":
 	      var shouldContain = newState.currentChapter.criteria.should_contain;
@@ -25778,6 +25779,7 @@
 	    };
 	
 	    if (this.props.evaluation == "correct") {
+	      $(window).scrollTop(0);
 	      return _react2.default.createElement(
 	        "div",
 	        { id: "notification", className: "alert alert-dismissible alert-success" },
@@ -25789,6 +25791,7 @@
 	        )
 	      );
 	    } else if (this.props.evaluation == "incorrect") {
+	      $(window).scrollTop(0);
 	      return _react2.default.createElement(
 	        "div",
 	        { id: "notification", className: "alert alert-dismissible alert-danger" },
