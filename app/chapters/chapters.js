@@ -1,50 +1,70 @@
 export const CHAPTERS = {
   "1": {
     id: "1",
-    title: "A Cash Bonus",
-    description: "In this first exercise, we study the origin of wealth -- income. Extra income contributes an increase to our equity and is usually favorable in any financial situation.",
+    title: "Salary, Bonus and Extras",
+    description: "Welcome to the course! In this first chapter, we study the origin of wealth -- income. Salaries and additional extra income contribute an increase to your equity and is favorable in increasing your wealth. They flow directly into your net equity and usually come from your labor.",
     steps: [
       {
         step_title: "An Extra Something",
         description: "Your colleagues secretly recommended you for a professional award and you stood out from all the candidates. The award grants an unexpected $2,500 for your income this month.",
-        hint: "Click on the item you wish to move. Then, move your mouse around until the item hovers over a desirable location. Click again to snap the item to its new location.",
+        hint: "If you're on a desktop, click and drag the action items to a desired location. If you're using a mobile device, tap on the item and choose the desired location from the dropdown.",
         action_items: [
-          {name: "Cash Reward", descriptions: "Good professional!", amount: 2500}
+          {name: "Cash Reward", descriptions: "Good professional!", amount: 2500, regular: false}
         ]
+      },
+      {
+        step_title: "First Expense",
+        description: "You decided to treat yourself to a nice dinner using the reward money. These types of cash outflow is categorized as expenses because the acquired item (in this case dinner) doesn't have future cash value (it's gone after you eat it).",
+        action_items: [
+          {name: "Dinner Treat", description: "surg", amount: 145, regular: false}
+        ]
+      },
+      {
+        step_title: "Reflection",
+        description: "Notice that this month, your actual inflow is much higher than regular inflow. Sporadic cash rewards are not re-occuring items and thus should be analyzed separately from regular items that concern long-term financial planning.",
+        hint: "Don't worry about the green entries for now. We'll explain them shortly.",
+        action_items: []
       }
     ],
 
     statements: {
       cash_flow_statement: {
         income: [
-          {name: "On-Campus Work Salary", item_description: "The campus employes you to lower the cost of the personnels here at the department.", amount: 1400}
+          {name: "Salary", item_description: "The campus employes you to lower the cost of the personnels here at the department.", amount: 2300, regular: true}
         ],
         expenses: [
-          {name: "Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 750},
-          {name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 560},
+          {name: "Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 750, regular: true},
+          {name: "Student Loan Monthly Pay", item_description: "not", amount: 65, regular: true},
+          {name: "Credit Card Monthly Pay", item_description: "e", amount: 80, regular: true},
+          {name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 560, regular: true},
         ],
       },
       balance_sheet: {
         assets: [
           {name: "Cash", item_description: "Home.", amount: 3460},
-          {name: "Macbook", item_description: "Simple, cold, and sure.", amount: 1350},
+          {name: "Other Assets", item_description: "Simple, cold, and sure.", amount: 1350},
         ],
         liabilities: [
-          {name: "Parent Support", item_description: "Your parents support your expenses", amount: 4000},
+          {name: "Student Loan", item_description: "Your parents support your expenses", amount: 2000},
+          {name: "Credit Card Balance", item_description: "credit", amount: 734},
         ],
       },
       deleted: []
     },
-    equity: 810,
+    equity: 2076,
     criteria: {
       should_contain: [
-        ["income", "On-Campus Work Salary"],
+        ["income", "Salary"],
         ["income", "Cash Reward"],
         ["expenses", "Rent"],
+        ["expenses", "Student Loan Monthly Pay"],
         ["expenses", "Other Expenses"],
+        ["expenses", "Dinner Treat"],
+        ["expenses", "Credit Card Monthly Pay"]
         ["assets", "Cash"],
-        ["assets", "Macbook"],
-        ["liabilities", "Parent Support"],
+        ["assets", "Other Assets"],
+        ["liabilities", "Student Loan"],
+        ["liabilities", "Credit Card Balance"]
       ],
       should_be: [
         ["equity": 75370]
@@ -54,6 +74,146 @@ export const CHAPTERS = {
 
   "2": {
     id: "2",
+    title: "Acquire an Income-generating Asset",
+    description: "Assets are properties that have cash value (meaning they can be sold for a price). But not all assets are created equal. A sub-ideal asset is something that will deteriorate and generate no upside income, such as a car only you drive or a house only you live in. An ideal asset should generate extra income on your behalf without you tending to them (known as passive income). Examples include housings that are rented out (generate rent income), items for lending (generate usage fee), and businesses (generate profit).",
+    steps: [
+      {
+        step_title: "An Eye for Value",
+        description: "Income-generating assets generate extra income usually because other people are willing to use them for a fee. That's exactly why you decided to purchase a collection of rare books at the flee market last Saturday because you know someone will want to borrow them for a fee.",
+        hint: "Book purchases seem like expenses, but if you can circulate them for usage fees, then they generate additional income for you. Notice that in accounting, potential appreciation in value is not counted (because these premiums are not certain). Besides, betting on asset's future value usually generates less return than creating tangible income today.",
+        action_items: [
+          {name: "Pay for Rare Books", descriptions: "Good professional!", amount: 2400},
+          {name: "Rare Books Collection", descriptions: "bok", amount: 2400}
+        ]
+      },
+      {
+        step_title: "Mini Rare Book Library",
+        description: "You posted several advertisements online for the rare books you collected. Within a few days, a number of people responded, expressing interest in borrowing them for a monthly fee.",
+        hint: "$75 each month on $2400 investment is 3% return/month and 36% return/yr -- a handsome rate. Many people lack patience and instead pursue the legendary 400%+ return on stock investments. It should be noted that such cases are rare and involve significantly higher risk than income from operations.",
+        action_items: [
+          {name: "Book Lending Income", description: "surg", amount: 75, passive: true}
+        ]
+      }
+    ],
+
+    statements: {
+      cash_flow_statement: {
+        income: [
+          {name: "Salary", item_description: "The campus employes you to lower the cost of the personnels here at the department.", amount: 2300}
+        ],
+        expenses: [
+          {name: "Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 750},
+          {name: "Student Loan Monthly Pay", item_description: "not", amount: 65},
+          {name: "Credit Card Monthly Pay", item_description: "e", amount: 80},
+          {name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 560},
+        ],
+      },
+      balance_sheet: {
+        assets: [
+          {name: "Cash", item_description: "Home.", amount: 5960},
+          {name: "Other Assets", item_description: "Simple, cold, and sure.", amount: 1350},
+        ],
+        liabilities: [
+          {name: "Student Loan", item_description: "Your parents support your expenses", amount: 2000},
+          {name: "Credit Card Balance", item_description: "credit", amount: 734},
+        ],
+      },
+      deleted: []
+    },
+    equity: 4576,
+    criteria: {
+      should_contain: [
+        ["income", "Salary"],
+        ["income", "Book Lending Income"],
+        ["expenses", "Rent"],
+        ["expenses", "Student Loan Monthly Pay"],
+        ["expenses", "Other Expenses"],
+        ["expenses", "Credit Card Monthly Pay"],
+        ["expenses", "Pay for Rare Books"],
+        ["assets", "Cash"],
+        ["assets", "Rare Books Collection"],
+        ["assets", "Other Assets"],
+        ["liabilities", "Student Loan"],
+        ["liabilities", "Credit Card Balance"]
+      ],
+      should_be: [
+        ["equity": 75370]
+      ]
+    }
+  },
+
+  "3": {
+    id: "3",
+    title: "Shed Debts and Liabilities",
+    description: "As a simple starter, liabilities are things that you owe to others. In light of this fact, liabilities usually generate negative payments each month, such as loan payment or mortgage service. However, like assets, liabilities are also not created equal. The ideal type of liability is one that requires $0 monthly payment and doens't pressure you to pay it back anytime soon. For example, an interest-free loan of $1000 for 100 years is superb (a cheap liability) while a $500 payday loan that needs to be paid back next month for $30 interest is terrible (a very expensive liability). In a later chapter, we'll learn refinancing, which is a method of substituting expensive liabilities with cheapter ones.",
+    steps: [
+      {
+        step_title: "Debt-free Student",
+        description: "After several month of saving, you acquired enough cash to pay back the student loan you took out. The move will free you from the monthly payment that has haunted you for 2 years.",
+        hint: "To drop an item from the sheet, send it to the deleted list near the bottom of the screen. In this case, you should drop the student loan entry you just paid back and its monthly payment.",
+        action_items: [
+          {name: "Student Loan Payback", descriptions: "Good professional!", amount: 2000},
+        ]
+      },
+      {
+        step_title: "Bye Bye Credit Card",
+        description: "You posted several advertisements online for the rare books you collected. Within a few days, a number of people responded, expressing interest in borrowing them for a monthly fee.",
+        hint: "$75 each month on $2400 investment is 3% return/month and 36% return/yr -- a handsome rate. Many people lack patience and instead pursue the legendary 400%+ return on stock investments. It should be noted that such cases are rare and involve significantly higher risk than income from operations.",
+        action_items: [
+
+        ]
+      }
+    ],
+
+    statements: {
+      cash_flow_statement: {
+        income: [
+          {name: "Salary", item_description: "The campus employes you to lower the cost of the personnels here at the department.", amount: 2300},
+          {name: "Book Lending Income", description: "surg", amount: 75}
+        ],
+        expenses: [
+          {name: "Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 750},
+          {name: "Student Loan Monthly Pay", item_description: "not", amount: 65},
+          {name: "Credit Card Monthly Pay", item_description: "e", amount: 80},
+          {name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 560},
+        ],
+      },
+      balance_sheet: {
+        assets: [
+          {name: "Cash", item_description: "Home.", amount: 5960},
+          {name: "Rare Books Collection", descriptions: "bok", amount: 2400},
+          {name: "Other Assets", item_description: "Simple, cold, and sure.", amount: 1350},
+        ],
+        liabilities: [
+          {name: "Student Loan", item_description: "Your parents support your expenses", amount: 2000},
+          {name: "Credit Card Balance", item_description: "credit", amount: 734},
+        ],
+      },
+      deleted: []
+    },
+    equity: 2810,
+    criteria: {
+      should_contain: [
+        ["income", "Salary"],
+        ["income", "Book Lending Income"],
+        ["expenses", "Rent"],
+        ["expenses", "Student Loan Monthly Pay"],
+        ["expenses", "Other Expenses"],
+        ["expenses", "Pay for Rare Books"],
+        ["assets", "Cash"],
+        ["assets", "Rare Books Collection"],
+        ["assets", "Other Assets"],
+        ["liabilities", "Student Loan"],
+      ],
+      should_be: [
+        ["equity": 75370]
+      ]
+    }
+  },
+
+
+  "4": {
+    id: "4",
     title: "Shedding Liabilities",
     description: "In this exercise, we learn to cross off our liability entries and their service payments. Eliminating negative income is equivalent to increasing your net income and is therefore favorable in most situations. The bank you loaned the amount from quotes $75 for early settlement processing.",
     steps: [
@@ -114,8 +274,8 @@ export const CHAPTERS = {
     }
   },
 
-  "3": {
-    id: "3",
+  "4": {
+    id: "4",
     title: "Company Stock",
     description: "In this exercise you'll deal with stock purchase accounting. Although the stock may appreciate in value, it's not certain. Instead of creating an illusion of wealth by adding speculative values, stocks are usually accounted using their purchase price.",
     steps: [

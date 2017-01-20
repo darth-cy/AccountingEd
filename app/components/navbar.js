@@ -21,7 +21,7 @@ var Navbar = () => {
   return (
     <div className="container-fluid navbar">
       <h3>Lanyard Blue</h3>
-      <span>Automated Personal Accounting Exercises</span>
+      <span>Automated Personal Finance Exercises</span>
       <img className="navbar-img" src="/images/logout.png" onClick={logout}/>
     </div>
   );

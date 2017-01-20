@@ -24,11 +24,19 @@ var Chapter = React.createClass({
     var liabilitiesList = props.currentState.statements.balance_sheet.liabilities;
     var deletedList = props.currentState.statements.deleted;
 
-    var netIncome = incomeList.reduce((total, item) => { return total + item.amount; }, 0) - expensesList.reduce((total, item) => { return total + item.amount }, 0);
+    var income = incomeList.reduce((total, item) => { return total + item.amount; }, 0);
+    var regularIncome = incomeList.reduce((total, item) => { return total + (item.regular ? item.amount : 0)}, 0);
+    var expense = expensesList.reduce((total, item) => { return total + item.amount }, 0);
+    var regularExpense = expensesList.reduce((total, item) => { return total + (item.regular ? item.amount : 0)}, 0);
+    var netIncome =  income - expense;
+    var passiveIncome = incomeList.reduce((total, item) => { return total + (item.passive ? item.amount : 0); }, 0);
     var equity = assetsList.reduce((total, item) => { return total + item.amount; }, 0) - liabilitiesList.reduce((total, item) => { return total + item.amount }, 0);
     console.log(equity);
+    console.log(passiveIncome);
     var monthEndEquity = equity + netIncome;
     var startEquity = props.currentState.equity;
+    var passivePercentExpense = Math.round((passiveIncome/expense)*10000)/100;
+    // var passivePercentExpense = (passiveIncome / expensesList.reduce((total, item) => { return total + item.amount }, 0), 2))*100/100;
 
     var verifyAnswer = function(){
       props.checkAnswer();
@@ -69,8 +77,52 @@ var Chapter = React.createClass({
           <div className="row statement-holder">
             <div className="col-sm-6 gross-account">
               <div className="item-list-active">
+              <div className="col-sm-6">Regular Month InFlow: </div>
+              <div className="col-sm-6">{regularIncome < 0 ? "- $": "$"}{Math.abs(regularIncome)}</div>
+              </div>
+            </div>
+            <div className="col-sm-6 gross-account">
+              <div className="item-list-active">
+              <div className="col-sm-6">Regular Month OutFlow: </div>
+              <div className="col-sm-6">{regularExpense < 0 ? "- $": "$"}{Math.abs(regularExpense)}</div>
+              </div>
+            </div>
+          </div>
+          <br/>
+          <div className="row statement-holder">
+            <div className="col-sm-6 gross-account">
+              <div className="item-list-active">
+              <div className="col-sm-6">Actual Month InFlow: </div>
+              <div className="col-sm-6">{income < 0 ? "- $": "$"}{Math.abs(income)}</div>
+              </div>
+            </div>
+            <div className="col-sm-6 gross-account">
+              <div className="item-list-active">
+              <div className="col-sm-6">Actual Month OutFlow: </div>
+              <div className="col-sm-6">{expense < 0 ? "- $": "$"}{Math.abs(expense)}</div>
+              </div>
+            </div>
+          </div>
+          <div className="row statement-holder">
+            <div className="col-sm-6 gross-account">
+              <div className="item-list-active">
               <div className="col-sm-6">Month Net Cash Flow: </div>
               <div className="col-sm-6">{netIncome < 0 ? "- $": "$"}{Math.abs(netIncome)}</div>
+              </div>
+            </div>
+          </div>
+          <br/>
+          <div className="row statement-holder">
+            <div className="col-sm-6 gross-account" style={{"backgroundColor": "#198c19", "color": "white"}}>
+              <div className="item-list-active">
+              <div className="col-sm-6">Month P-Cash Flow: </div>
+              <div className="col-sm-6">{passiveIncome < 0 ? "- $": "$"}{Math.abs(passiveIncome)}</div>
+              </div>
+            </div>
+            <div className="col-sm-6 gross-account" style={{"backgroundColor": "#198c19", "color": "white"}}>
+              <div className="item-list-active">
+              <div className="col-sm-6">% P-Income / Reg. Expense: </div>
+              <div className="col-sm-6">{passivePercentExpense} %</div>
               </div>
             </div>
           </div>
