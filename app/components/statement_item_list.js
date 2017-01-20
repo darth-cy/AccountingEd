@@ -1,3 +1,5 @@
+'use strict'
+
 import React from 'react'
 import Item from './item'
 
@@ -9,6 +11,21 @@ var StatementItemList = (props) => {
   var currentTargetList = props.itemMoveStates.currentTargetList;
   var isMobile = props.device.isMobile;
 
+  function makeMoveFn(e, itemName, fromListName, toListName){
+    $(e.currentTarget).parent().parent().css("display", "none");
+    $(e.currentTarget).parent().parent().prev().data("dropdown", false);
+    $(e.currentTarget).parent().parent().prev().attr("data-dropdown", false);
+    $(e.currentTarget).parent().parent().prev().find("img").css("transform", "rotate(0turn)");
+    return function(){
+      props.moveUtilities.moveItemMobile({
+        itemName: itemName,
+        fromListName: fromListName,
+        toListName: toListName,
+      })
+      $(".item-list-active-item").attr("data-dropdown", false);
+    }
+  }
+
   if(isMobile){
     return (
       <div className="item-list-active">
@@ -18,15 +35,15 @@ var StatementItemList = (props) => {
             <div key={idx}>
               <div className={"item-list-active-item " + (props.wrongItems[item.name] ? "wrong" : "")} data-dropdown={false} onClick={(e) => {
                 var item = $(e.currentTarget);
-                var isDropDown = item.data("dropdown");
-                if(!isDropDown){
+                var isDropDown = item.attr("data-dropdown");
+                if(isDropDown == "false"){
                   item.find("img").css("transform", "rotate(0.25turn)");
                   item.next().css("display", "block");
-                  item.data("dropdown", true);
+                  item.attr("data-dropdown", true);
                 }else{
                   item.find("img").css("transform", "rotate(0turn)");
                   item.next().css("display", "none");
-                  item.data("dropdown", false);
+                  item.attr("data-dropdown", false);
                 }
               }}>
                 <div className="col-sm-2"></div>
@@ -39,15 +56,25 @@ var StatementItemList = (props) => {
                 </div>
               </div>
               <ul className="list-group move-item-list-group" key={idx}>
-                <li className="list-group-item move-item-list-group-item">
-                  <div className="btn move-item-list-group-item-btn">Move To:</div>
-                  <br/>
-                  <button className="btn move-item-list-group-item-btn-statement">Income</button>
-                  <button className="btn move-item-list-group-item-btn-statement">Expenses</button>
-                  <button className="btn move-item-list-group-item-btn-statement">Assets</button>
-                  <button className="btn move-item-list-group-item-btn-statement">Liabilities</button>
-                  <button className="btn move-item-list-group-item-btn-statement">Deleted</button>
-                </li>
+              <li className="list-group-item move-item-list-group-item">
+                <div className="btn move-item-list-group-item-btn">Move To:</div>
+                <br/>
+                <button className="btn move-item-list-group-item-btn" onClick={(e) => {
+                  makeMoveFn(e, item.name, props.name, "income")();
+              }}>Income</button>
+                <button className="btn move-item-list-group-item-btn" onClick={(e) => {
+                  makeMoveFn(e, item.name, props.name, "expenses")();
+                }}>Expenses</button>
+                <button className="btn move-item-list-group-item-btn" onClick={(e) => {
+                  makeMoveFn(e, item.name, props.name, "assets")();
+                }}>Assets</button>
+                <button className="btn move-item-list-group-item-btn" onClick={(e) => {
+                  makeMoveFn(e, item.name, props.name, "liabilities")();
+                }}>Liabilities</button>
+                <button className="btn move-item-list-group-item-btn" onClick={(e) => {
+                  makeMoveFn(e, item.name, props.name, "deleted")();
+                }}>Deleted</button>
+              </li>
               </ul>
             </div>
           )

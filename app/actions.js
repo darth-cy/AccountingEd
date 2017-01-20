@@ -5,6 +5,12 @@ export const GO_BACK_CHAPTERS = "GO_BACK_CHAPTERS";
 export const CHECK_ANSWER = "CHECK_ANSWER";
 export const SAVE_USER = "SAVE_USER";
 export const CHANGE_NOTIFICATION_STATE = "CHANGE_NOTIFICATION_STATE";
+export const MOVE_ITEM_MOBILE = "MOVE_ITEM_MOBILE";
+
+export const moveItemMobile = (spec) => ({
+  type: MOVE_ITEM_MOBILE,
+  payload: spec
+})
 
 export const outputContent = (spec) => ({
   type: OUTPUT_CONTENT,

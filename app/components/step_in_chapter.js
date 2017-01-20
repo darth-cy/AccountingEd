@@ -11,7 +11,7 @@ var StepInChapter = (props) => {
       </div>
       <h6>&nbsp;</h6>
       <div className="col-sm-12">
-        {props.step.action_items.length > 0 ? (<ItemListActive device={props.device} wrongItems={props.wrongItems} moveUtilities={props.moveUtilities} itemMoveStates={props.itemMoveStates} isStatement={false} id={props.step.step_title} title="Action Items" items={props.step.action_items} formatNumber={props.formatNumber}/>): ""}
+        {props.step.action_items.length > 0 ? (<ItemListActive device={props.device} step_title={props.step.step_title} wrongItems={props.wrongItems} moveUtilities={props.moveUtilities} itemMoveStates={props.itemMoveStates} isStatement={false} id={props.step.step_title} title="Action Items" items={props.step.action_items} formatNumber={props.formatNumber}/>): ""}
         <span className="separate"></span>
       </div>
     </div>

@@ -23971,6 +23971,13 @@
 	        currentTargetItem: undefined
 	      };
 	      return newState;
+	    case "MOVE_ITEM_MOBILE":
+	      var from = findCurrentStateListByName(newState.currentState, action.payload.fromListName);
+	      var to = findCurrentStateListByName(newState.currentState, action.payload.toListName);
+	      var selected = from[findIdxByNameInList(from, action.payload.itemName)];
+	      from.splice(findIdxByNameInList(from, action.payload.itemName), 1);
+	      to.push(selected);
+	      return newState;
 	    case "CHECK_ANSWER":
 	      var shouldContain = newState.currentChapter.criteria.should_contain;
 	      var shouldBe = newState.currentChapter.criteria.should_be;
@@ -24056,6 +24063,14 @@
 	var CHECK_ANSWER = exports.CHECK_ANSWER = "CHECK_ANSWER";
 	var SAVE_USER = exports.SAVE_USER = "SAVE_USER";
 	var CHANGE_NOTIFICATION_STATE = exports.CHANGE_NOTIFICATION_STATE = "CHANGE_NOTIFICATION_STATE";
+	var MOVE_ITEM_MOBILE = exports.MOVE_ITEM_MOBILE = "MOVE_ITEM_MOBILE";
+	
+	var moveItemMobile = exports.moveItemMobile = function moveItemMobile(spec) {
+	  return {
+	    type: MOVE_ITEM_MOBILE,
+	    payload: spec
+	  };
+	};
 	
 	var outputContent = exports.outputContent = function outputContent(spec) {
 	  return {
@@ -24526,6 +24541,9 @@
 	    saveUser: function saveUser(specs) {
 	      return dispatch((0, _actions.saveUser)(specs));
 	    },
+	    moveItemMobile: function moveItemMobile(specs) {
+	      return dispatch((0, _actions.moveItemMobile)(specs));
+	    },
 	    changeNotificationState: function changeNotificationState(specs) {
 	      return dispatch((0, _actions.changeNotificationState)(specs));
 	    }
@@ -24646,7 +24664,8 @@
 	        saveUser: props.states.saveUser,
 	        wrongItems: props.states.wrongItems,
 	        chapterEvaluation: props.states.currentChapterEvaluation,
-	        changeNotificationState: props.states.changeNotificationState
+	        changeNotificationState: props.states.changeNotificationState,
+	        moveItemMobile: props.states.moveItemMobile
 	      });
 	      break;
 	  }
@@ -24940,7 +24959,8 @@
 	      stopMoveProgress: props.stopMoveProgress,
 	      selectTargetItem: props.selectTargetItem,
 	      deselectTargetItem: props.deselectTargetItem,
-	      moveItem: props.moveItem
+	      moveItem: props.moveItem,
+	      moveItemMobile: props.moveItemMobile
 	    };
 	
 	    var incomeList = props.currentState.statements.cash_flow_statement.income;
@@ -25221,7 +25241,7 @@
 	    _react2.default.createElement(
 	      'div',
 	      { className: 'col-sm-12' },
-	      props.step.action_items.length > 0 ? _react2.default.createElement(_item_list_active2.default, { device: props.device, wrongItems: props.wrongItems, moveUtilities: props.moveUtilities, itemMoveStates: props.itemMoveStates, isStatement: false, id: props.step.step_title, title: 'Action Items', items: props.step.action_items, formatNumber: props.formatNumber }) : "",
+	      props.step.action_items.length > 0 ? _react2.default.createElement(_item_list_active2.default, { device: props.device, step_title: props.step.step_title, wrongItems: props.wrongItems, moveUtilities: props.moveUtilities, itemMoveStates: props.itemMoveStates, isStatement: false, id: props.step.step_title, title: 'Action Items', items: props.step.action_items, formatNumber: props.formatNumber }) : "",
 	      _react2.default.createElement('span', { className: 'separate' })
 	    )
 	  );
@@ -25257,6 +25277,20 @@
 	  var currentTargetList = props.itemMoveStates.currentTargetList;
 	  var isMobile = props.device.isMobile;
 	
+	  function makeMoveFn(e, itemName, fromListName, toListName) {
+	    $(e.currentTarget).parent().parent().css("display", "none");
+	    $(e.currentTarget).parent().parent().prev().data("dropdown", false);
+	    $(e.currentTarget).parent().parent().prev().attr("data-dropdown", false);
+	    $(e.currentTarget).parent().parent().prev().find("img").css("transform", "rotate(0turn)");
+	    return function () {
+	      props.moveUtilities.moveItemMobile({
+	        itemName: itemName,
+	        fromListName: fromListName,
+	        toListName: toListName
+	      });
+	    };
+	  }
+	
 	  if (isMobile) {
 	    return _react2.default.createElement(
 	      'div',
@@ -25284,15 +25318,15 @@
 	            'div',
 	            { className: "item-list-active-item " + (props.wrongItems[item.name] ? "wrong" : ""), 'data-dropdown': false, onClick: function onClick(e) {
 	                var item = $(e.currentTarget);
-	                var isDropDown = item.data("dropdown");
-	                if (!isDropDown) {
+	                var isDropDown = item.attr("data-dropdown");
+	                if (isDropDown == "false") {
 	                  item.find("img").css("transform", "rotate(0.25turn)");
 	                  item.next().css("display", "block");
-	                  item.data("dropdown", true);
+	                  item.attr("data-dropdown", true);
 	                } else {
 	                  item.find("img").css("transform", "rotate(0turn)");
 	                  item.next().css("display", "none");
-	                  item.data("dropdown", false);
+	                  item.attr("data-dropdown", false);
 	                }
 	              } },
 	            _react2.default.createElement('div', { className: 'col-sm-3' }),
@@ -25329,27 +25363,37 @@
 	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'button',
-	                { className: 'btn move-item-list-group-item-btn' },
+	                { className: 'btn move-item-list-group-item-btn', onClick: function onClick(e) {
+	                    makeMoveFn(e, item.name, props.step_title, "income")();
+	                  } },
 	                'Income'
 	              ),
 	              _react2.default.createElement(
 	                'button',
-	                { className: 'btn move-item-list-group-item-btn' },
+	                { className: 'btn move-item-list-group-item-btn', onClick: function onClick(e) {
+	                    makeMoveFn(e, item.name, props.step_title, "expenses")();
+	                  } },
 	                'Expenses'
 	              ),
 	              _react2.default.createElement(
 	                'button',
-	                { className: 'btn move-item-list-group-item-btn' },
+	                { className: 'btn move-item-list-group-item-btn', onClick: function onClick(e) {
+	                    makeMoveFn(e, item.name, props.step_title, "assets")();
+	                  } },
 	                'Assets'
 	              ),
 	              _react2.default.createElement(
 	                'button',
-	                { className: 'btn move-item-list-group-item-btn' },
+	                { className: 'btn move-item-list-group-item-btn', onClick: function onClick(e) {
+	                    makeMoveFn(e, item.name, props.step_title, "liabilities")();
+	                  } },
 	                'Liabilities'
 	              ),
 	              _react2.default.createElement(
 	                'button',
-	                { className: 'btn move-item-list-group-item-btn' },
+	                { className: 'btn move-item-list-group-item-btn', onClick: function onClick(e) {
+	                    makeMoveFn(e, item.name, props.step_title, "deleted")();
+	                  } },
 	                'Deleted'
 	              )
 	            )
@@ -25484,6 +25528,21 @@
 	  var currentTargetList = props.itemMoveStates.currentTargetList;
 	  var isMobile = props.device.isMobile;
 	
+	  function makeMoveFn(e, itemName, fromListName, toListName) {
+	    $(e.currentTarget).parent().parent().css("display", "none");
+	    $(e.currentTarget).parent().parent().prev().data("dropdown", false);
+	    $(e.currentTarget).parent().parent().prev().attr("data-dropdown", false);
+	    $(e.currentTarget).parent().parent().prev().find("img").css("transform", "rotate(0turn)");
+	    return function () {
+	      props.moveUtilities.moveItemMobile({
+	        itemName: itemName,
+	        fromListName: fromListName,
+	        toListName: toListName
+	      });
+	      $(".item-list-active-item").attr("data-dropdown", false);
+	    };
+	  }
+	
 	  if (isMobile) {
 	    return _react2.default.createElement(
 	      'div',
@@ -25511,15 +25570,15 @@
 	            'div',
 	            { className: "item-list-active-item " + (props.wrongItems[item.name] ? "wrong" : ""), 'data-dropdown': false, onClick: function onClick(e) {
 	                var item = $(e.currentTarget);
-	                var isDropDown = item.data("dropdown");
-	                if (!isDropDown) {
+	                var isDropDown = item.attr("data-dropdown");
+	                if (isDropDown == "false") {
 	                  item.find("img").css("transform", "rotate(0.25turn)");
 	                  item.next().css("display", "block");
-	                  item.data("dropdown", true);
+	                  item.attr("data-dropdown", true);
 	                } else {
 	                  item.find("img").css("transform", "rotate(0turn)");
 	                  item.next().css("display", "none");
-	                  item.data("dropdown", false);
+	                  item.attr("data-dropdown", false);
 	                }
 	              } },
 	            _react2.default.createElement('div', { className: 'col-sm-2' }),
@@ -25556,27 +25615,37 @@
 	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                'button',
-	                { className: 'btn move-item-list-group-item-btn-statement' },
+	                { className: 'btn move-item-list-group-item-btn', onClick: function onClick(e) {
+	                    makeMoveFn(e, item.name, props.name, "income")();
+	                  } },
 	                'Income'
 	              ),
 	              _react2.default.createElement(
 	                'button',
-	                { className: 'btn move-item-list-group-item-btn-statement' },
+	                { className: 'btn move-item-list-group-item-btn', onClick: function onClick(e) {
+	                    makeMoveFn(e, item.name, props.name, "expenses")();
+	                  } },
 	                'Expenses'
 	              ),
 	              _react2.default.createElement(
 	                'button',
-	                { className: 'btn move-item-list-group-item-btn-statement' },
+	                { className: 'btn move-item-list-group-item-btn', onClick: function onClick(e) {
+	                    makeMoveFn(e, item.name, props.name, "assets")();
+	                  } },
 	                'Assets'
 	              ),
 	              _react2.default.createElement(
 	                'button',
-	                { className: 'btn move-item-list-group-item-btn-statement' },
+	                { className: 'btn move-item-list-group-item-btn', onClick: function onClick(e) {
+	                    makeMoveFn(e, item.name, props.name, "liabilities")();
+	                  } },
 	                'Liabilities'
 	              ),
 	              _react2.default.createElement(
 	                'button',
-	                { className: 'btn move-item-list-group-item-btn-statement' },
+	                { className: 'btn move-item-list-group-item-btn', onClick: function onClick(e) {
+	                    makeMoveFn(e, item.name, props.name, "deleted")();
+	                  } },
 	                'Deleted'
 	              )
 	            )

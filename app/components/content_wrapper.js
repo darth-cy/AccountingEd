@@ -31,6 +31,7 @@ var ContentWrapper = (props) => {
           wrongItems={props.states.wrongItems}
           chapterEvaluation={props.states.currentChapterEvaluation}
           changeNotificationState={props.states.changeNotificationState}
+          moveItemMobile={props.states.moveItemMobile}
         />
       );
       break;

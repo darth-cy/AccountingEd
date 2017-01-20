@@ -15,6 +15,7 @@ var Chapter = React.createClass({
       selectTargetItem: props.selectTargetItem,
       deselectTargetItem: props.deselectTargetItem,
       moveItem: props.moveItem,
+      moveItemMobile: props.moveItemMobile
     }
 
     var incomeList = props.currentState.statements.cash_flow_statement.income;

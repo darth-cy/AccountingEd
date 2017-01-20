@@ -126,6 +126,13 @@ const reducer = (prevState=_initState, action) => {
         currentTargetItem: undefined,
       };
       return newState;
+    case "MOVE_ITEM_MOBILE":
+      var from = findCurrentStateListByName(newState.currentState, action.payload.fromListName);
+      var to = findCurrentStateListByName(newState.currentState, action.payload.toListName);
+      var selected = from[findIdxByNameInList(from, action.payload.itemName)];
+      from.splice(findIdxByNameInList(from, action.payload.itemName), 1);
+      to.push(selected);
+      return newState;
     case "CHECK_ANSWER":
       var shouldContain = newState.currentChapter.criteria.should_contain;
       var shouldBe = newState.currentChapter.criteria.should_be;

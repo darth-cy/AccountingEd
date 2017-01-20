@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { outputContent, selectChapter, startChapter, goBackChapters, selectItem,
          stopMoveProgress, selectTargetItem, deSelectTargetItem, moveItem,
-         checkAnswer, saveUser, changeNotificationState } from './actions';
+         checkAnswer, saveUser, changeNotificationState, moveItemMobile } from './actions';
 
 import MainApplication from './main_application';
 
@@ -18,6 +18,7 @@ const mapDispatchToProps = (dispatch) => ({
   moveItem: (specs) => dispatch(moveItem(specs)),
   checkAnswer: (specs) => dispatch(checkAnswer(specs)),
   saveUser: (specs) => dispatch(saveUser(specs)),
+  moveItemMobile: (specs) => dispatch(moveItemMobile(specs)),
   changeNotificationState: (specs) => dispatch(changeNotificationState(specs))
 })
 
