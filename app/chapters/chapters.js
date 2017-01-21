@@ -407,7 +407,7 @@ export const CHAPTERS = {
         description: "NTCJ has been doing very well and decides to reward its investors. Instead of dispensing dividends, NTCJ will compensate 2 stocks for each stock you own. This is a common strategy to increase share value without giving out cash. For you personlly, the split only changes the entry on your sheet and doesn't change the asset value.",
         hint: "The split only affects your price/share, but doesn't add any assets to your sheet. Swap the old NTCJ entry with the new one.",
         action_items: [
-          {name: "2,000 Shares NTCJ", amount: 3000},
+          {name: "2,000 Shares NTCJ", amount: 500},
         ]
       }
     ],
@@ -750,25 +750,25 @@ export const CHAPTERS = {
 
   "10": {
     id: "10",
-    title: "Recognize Expenses in Disguise",
-    description: "In real-life, people promote things to you that seem like assets which are instead expenses in disguise. When's the last time you heard phrases like 'Participate in this training program and let the skills be your best assets' or 'This TV can be a great asset for having great parties'. Many times, things are marketed as assets simply to trick you into purchasing them.",
+    title: "Utilize Your Idle Assets",
+    description: "Many times, people have idle possessions that can be used creatively to generate extra income. Earlier, we talked about entrepreneurship. Now, we learn a few more ideas to put resources to work.",
     steps: [
       {
-        step_title: "Education",
-        description: "This may come as a shock but education expenditure is not categorized as asset. Remember that assets are things that have cash value. After you obtained your degree, you can't sell it back to anyone again. You may argue -- Hey! but what about the new knowledge because school told me that knowledge is an asset? In truth, most knowledge acquired in school won't be used in your later life (except maybe technical degrees, vocational degrees, or medical skills) in your career. Also, the knowledge, which is an intangible with no cash evaluation, can't be listed in your asset list.",
-        hint: "Many people may also argue that a degree is an 'asset' to break into an industry. IB, for example, mostly require a Bachelor's degree. Isn't that fact a sign that the degree is an asset? No, saying 'A degree grants me entrance into IB industry' is the same as saying 'A baseball game ticket grants me entrance into the arena'. You expend on these 'tickets' for a purpose and they don't carry any cash value after the deed is done. Except education is even worse than a baseball ticket because you can at least sell the baseball ticket to someone else (sometimes at a premium). ",
+        step_title: "Boss Home Studio for Rent",
+        description: "Your boss turns out to be a very popular target for networking. In the end, your supposedly impressive home studio fell short compared to your colleague's offer -- a life-long VIP entrance to the local gentlemen's club. Your boss turns a blind eye to your mediocre attempt in gaining favor and instead promoted your colleague. You decided to start generate honest income again instead of betting on intangibles. Within a few months, you set up a private recording studio using the equipment you acquired and rent it out regularly to musicians as recording space.",
+        hint: "You're finally back on track to generate honest passive income again.",
         action_items: [
-          {name: "New Student Loan", amount: 35000},
-          {name: "Cash from Student Loan", amount: 35000},
-          {name: "New Student Loan Monthly Pay", amount: 460, regular: true},
-          {name: "Education Expenditure", amount: 65000},
+          {name: "Boss Studio Monthly Maintenance", amount: 467},
+          {name: "Boss Studio Recording Space Monthly Rent", amount: 1450},
         ]
       },
       {
-        step_title: "Disclaimer on Education",
-        description: "This is not to say that education is not valuable. What defines value v.s. asset is very different. Asset is what we focus on here to achieve a practical financial freedom. Value, on the other hand, can be many things. A small locket from a childhood friend can be invaluable for a person while it may only sell for a few bucks on the market. Education, for one thing, is valuable in cultivating your mind. These things do not improve your financial life directly, but they do add intangible value to your life, such as sentiment, intelligence, or a better temperament.",
-        hint: "Also, this course doesn't advocate ditching school. While getting rich is not really that closely tied with educational attainment, some book learning can enrich a life beyond mere money and coins.",
-        action_items: []
+        step_title: "Free Car!",
+        description: "Your parents finally realized that one of the symbols of modern life is when you hand over a beaten-up second-hand to your kids. After some thoughts, they decided to gift you their old mini-van. To add class to the vehicle and make the gift less embarrasing, they painted the van black. The mini-van is evaluated at purchase value since it's never sold.",
+        hint: "Gifts are usually not counted for federal tax purposes. That's partly the reason why you see rich people 'gifting' each other a lot.",
+        action_items: [
+          {name: "Mini-Van Painted Black", amount: 23000},
+        ]
       },
       {
         step_title: "Human Investment",
