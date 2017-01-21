@@ -35,7 +35,7 @@ var Chapter = React.createClass({
     console.log(passiveIncome);
     var monthEndEquity = equity + netIncome;
     var startEquity = props.currentState.equity;
-    var passivePercentExpense = Math.round((passiveIncome/expense)*10000)/100;
+    var passivePercentExpense = Math.round((passiveIncome/regularExpense)*10000)/100;
     // var passivePercentExpense = (passiveIncome / expensesList.reduce((total, item) => { return total + item.amount }, 0), 2))*100/100;
 
     var verifyAnswer = function(){
@@ -54,7 +54,7 @@ var Chapter = React.createClass({
                 <StepInChapter device={props.device} wrongItems={props.wrongItems} itemMoveStates={props.itemMoveStates} key={idx} index={idx + 1} step={step} moveUtilities={moveUtilities} formatNumber={props.formatNumber}/>
               )
             })}
-            <h3>&nbsp;</h3>
+            <h2>&nbsp;</h2>
           </div>
         </div>
         <div className="col-md-8 chapters-detailed height-align inChapter">

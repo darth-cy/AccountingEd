@@ -27,10 +27,6 @@ html, body{
   border-radius: 0px;
 }
 
-p {
-  font-size: 1.7rem;
-}
-
 [class*="col"], [class*="container"]{
   padding: 0px;
 }
@@ -61,7 +57,7 @@ body{
 
 .chapters-list{
   background-color: #3d3d3d;
-  min-height: 150vh;
+  min-height: 200vh;
   color: white;
   padding-left: 2.5%;
   padding-top: 2.5%;
