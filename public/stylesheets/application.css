@@ -6,6 +6,11 @@ html, body{
   display: none;
 }
 
+.logo-image{
+  width: 10rem;
+  display: inline-block;
+}
+
 .link-normal{
   color: white;
   text-decoration: none;
@@ -49,7 +54,7 @@ body{
 .navbar-img{
   height: 3rem;
   position: absolute;
-  top: 4.5rem;
+  top: 7rem;
   right: 2.5%;
   color: white;
   cursor: pointer;

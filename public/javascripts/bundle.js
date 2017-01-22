@@ -26243,12 +26243,13 @@
 	    _react2.default.createElement(
 	      "h3",
 	      null,
+	      _react2.default.createElement("img", { className: "logo-image", src: "/images/logoblue.png" }),
 	      "Lanyard Blue"
 	    ),
 	    _react2.default.createElement(
 	      "span",
 	      null,
-	      "Automated Personal Finance Exercises"
+	      "A hands-on journey of wealth accumulation"
 	    ),
 	    _react2.default.createElement("img", { className: "navbar-img", src: "/images/logout.png", onClick: logout })
 	  );
