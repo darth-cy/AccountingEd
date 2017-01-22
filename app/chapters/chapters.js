@@ -974,25 +974,32 @@ export const CHAPTERS = {
 
   "12": {
     id: "12",
-    title: "Execute a Refinancing",
-    description: "As we learned earlier, not all liabilities and assets are created Refinancing is a great way to obtain a lower rate on your existing loans. It will substitute a more expensively-serviced loan with a more cheaply-serviced loan, decreasing your monthly service expenses.",
+    title: "Refinance Your Liabilities",
+    description: "As we learned earlier, not all liabilities and assets are created equal. Some liabilities can carry significant amount of stress due to a higher monthly payment or a pressing deadline. Refinancing is a great way to obtain a lower rate on your existing loans by converting them into new, cheapter ones. It will substitute a more expensively-serviced loan with a more cheaply-serviced loan, decreasing your monthly service expenses and payment urgency.",
     steps: [
       {
-        step_title: "Obtain New Loan",
-        description: "You've found a lending partner and he's willing to loan you $20,000 at a monthly service rate of $225. You obtained cash after the settlement.",
+        step_title: "Obtain a New Mortgage",
+        description: "You've found a lending partner and he's willing to loan you $200,000 at a monthly service rate of $2,100, a rate of 1.05%, much lower than $1,950 on $171,000, which carries 1.14%. You obtained the credits after the settlement.",
         action_items: [
-          {name: "Cash from Loan", description: "A more tangible evaluation of your interview performance.", amount: 20000},
-          {name: "New Loan", description: "new loan", amount: 20000},
-          {name: "New Loan Monthly Pay", description: "new pay", amount: 225}
+          {name: "Cash Credit from New 15yr-Mortgage", description: "A more tangible evaluation of your interview performance.", amount: 200000},
+          {name: "New 15yr-Mortgage", description: "new loan", amount: 200000},
+          {name: "New 15yr-Mortgage Monthly Pay", description: "new pay", amount: 2100, regular: true}
         ]
       },{
-        step_title: "Pay off Old Loan",
-        description: "You used the cash obtained from the new loan to payoff the old loan you have. Drop any entries related to the old loan. Also, the bank quotes $750 for prepayment settlement.",
+        step_title: "Pay off Existing Mortgage",
+        description: "You used the cash obtained from the new mortgage to payoff the old loan you have, effectively substituting the old mortgage with the new one. Drop any entries related to the old mortgage. Also, the bank quotes $750 for prepayment settlement.",
         action_items: [
-          {name: "Pay off Old Loan", description: "Time will tell their value, not investment bankers.", amount: 16000},
+          {name: "Pay off Old Mortgage", description: "Time will tell their value, not investment bankers.", amount: 171000},
           {name: "Settlement Fee", description: "settlement", amount: 750},
         ]
       },
+      {
+        step_title: "Pay off Extra Loans",
+        description: "Because the new mortgage grants an intial principal amount higher than the outstanding mortgage, you can afford to payoff additional loans with the credit you just obtained. The consumer loan, for example, carries a 3.38% rate on principal, which is alarmingly high. You decided to pay it off as well.",
+        action_items: [
+          {name: "Pay off Consumer Loan", amount: 8000},
+        ]
+      }
     ],
 
     statements: {
@@ -1002,140 +1009,64 @@ export const CHAPTERS = {
           {name: "Combined Rare Book Income", description: "sf", amount: 375, passive: true, regular: true},
           {name: "Combined Intellectual Rights", amount: 450, passive: true, regular: true},
           {name: "Combined Entrepreneurial Income", amount: 1435, regular: true, passive: true},
+          {name: "Rent on 3BR/2BA", description: "rent", amount: 750, passive: true, regular: true}
         ],
         expenses: [
-          {name: "Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 2050, regular: true},
           {name: "New Student Loan Monthly Pay", amount: 460, regular: true},
           {name: "Consumer Loan Monthly Pay", amount: 270, regular: true},
           {name: "Combined Asset Maintenance Pay", amount: 522, regular: true},
           {name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 1250, regular: true},
+          {name: "15-year Mortgage Monthly Pay", description: "service pay", amount: 1950, regular: true},
         ],
       },
       balance_sheet: {
         assets: [
-          {name: "Cash", item_description: "cold and sure", amount: 2248},
+          {name: "Cash", item_description: "cold and sure", amount: 1378},
           {name: "Other Assets", item_description: "sdf", amount: 1350},
           {name: "Boss Home Studio", amount: 7360},
+          {name: "3BR/2BA House", description: "home", amount: 216000},
           {name: "Rare Book Collection", item_description: "Simple, cold, and sure.", amount: 2400},
         ],
         liabilities: [
           {name: "New Student Loan", amount: 65000},
           {name: "Consumer Loan", amount: 8000},
+          {name: "15-year Mortgage", description: "mortgage", amount: 171000},
         ],
       },
       deleted: []
     },
 
-    equity: -3630,
+    equity: -15512,
     criteria: {
       should_contain: [
-        ["income", "Cash from Loan"],
-        ["liabilities", "New Loan"],
-        ["expenses", "New Loan Monthly Pay"],
-        ["expenses", "Pay off Old Loan"],
-        ["expenses", "Settlement Fee"],
-        ["income", "Part-time Salary"],
-        ["expenses", "Rent"],
+        ["income", "Salary"],
+        ["income", "Combined Rare Book Income"],
+        ["income", "Combined Intellectual Rights"],
+        ["income", "Combined Entrepreneurial Income"],
+        ["income", "Rent on 3BR/2BA"],
+        ["expenses", "New Student Loan Monthly Pay"],
+        ["deleted", "Consumer Loan Monthly Pay"],
+        ["expenses", "Combined Asset Maintenance Pay"],
         ["expenses", "Other Expenses"],
-        ["deleted", "Old Loan Monthly Pay"],
+        ["deleted", "15-year Mortgage"],
+        ["deleted", "15-year Mortgage Monthly Pay"],
         ["assets", "Cash"],
-        ["deleted", "Old Loan"],
+        ["assets", "Other Assets"],
+        ["assets", "Boss Home Studio"],
+        ["assets", "Rare Book Collection"],
+        ["liabilities", "New Student Loan"],
+        ["deleted", "Consumer Loan"],
+        ["income", "Cash Credit from New 15yr-Mortgage"],
+        ["liabilities", "New 15yr-Mortgage"],
+        ["expenses", "New 15yr-Mortgage Monthly Pay"],
+        ["expenses", "Pay off Old Mortgage"],
+        ["expenses", "Settlement Fee"],
+        ["expenses", "Pay off Consumer Loan"],
       ],
       should_not_be_present: [
 
       ],
       should_be: [
-        ["equity": 75370]
-      ]
-    }
-  },
-
-
-
-
-
-
-  "45": {
-    id: "45",
-    title: "Convert Income-generating Assets",
-    description: "In this exercise, we convert a lower-earning house to a higher earning one. Converting assets are common place for real-estate investors as it's favorable to carry assets with higher rent to value ratio. Sometimes, the newly acquired asset can be renovated to generate an even higher return.",
-    steps: [
-      {
-        step_title: "Selling an Low-earning Asset",
-        description: "This 2BR/1BA has been generating great revenue for you. However, a local contruction firm was recently commissioned to build a industrial complex nearby for chemical processing. The news generated fear that the air and water quality will suffer due to the soon-to-be-present industry. You decided to sell the house in the midst of pressing demand from the tenant to lower the rent.",
-        action_items: [
-          {name: "Cash from Selling Old 2BR/1BA", description: "cash", amount: 85000},
-          {name: "Pay off Old Mortgage", description: "old settlement", amount: 70000}
-        ]
-      },
-      {
-        step_title: "Acquiring a High-earning Asset",
-        description: "The cash you obtained from selling 2BR/1BA won't be generating any income. After some research, you pinned down a duplex a few miles away that's near a soon-to-be-built town center. The asset value around the neighborhood is rising. There's also rumor that there will be a new school. You decided to buy the duplex and rent it out.",
-        hint: "Notice that even though the service payment for the new duplex is higher, it will still generate a higher return because the higher rent will offset its service cost.",
-        action_items: [
-          {name: "Rent on Duplex", description: "rent", amount: 2370},
-          {name: "Down Payment", description: "down pay", amount: 55000},
-          {name: "Duplex", description: "home", amount: 140000},
-          {name: "New Mortgage on Duplex", description: "mortgage", amount: 85000},
-          {name: "New Mortgage Monthly Pay", description: "service pay", amount: 1100},
-        ]
-      },
-      {
-        step_title: "Squeez out the Last Drop",
-        description: "You noticed that the duplex comes with a small shared basement. To squeez out the last drop of revenue, you decided to renovate the space and rent it out to a local student. Of course, you informed the two families occupying the duplex to steer clear of the basement.",
-        action_items: [
-          {name: "Rent on Duplex Basement", description: "rent student", amount: 475},
-          {name: "Renovation Cost", description: "fix garage", amount: 2700}
-        ]
-      }
-    ],
-
-    statements: {
-      cash_flow_statement: {
-        income: [
-          {name: "Fireman Salary", item_description: "student's work", amount: 2160},
-          {name: "Rent from Old 2BR/1BA", item_description: "rent", amount: 250}
-        ],
-        expenses: [
-          {name: "Your Own Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 1200},
-          {name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 605},
-          {name: "Old Mortgage Monthly Pay", item_description: "old mortgage", amount: 55}
-        ],
-      },
-      balance_sheet: {
-        assets: [
-          {name: "Cash", item_description: "Home.", amount: 125750},
-          {name: "Old 2BR/1BA House", description: "home", amount: 85000},
-        ],
-        liabilities: [
-          {name: "Old Mortgage on 2BR/1BA", description: "mortgage", amount: 70000},
-        ],
-      },
-      deleted: []
-    },
-    equity: 180750,
-    criteria: {
-      should_contain: [
-        ["income", "Fireman Salary"],
-        ["deleted", "Rent from Old 2BR/1BA"],
-        ["expenses", "Your Own Rent"],
-        ["expenses", "Other Expenses"],
-        ["deleted", "Old Mortgage Monthly Pay"],
-        ["assets", "Cash"],
-        ["deleted", "Old 2BR/1BA House"],
-        ["deleted", "Old Mortgage on 2BR/1BA"],
-        ["income", "Cash from Selling Old 2BR/1BA"],
-        ["expenses", "Pay off Old Mortgage"],
-        ["income", "Rent on Duplex"],
-        ["expenses", "Down Payment"],
-        ["assets", "Duplex"],
-        ["liabilities", "New Mortgage on Duplex"],
-        ["expenses", "New Mortgage Monthly Pay"],
-        ["income", "Rent on Duplex Basement"],
-        ["expenses", "Renovation Cost"]
-      ],
-      should_be: [
-
       ]
     }
   },
