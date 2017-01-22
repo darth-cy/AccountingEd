@@ -39,6 +39,7 @@ function findIdxByNameInList(list, name){
 }
 
 // Initial State
+
 const _initState = {
   outputText: "(none)",
   mode: "chapters", // chapters, chapter
@@ -55,7 +56,6 @@ const _initState = {
   },
   currentState: CHAPTERS[1],
   currentChapter: CHAPTERS[1],
-  chapters: CHAPTERS,
 }
 
 const reducer = (prevState=_initState, action) => {

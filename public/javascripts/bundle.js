@@ -23882,6 +23882,7 @@
 	}
 	
 	// Initial State
+	
 	var _initState = {
 	  outputText: "(none)",
 	  mode: "chapters", // chapters, chapter
@@ -23897,8 +23898,7 @@
 	    currentTargetItem: undefined
 	  },
 	  currentState: _chapters.CHAPTERS[1],
-	  currentChapter: _chapters.CHAPTERS[1],
-	  chapters: _chapters.CHAPTERS
+	  currentChapter: _chapters.CHAPTERS[1]
 	};
 	
 	var reducer = function reducer() {
@@ -24471,12 +24471,12 @@
 	        expenses: [{ name: "Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 2050, regular: true }, { name: "Website Maintenance", amount: 55, regular: true }, { name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 1250, regular: true }]
 	      },
 	      balance_sheet: {
-	        assets: [{ name: "Cash", item_description: "cold and sure", amount: 28547 }, { name: "Other Assets", item_description: "sdf", amount: 1350 }, { name: "Condo Share", amount: 10500 }, { name: "Aspen Resort Share", amount: 9500 }, { name: "Rare Book Collection", item_description: "Simple, cold, and sure.", amount: 2400 }],
+	        assets: [{ name: "Cash", item_description: "cold and sure", amount: 8597 }, { name: "Other Assets", item_description: "sdf", amount: 1350 }, { name: "Condo Share", amount: 10500 }, { name: "Aspen Resort Share", amount: 9500 }, { name: "Rare Book Collection", item_description: "Simple, cold, and sure.", amount: 2400 }],
 	        liabilities: []
 	      },
 	      deleted: []
 	    },
-	    equity: 52297,
+	    equity: 32347,
 	    criteria: {
 	      should_contain: [["assets", "Condo Share"], ["income", "Condo Share Income"], ["assets", "Aspen Resort Share"], ["income", "Aspen Resort Share Income"], ["income", "Salary"], ["income", "Combined Rare Book Income"], ["expenses", "Rent"], ["expenses", "Website Maintenance"], ["expenses", "Other Expenses"], ["assets", "Cash"], ["assets", "Other Assets"], ["assets", "Rare Book Collection"], ["income", "Publishing Rights Monthly Pay"], ["income", "Publishing Rights Cash Front"], ["expenses", "Patent Filling Fee"], ["expenses", "Lawyer Fee"], ["income", "Patent Commission"], ["income", "Overnight Storage Income"]],
 	      should_be: [["equity"]]
@@ -24491,7 +24491,7 @@
 	      step_title: "Education",
 	      description: "This may come as a shock but education expenditure is not categorized as asset. Remember that assets are things that have cash value. After you obtained your degree, you can't sell it back to anyone again. You may argue -- Hey! but what about the new knowledge because school told me that knowledge is an asset? In truth, most knowledge acquired in school won't be used in your later life (except maybe technical degrees, vocational degrees, or medical skills) in your career. Also, the knowledge, which is an intangible with no cash evaluation, can't be listed in your asset list.",
 	      hint: "Many people may also argue that a degree is an 'asset' to break into an industry. IB, for example, mostly require a Bachelor's degree. Isn't that fact a sign that the degree is an asset? No, saying 'A degree grants me entrance into IB industry' is the same as saying 'A baseball game ticket grants me entrance into the arena'. You expend on these 'tickets' for a purpose and they don't carry any cash value after the deed is done. Except education is even worse than a baseball ticket because you can at least sell the baseball ticket to someone else (sometimes at a premium). ",
-	      action_items: [{ name: "New Student Loan", amount: 35000 }, { name: "Cash from Student Loan", amount: 35000 }, { name: "New Student Loan Monthly Pay", amount: 460, regular: true }, { name: "Education Expenditure", amount: 65000 }]
+	      action_items: [{ name: "New Student Loan", amount: 65000 }, { name: "Cash from Student Loan", amount: 65000 }, { name: "New Student Loan Monthly Pay", amount: 760, regular: true }, { name: "Education Expenditure", amount: 65000 }]
 	    }, {
 	      step_title: "Disclaimer on Education",
 	      description: "This is not to say that education is not valuable. What defines value v.s. asset is very different. Asset is what we focus on here to achieve a practical financial freedom. Value, on the other hand, can be many things. A small locket from a childhood friend can be invaluable for a person while it may only sell for a few bucks on the market. Education, for one thing, is valuable in cultivating your mind. These things do not improve your financial life directly, but they do add intangible value to your life, such as sentiment, intelligence, or a better temperament.",
@@ -24515,12 +24515,12 @@
 	        expenses: [{ name: "Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 2050, regular: true }, { name: "Website Maintenance", amount: 55, regular: true }, { name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 1250, regular: true }]
 	      },
 	      balance_sheet: {
-	        assets: [{ name: "Cash", item_description: "cold and sure", amount: 28547 }, { name: "Other Assets", item_description: "sdf", amount: 1350 }, { name: "Condo Share", amount: 10500 }, { name: "Aspen Resort Share", amount: 9500 }, { name: "Rare Book Collection", item_description: "Simple, cold, and sure.", amount: 2400 }],
+	        assets: [{ name: "Cash", item_description: "cold and sure", amount: 8907 }, { name: "Other Assets", item_description: "sdf", amount: 1350 }, { name: "Condo Share", amount: 10500 }, { name: "Aspen Resort Share", amount: 9500 }, { name: "Rare Book Collection", item_description: "Simple, cold, and sure.", amount: 2400 }],
 	        liabilities: []
 	      },
 	      deleted: []
 	    },
-	    equity: 52297,
+	    equity: 32657,
 	    criteria: {
 	      should_contain: [["liabilities", "New Student Loan"], ["income", "Cash from Student Loan"], ["expenses", "New Student Loan Monthly Pay"], ["expenses", "Education Expenditure"], ["expenses", "Pay for Boss Home Studio"], ["assets", "Boss Home Studio"], ["liabilities", "Consumer Loan"], ["income", "Cash from Consumer Loan"], ["expenses", "Consumer Loan Monthly Pay"], ["expenses", "Elite Donor Program Monthly Pay"], ["assets", "Condo Share"], ["income", "Condo Share Income"], ["assets", "Aspen Resort Share"], ["income", "Aspen Resort Share Income"], ["income", "Salary"], ["income", "Combined Rare Book Income"], ["expenses", "Rent"], ["expenses", "Website Maintenance"], ["expenses", "Other Expenses"], ["assets", "Cash"], ["assets", "Other Assets"], ["assets", "Rare Book Collection"], ["income", "Publishing Rights Monthly Pay"], ["income", "Patent Commission"], ["income", "Overnight Storage Income"]],
 	      should_be: [["equity"]]
@@ -24535,46 +24535,83 @@
 	      step_title: "Boss Home Studio for Rent",
 	      description: "Your boss turns out to be a very popular target for networking. In the end, your supposedly impressive home studio fell short compared to your colleague's offer -- a life-long VIP entrance to the local gentlemen's club. Your boss turns a blind eye to your mediocre attempt in gaining favor and instead promoted your colleague. You decided to start generate honest income again instead of betting on intangibles. Within a few months, you set up a private recording studio using the equipment you acquired and rent it out regularly to musicians as recording space.",
 	      hint: "You're finally back on track to generate honest passive income again.",
-	      action_items: [{ name: "Boss Studio Monthly Maintenance", amount: 467 }, { name: "Boss Studio Recording Space Monthly Rent", amount: 1450 }]
+	      action_items: [{ name: "Boss Studio Monthly Maintenance", amount: 467, regular: true }, { name: "Boss Studio Recording Space Monthly Rent", amount: 650, regular: true, passive: true }]
 	    }, {
 	      step_title: "Free Car!",
-	      description: "Your parents finally realized that one of the symbols of modern life is when you hand over a beaten-up second-hand to your kids. After some thoughts, they decided to gift you their old mini-van. To add class to the vehicle and make the gift less embarrasing, they painted the van black. The mini-van is evaluated at purchase value since it's never sold.",
+	      description: "Your parents finally realized that one of the symbols of modern life is when you hand over a beaten-up second-hand to your kids. After some thoughts, they decided to gift you their old mini-van. To add class to the vehicle and make the gift less embarrasing, they painted the van black. The mini-van is evaluated at purchase value since it's never sold. Also, you named it 'Aaron'.",
 	      hint: "Gifts are usually not counted for federal tax purposes. That's partly the reason why you see rich people 'gifting' each other a lot.",
-	      action_items: [{ name: "Mini-Van Painted Black", amount: 23000 }]
+	      action_items: [{ name: "'Aaron' the Mini-Van Painted Black", amount: 12000 }]
 	    }, {
-	      step_title: "Human Investment",
-	      description: "You have decided to purchase a home entertainment system so you can invite you boss over and have a great time with him, with the intention of gaining ground for promotion.",
-	      hint: "Adding any 'potential' return to your asset value is irrational. Many people believe a lot of their purchases are assets because those things can 'potentially' contribute (insert arbitrary return here) to their financial life. In this case, the human return is being added to the value of the studio system. While the stuidio system itself can be logged as an asset as it does have cash value, adding 'networking return' on your TV is just insane.",
-	      action_items: [{ name: "Pay for Boss Home Studio", amount: 7360 }, { name: "Boss Home Studio", amount: 7360 }, { name: "Consumer Loan", amount: 8000 }, { name: "Cash from Consumer Loan", amount: 8000 }, { name: "Consumer Loan Monthly Pay", amount: 270, regular: true }]
-	    }, {
-	      step_title: "Prestige Game",
-	      description: "You decided to join your school's elite yearly donor program because you'll be invited to a private club every year for a presidential meeting and get your name carved into a new school building's bedrock.",
-	      hint: "Prestige is not an asset. It doesn't generate cash return and can't be sold, failing both criterias for an asset. However, many people believe they can gain 'respect' from these purchases and the enhanced esteem can be categorized as an asset. Again, if you're always counting on 'potentials' and 'intangibles', no money will dive into your wallet.",
-	      action_items: [{ name: "Elite Donor Program Monthly Pay", amount: 150, regular: true }]
+	      step_title: "Ride-share Car Rent",
+	      description: "The local Uber driver business is catching up momentum. Since you don't drive 'Aaron' on weekends and the ride-share demand is especially high during those times, you decided to rent it out to Uber drivers. To gain a higher income, you retiled Aaron's interior with leather for 'Uber Black Standard', which entitles you to a higher income.",
+	      hint: "When assets are idle and sitting around, ask yourself -- can I get them to work? This is the gateway question to generate additional asset from resoures at hand.",
+	      action_items: [{ name: "Retiling Cost for Aaron's Interior", amount: 3400 }, { name: "Monthly Weekend Car Rent", amount: 760, passive: true, regular: true }]
 	    }],
 	
 	    statements: {
 	      cash_flow_statement: {
 	        income: [{ name: "Salary", item_description: "The campus employes you to lower the cost of the personnels here at the department.", amount: 3100, regular: true }, { name: "Condo Share Income", amount: 750, passive: true, regular: true }, { name: "Aspen Resort Share Income", amount: 430, passive: true, regular: true }, { name: "Combined Rare Book Income", description: "sf", amount: 375, passive: true, regular: true }, { name: "Publishing Rights Monthly Pay", amount: 330, passive: true, regular: true }, { name: "Patent Commission", amount: 125, regular: true, passive: true }, { name: "Overnight Storage Income", amount: 25, regular: true, passive: true }],
-	        expenses: [{ name: "Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 2050, regular: true }, { name: "Website Maintenance", amount: 55, regular: true }, { name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 1250, regular: true }]
+	        expenses: [{ name: "Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 2050, regular: true }, { name: "Website Maintenance", amount: 55, regular: true }, { name: "New Student Loan Monthly Pay", amount: 760, regular: true }, { name: "Consumer Loan Monthly Pay", amount: 270, regular: true }, { name: "Elite Donor Program Monthly Pay", amount: 150, regular: true }, { name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 1250, regular: true }]
 	      },
 	      balance_sheet: {
-	        assets: [{ name: "Cash", item_description: "cold and sure", amount: 28547 }, { name: "Other Assets", item_description: "sdf", amount: 1350 }, { name: "Condo Share", amount: 10500 }, { name: "Aspen Resort Share", amount: 9500 }, { name: "Rare Book Collection", item_description: "Simple, cold, and sure.", amount: 2400 }],
-	        liabilities: []
+	        assets: [{ name: "Cash", item_description: "cold and sure", amount: 10147 }, { name: "Other Assets", item_description: "sdf", amount: 1350 }, { name: "Condo Share", amount: 10500 }, { name: "Aspen Resort Share", amount: 9500 }, { name: "Boss Home Studio", amount: 7360 }, { name: "Rare Book Collection", item_description: "Simple, cold, and sure.", amount: 2400 }],
+	        liabilities: [{ name: "New Student Loan", amount: 65000 }, { name: "Consumer Loan", amount: 8000 }]
 	      },
 	      deleted: []
 	    },
-	    equity: 52297,
+	    equity: -31743,
 	    criteria: {
-	      should_contain: [["liabilities", "New Student Loan"], ["income", "Cash from Student Loan"], ["expenses", "New Student Loan Monthly Pay"], ["expenses", "Education Expenditure"], ["expenses", "Pay for Boss Home Studio"], ["assets", "Boss Home Studio"], ["liabilities", "Consumer Loan"], ["income", "Cash from Consumer Loan"], ["expenses", "Consumer Loan Monthly Pay"], ["expenses", "Elite Donor Program Monthly Pay"], ["assets", "Condo Share"], ["income", "Condo Share Income"], ["assets", "Aspen Resort Share"], ["income", "Aspen Resort Share Income"], ["income", "Salary"], ["income", "Combined Rare Book Income"], ["expenses", "Rent"], ["expenses", "Website Maintenance"], ["expenses", "Other Expenses"], ["assets", "Cash"], ["assets", "Other Assets"], ["assets", "Rare Book Collection"], ["income", "Publishing Rights Monthly Pay"], ["income", "Patent Commission"], ["income", "Overnight Storage Income"]],
+	      should_contain: [["expenses", "Boss Studio Monthly Maintenance"], ["income", "Boss Studio Recording Space Monthly Rent"], ["assets", "'Aaron' the Mini-Van Painted Black"], ["expenses", "Retiling Cost for Aaron's Interior"], ["income", "Monthly Weekend Car Rent"], ["liabilities", "New Student Loan"], ["expenses", "New Student Loan Monthly Pay"], ["assets", "Boss Home Studio"], ["liabilities", "Consumer Loan"], ["expenses", "Consumer Loan Monthly Pay"], ["expenses", "Elite Donor Program Monthly Pay"], ["assets", "Condo Share"], ["income", "Condo Share Income"], ["assets", "Aspen Resort Share"], ["income", "Aspen Resort Share Income"], ["income", "Salary"], ["income", "Combined Rare Book Income"], ["expenses", "Rent"], ["expenses", "Website Maintenance"], ["expenses", "Other Expenses"], ["assets", "Cash"], ["assets", "Other Assets"], ["assets", "Rare Book Collection"], ["income", "Publishing Rights Monthly Pay"], ["income", "Patent Commission"], ["income", "Overnight Storage Income"]],
 	      should_be: [["equity"]]
 	    }
 	  },
 	
 	  "11": {
 	    id: "11",
-	    title: "Refinancing",
-	    description: "Refinancing is a great way to obtain a lower rate on your existing loans. It will substitute a more expensively-serviced loan with a more cheaply-serviced loan, decreasing your monthly service expenses.",
+	    title: "Become a New Homeowner",
+	    description: "We'll learn about the defining transaction of United States -- buying a home. Apart from purchasing the home, many insurance policies and other add-on items may lower the risk of you losing your home or suffering damage to it. Also, new homes may also be rented to offset the mortgage payments. In most cases, homes come with mortgage financing, which is a type of amortizing liability (meaning its amount on your liability sheet will decrease over time as you pay it back).",
+	    steps: [{
+	      step_title: "Acquire Cash for Down Payment",
+	      description: "Most home purchases require down payments. It can be any percentage of the house price, but a general rule of thumb is that the higher the property is valued, the higher the down payment percentage will be.",
+	      hint: "Usually you can acquire cash by selling some of the assets that you own. In this case, you've decided to sell the condo shares and also the aspen resort share to get back cash. Since that's enough, you, with a heavy heart, sold Aaron.",
+	      action_items: [{ name: "Cash from Selling Residential Shares", amount: 30000 }, { name: "Cash from Selling Aaron", amount: 9000 }]
+	    }, {
+	      step_title: "Home Owner!",
+	      description: "You've got your eye on a nice 3BR/2BA house in suburb New Jersey. The quiet neighborhood does have its charm and you decided to call the place home for a long time. The downpayment is not too bad and the rate is good on the mortgage.",
+	      hint: "Don't forget to drop the rent item since you no longer live in a rented home.",
+	      action_items: [{ name: "Down Payment", description: "down pay", amount: 45000 }, { name: "Payment on 3BR/2BA other than Down Payment", amount: 171000 }, { name: "Cash Credit from Mortgage", amount: 171000 }, { name: "3BR/2BA House", description: "home", amount: 216000 }, { name: "15-year Mortgage", description: "mortgage", amount: 171000 }, { name: "15-year Mortgage Monthly Pay", description: "service pay", amount: 1950, regular: true }]
+	    }, {
+	      step_title: "State Compliance",
+	      description: "The state of New Jersey mandates that new home owners must acquire a certificate of flood protection if in a flood zone. You'll have to pay for the certificate.",
+	      action_items: [{ name: "Flood Inspection and Certificate", description: "protection", amount: 1700 }]
+	    }, {
+	      step_title: "Rent out a Room",
+	      description: "You've got a single vacant room to yourself and you decided to rent it out to offset the mortgage payment. The house is near a high-school and an eager young man named Dylan took the offer.",
+	      action_items: [{ name: "Rent on 3BR/2BA", description: "rent", amount: 750, passive: true, regular: true }]
+	    }],
+	
+	    statements: {
+	      cash_flow_statement: {
+	        income: [{ name: "Salary", item_description: "The campus employes you to lower the cost of the personnels here at the department.", amount: 3100, regular: true }, { name: "Condo Share Income", amount: 750, passive: true, regular: true }, { name: "Aspen Resort Share Income", amount: 430, passive: true, regular: true }, { name: "Combined Rare Book Income", description: "sf", amount: 375, passive: true, regular: true }, { name: "Combined Intellectual Rights", amount: 450, passive: true, regular: true }, { name: "Combined Entrepreneurial Income", amount: 1435, regular: true, passive: true }],
+	        expenses: [{ name: "Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 2050, regular: true }, { name: "New Student Loan Monthly Pay", amount: 460, regular: true }, { name: "Consumer Loan Monthly Pay", amount: 270, regular: true }, { name: "Combined Asset Maintenance Pay", amount: 522, regular: true }, { name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 1250, regular: true }]
+	      },
+	      balance_sheet: {
+	        assets: [{ name: "Cash", item_description: "cold and sure", amount: 8290 }, { name: "Other Assets", item_description: "sdf", amount: 1350 }, { name: "Condo Share", amount: 10500 }, { name: "Aspen Resort Share", amount: 9500 }, { name: "Boss Home Studio", amount: 7360 }, { name: "'Aaron' the Mini-Van Painted Black", amount: 12000 }, { name: "Rare Book Collection", item_description: "Simple, cold, and sure.", amount: 2400 }],
+	        liabilities: [{ name: "New Student Loan", amount: 65000 }, { name: "Consumer Loan", amount: 8000 }]
+	      },
+	      deleted: []
+	    },
+	    equity: -21600,
+	    criteria: {
+	      should_contain: [["income", "Cash from Selling Residential Shares"], ["income", "Cash from Selling Aaron"], ["expenses", "Down Payment"], ["expenses", "Payment on 3BR/2BA other than Down Payment"], ["income", "Cash Credit from Mortgage"], ["assets", "3BR/2BA House"], ["liabilities", "15-year Mortgage"], ["expenses", "15-year Mortgage Monthly Pay"], ["expenses", "Flood Inspection and Certificate"], ["income", "Rent on 3BR/2BA"], ["income", "Salary"], ["deleted", "Condo Share Income"], ["deleted", "Aspen Resort Share Income"], ["income", "Combined Rare Book Income"], ["income", "Combined Intellectual Rights"], ["income", "Combined Entrepreneurial Income"], ["deleted", "Rent"], ["expenses", "New Student Loan Monthly Pay"], ["expenses", "Consumer Loan Monthly Pay"], ["expenses", "Combined Asset Maintenance Pay"], ["expenses", "Other Expenses"], ["assets", "Cash"], ["assets", "Other Assets"], ["deleted", "Condo Share"], ["deleted", "Aspen Resort Share"], ["assets", "Boss Home Studio"], ["deleted", "'Aaron' the Mini-Van Painted Black"], ["assets", "Rare Book Collection"], ["liabilities", "New Student Loan"], ["liabilities", "Consumer Loan"]],
+	      should_be: []
+	    }
+	  },
+	
+	  "12": {
+	    id: "12",
+	    title: "Execute a Refinancing",
+	    description: "As we learned earlier, not all liabilities and assets are created Refinancing is a great way to obtain a lower rate on your existing loans. It will substitute a more expensively-serviced loan with a more cheaply-serviced loan, decreasing your monthly service expenses.",
 	    steps: [{
 	      step_title: "Obtain New Loan",
 	      description: "You've found a lending partner and he's willing to loan you $20,000 at a monthly service rate of $225. You obtained cash after the settlement.",
@@ -24584,58 +24621,24 @@
 	      description: "You used the cash obtained from the new loan to payoff the old loan you have. Drop any entries related to the old loan. Also, the bank quotes $750 for prepayment settlement.",
 	      action_items: [{ name: "Pay off Old Loan", description: "Time will tell their value, not investment bankers.", amount: 16000 }, { name: "Settlement Fee", description: "settlement", amount: 750 }]
 	    }],
+	
 	    statements: {
 	      cash_flow_statement: {
-	        income: [{ name: "Part-time Salary", item_description: "Elon Century, Ltd. is paying $200 in royalty for the publishing rights of your biography.", amount: 2100 }],
-	        expenses: [{ name: "Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 1350 }, { name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 240 }, { name: "Old Loan Monthly Pay", item_description: "The doubt is not in its usefulness, but the boundary of its usefulness.", amount: 370 }]
+	        income: [{ name: "Salary", item_description: "The campus employes you to lower the cost of the personnels here at the department.", amount: 3100, regular: true }, { name: "Combined Rare Book Income", description: "sf", amount: 375, passive: true, regular: true }, { name: "Combined Intellectual Rights", amount: 450, passive: true, regular: true }, { name: "Combined Entrepreneurial Income", amount: 1435, regular: true, passive: true }],
+	        expenses: [{ name: "Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 2050, regular: true }, { name: "New Student Loan Monthly Pay", amount: 460, regular: true }, { name: "Consumer Loan Monthly Pay", amount: 270, regular: true }, { name: "Combined Asset Maintenance Pay", amount: 522, regular: true }, { name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 1250, regular: true }]
 	      },
 	      balance_sheet: {
-	        assets: [{ name: "Cash", item_description: "Simple, cold, and sure.", amount: 14370 }],
-	        liabilities: [{ name: "Old Loan", item_description: "Home Mortgage for the 3/2/1 house you own.", amount: 16000 }, { name: "School Loan", item_description: "A loan on your second-hand Mercedes.", amount: 2000 }]
-	      }
+	        assets: [{ name: "Cash", item_description: "cold and sure", amount: 2248 }, { name: "Other Assets", item_description: "sdf", amount: 1350 }, { name: "Boss Home Studio", amount: 7360 }, { name: "Rare Book Collection", item_description: "Simple, cold, and sure.", amount: 2400 }],
+	        liabilities: [{ name: "New Student Loan", amount: 65000 }, { name: "Consumer Loan", amount: 8000 }]
+	      },
+	      deleted: []
 	    },
+	
 	    equity: -3630,
 	    criteria: {
 	      should_contain: [["income", "Cash from Loan"], ["liabilities", "New Loan"], ["expenses", "New Loan Monthly Pay"], ["expenses", "Pay off Old Loan"], ["expenses", "Settlement Fee"], ["income", "Part-time Salary"], ["expenses", "Rent"], ["expenses", "Other Expenses"], ["deleted", "Old Loan Monthly Pay"], ["assets", "Cash"], ["deleted", "Old Loan"]],
 	      should_not_be_present: [],
 	      should_be: [["equity"]]
-	    }
-	  },
-	
-	  "24": {
-	    id: "24",
-	    title: "Become a New Homeowner",
-	    description: "In this exercise, we'll manage what many believe to be the symbolic transaction of United States -- buying a home. Apart from purchasing the home, many insurance policies and other add-on items may lower the risk of you losing your home or suffering damage to it. Also, new homes may also be rented to offset the mortgage payments.",
-	    steps: [{
-	      step_title: "Home Owner!",
-	      description: "You've got your eye on a nice 3BR/2BA house in west Kentucky. The quiet neighborhood does have its charm and you decided to call the place a home for a long time. The downpayment is not too bad and the rate is good on the mortgage.",
-	      hint: "Don't forget to drop the rent item since you're no longer living in a rented home.",
-	      action_items: [{ name: "Down Payment", description: "down pay", amount: 25000 }, { name: "3BR/2BA House", description: "home", amount: 120000 }, { name: "30-year Mortgage", description: "mortgage", amount: 95000 }, { name: "30-year Mortgage Monthly Pay", description: "service pay", amount: 750 }]
-	    }, {
-	      step_title: "State Compliance",
-	      description: "The state of Kentucky mandates that new home owners must acquire a certificate of flood protection if in a flood zone. You'll have to pay for the certificate.",
-	      action_items: [{ name: "Flood Inspection and Certificate", description: "protection", amount: 1700 }]
-	    }, {
-	      step_title: "Rent out a Room",
-	      description: "You've got a single vacant room to yourself and you decided to rent it out to offset the mortgage payment. The house is near a high-school and an eager young man named Dylan took the offer.",
-	      action_items: [{ name: "Rent on 3BR/2BA", description: "rent", amount: 450 }]
-	    }],
-	
-	    statements: {
-	      cash_flow_statement: {
-	        income: [{ name: "Engineer Salary", item_description: "student's work", amount: 3460 }, { name: "Patent Commission", item_description: "patent commission", amount: 1150 }],
-	        expenses: [{ name: "Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 1550 }, { name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 875 }, { name: "Payment on Private Loan", item_description: "loan", amount: 650 }]
-	      },
-	      balance_sheet: {
-	        assets: [{ name: "Cash", item_description: "Home.", amount: 35750 }, { name: "Patent", item_description: "Simple, cold, and sure.", amount: 6700 }],
-	        liabilities: [{ name: "Private Loan", item_description: "friend", amount: 10000 }]
-	      },
-	      deleted: []
-	    },
-	    equity: 32450,
-	    criteria: {
-	      should_contain: [["liabilities", "Private Loan"], ["assets", "Patent"], ["assets", "Cash"], ["expenses", "Payment on Private Loan"], ["expenses", "Other Expenses"], ["deleted", "Rent"], ["income", "Patent Commission"], ["income", "Engineer Salary"], ["expenses", "Down Payment"], ["assets", "3BR/2BA House"], ["liabilities", "30-year Mortgage"], ["expenses", "30-year Mortgage Monthly Pay"], ["expenses", "Flood Inspection and Certificate"], ["income", "Rent on 3BR/2BA"]],
-	      should_be: []
 	    }
 	  },
 	
@@ -24831,6 +24834,8 @@
 	
 	var _chapter2 = _interopRequireDefault(_chapter);
 	
+	var _chapters3 = __webpack_require__(226);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var ContentWrapper = function ContentWrapper(props) {
@@ -24840,7 +24845,7 @@
 	
 	  switch (props.states.mode) {
 	    case "chapters":
-	      return _react2.default.createElement(_chapters2.default, { user: props.states.user, device: props.states.device, chapters: props.states.chapters, currentChapter: props.states.currentChapter, selectChapter: props.states.selectChapter, startChapter: props.states.startChapter, formatNumber: formatNumber });
+	      return _react2.default.createElement(_chapters2.default, { user: props.states.user, device: props.states.device, chapters: _chapters3.CHAPTERS, currentChapter: props.states.currentChapter, selectChapter: props.states.selectChapter, startChapter: props.states.startChapter, formatNumber: formatNumber });
 	      break;
 	    case "chapter":
 	      return _react2.default.createElement(_chapter2.default, { chapter: props.states.currentChapter, currentState: props.states.currentState, switchMode: props.states.switchMode, goBackChapters: props.states.goBackChapters,

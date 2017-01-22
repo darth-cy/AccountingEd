@@ -1,6 +1,7 @@
 import React from 'react'
 import Chapters from './chapters.js'
 import Chapter from './chapter.js'
+import { CHAPTERS } from '../chapters/chapters';
 
 var ContentWrapper = (props) => {
   function formatNumber(num){
@@ -10,7 +11,7 @@ var ContentWrapper = (props) => {
   switch (props.states.mode) {
     case "chapters":
       return (
-        <Chapters user={props.states.user} device={props.states.device} chapters={props.states.chapters} currentChapter={props.states.currentChapter} selectChapter={props.states.selectChapter} startChapter={props.states.startChapter} formatNumber={formatNumber}/>
+        <Chapters user={props.states.user} device={props.states.device} chapters={CHAPTERS} currentChapter={props.states.currentChapter} selectChapter={props.states.selectChapter} startChapter={props.states.startChapter} formatNumber={formatNumber}/>
       );
       break;
     case "chapter":
