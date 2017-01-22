@@ -971,7 +971,6 @@ export const CHAPTERS = {
     }
   },
 
-
   "12": {
     id: "12",
     title: "Refinance Your Liabilities",
@@ -1062,6 +1061,228 @@ export const CHAPTERS = {
         ["expenses", "Pay off Old Mortgage"],
         ["expenses", "Settlement Fee"],
         ["expenses", "Pay off Consumer Loan"],
+      ],
+      should_not_be_present: [
+
+      ],
+      should_be: [
+      ]
+    }
+  },
+
+  "13": {
+    id: "13",
+    title: "Convert to Profitable Assets",
+    description: "Just like we can convert expenseive liabilities to cheapter ones, we can also convert less profitable assets to more profitable ones. The process is similar except instead of a new borrowing action, converting assets starts with a selling action. If there's any premiums obtained from the asset, it will be added to your net equity.",
+    steps: [
+      {
+        step_title: "Rare Book Buyer",
+        description: "A distinguished gentlemen contacted you through the websidte access portal and expressed interest in buying the rare book in your possession. The gentlemen is generous, offering a staggering $75,000 for your trouble. You decided to sell the books.",
+        hint: "Notice that $375 income on $2,400 investment is great but now that your books are evaluated at $75,000, the return rate should be considered as $347 on $75,000, or 0.5% return. It's wise to obtain the cash now and seek out better investment opportunities. In other words, converting to more profitable assets. Also, the maintenance cost for the books and online portal has already been taken out.",
+        action_items: [
+          {name: "Rare Book Selling Income", description: "asdf", amount: 75000}
+        ]
+      },
+      {
+        step_title: "Light Weight Investment",
+        description: "You found a 2BR/1BA Apt near the place you live. The place is rumored to be near a future town center and many people are moving to the neighborhood. The down payment on this small property is extremely low and you don't see any difficulty finding a tenant.",
+        hint: "You'll take out another mortgage on this house, but since you don't live in the house yourself, you'll rent it out to tenants and use the rent to cover mortgage payment. The credit transaction step has been ommited and will be ommited in further chapters.",
+        action_items: [
+          {name: "2BR/1BA Down Payment", amount: 6500},
+          {name: "2BR/1BA Apt", amount: 55000},
+          {name: "2BR/1BA Mortgage", amount: 48500},
+          {name: "2BR/1BA Rent", amount: 755, regular: true, passive: true},
+          {name: "2BR/1BA Mortgage Monthly Pay", regular: true, amount: 450},
+        ]
+      },
+      {
+        step_title: "No Down Payment",
+        description: "Following your trail, you found a some what similar Apt near the area. Since home buying around the place hasn't picked up pace yet, some banks are willing to offer a $0 down payment deal on the properties nearby. You decided to acquire another small 2BR/1BA.",
+        hint: "$0 practically never happens in real-life off the bat. Let's hypothetically assume that's the case here.",
+        action_items: [
+          {name: "2BR/1BA Apt #2", amount: 45000},
+          {name: "2BR/1BA #2 Mortgage", amount: 45000},
+          {name: "2BR/1BA #2 Rent", amount: 600, regular: true, passive: true},
+          {name: "2BR/1BA #2 Mortgage Monthly Pay", amount: 500, regular: true},
+        ]
+      },
+      {
+        step_title: "Pay Debt with Capital Gain",
+        description: "Selling rare books has made you a handsome profit and you can finally pay off the $65,000 student loan that you acquired earlier. If things go correctly, your net equity will become positive again.",
+        action_items: [
+          {name: "Pay off Student Loan", amount: 65000},
+        ]
+      }
+
+    ],
+
+    statements: {
+      cash_flow_statement: {
+        income: [
+          {name: "Salary", item_description: "The campus employes you to lower the cost of the personnels here at the department.", amount: 3100, regular: true},
+          {name: "Combined Rare Book Income", description: "sf", amount: 375, passive: true, regular: true},
+          {name: "Combined Intellectual Rights", amount: 450, passive: true, regular: true},
+          {name: "Combined Entrepreneurial Income", amount: 1435, regular: true, passive: true},
+          {name: "Rent on 3BR/2BA", description: "rent", amount: 750, passive: true, regular: true}
+        ],
+        expenses: [
+          {name: "Combined Asset Maintenance Pay", amount: 522, regular: true},
+          {name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 1250, regular: true},
+          {name: "Student Loan Monthly Pay", amount: 460, regular: true},
+          {name: "15yr-Mortgage Monthly Pay", description: "new pay", amount: 2100, regular: true}
+        ],
+      },
+      balance_sheet: {
+        assets: [
+          {name: "Cash", item_description: "cold and sure", amount: 105496},
+          {name: "Other Assets", item_description: "sdf", amount: 1350},
+          {name: "Boss Home Studio", amount: 7360},
+          {name: "3BR/2BA House", description: "home", amount: 216000},
+          {name: "Rare Book Collection", item_description: "Simple, cold, and sure.", amount: 2400},
+        ],
+        liabilities: [
+          {name: "Student Loan", amount: 65000},
+          {name: "15yr-Mortgage", description: "new loan", amount: 200000},
+        ],
+      },
+      deleted: []
+    },
+
+    equity: -14484,
+    criteria: {
+      should_contain: [
+        ["income", "Salary"],
+        ["deleted", "Combined Rare Book Income"],
+        ["income", "Combined Intellectual Rights"],
+        ["income", "Combined Entrepreneurial Income"],
+        ["income", "Rent on 3BR/2BA"],
+        ["deleted", "Student Loan Monthly Pay"],
+        ["expenses", "Combined Asset Maintenance Pay"],
+        ["expenses", "Other Expenses"],
+        ["assets", "Cash"],
+        ["assets", "Other Assets"],
+        ["assets", "Boss Home Studio"],
+        ["deleted", "Rare Book Collection"],
+        ["deleted", "Student Loan"],
+        ["liabilities", "15yr-Mortgage"],
+        ["expenses", "15yr-Mortgage Monthly Pay"],
+        ['expenses', "2BR/1BA Down Payment"],
+        ["assets", "2BR/1BA Apt"],
+        ["liabilities", "2BR/1BA Mortgage"],
+        ["income", "2BR/1BA Rent"],
+        ["expenses", "2BR/1BA Mortgage Monthly Pay"],
+        ["assets", "2BR/1BA Apt #2"],
+        ["liabilities", "2BR/1BA #2 Mortgage"],
+        ["income", "2BR/1BA #2 Rent"],
+        ["expenses", "2BR/1BA #2 Mortgage Monthly Pay"],
+        ["expenses", "Pay off Student Loan"]
+      ],
+      should_not_be_present: [
+
+      ],
+      should_be: [
+      ]
+    }
+  },
+
+  "14": {
+    id: "14",
+    title: "Compare Equity and Stakes",
+    description: "When it comes to selling assets, there's generally no set rules as to which ones to sell first. You need to calculate the sell prices yourself and find out the return. If you have higher equity in the house, you have less liabilities to settle when selling the house off, thus leaving most of the sell amount to yourself. Assets with expensive liabilities on them are also to be sold early to get rid of the heavy liabilities. If you can't refinance a liability on an asset, sell the asset and find better arragenments.",
+    steps: [
+      {
+        step_title: "2BR/1BA Buyer",
+        description: "A local housing market newcomer offered $75,000 to buy one of the 2BR/1BA you own. You need to decide which one to sell that can lead to a higher cash sell amount for you since you also got your eyes set on other bigger investments with hefty down payments.",
+        hint: "You need to decide yourself which 2BR/1BA you want to sell to have more cash in your hand. Offset any liabilities in the process.",
+        action_items: [
+          {name: "Cash from Selling 2BR/1BA", description: "asdf", amount: 75000}
+        ]
+      },
+      {
+        step_title: "The Big Boy League",
+        description: "Now you have enough cash, you begin to eye for the big fish. You found a two-floor loft in NYC in a not-so-prime location evaluated at $550,000, the downpayment is $125,000. However, many potential tenants are trying to rent the place and the return on this property is very handsome.",
+        hint: "Rent in prime locations are usually high enough to offset the mortgage payment if you have enough down payment to cover a substantial part of the total sale price.",
+        action_items: [
+          {name: "Two-Floor Loft Down Payment", amount: 125000},
+          {name: "Two-Floor Loft", amount: 550000},
+          {name: "Two-Floor Loft Mortgage", amount: 425000},
+          {name: "Two-Floor Loft Rent", amount: 4580, regular: true, passive: true},
+          {name: "Two-Floor Loft Mortgage Monthly Pay", regular: true, amount: 2240},
+        ]
+      },
+      {
+        step_title: "The Passive Income Winner",
+        description: "If you noticed, you've reached more than 100% of % P-income/Reg.Expenses and have escaped the rat race, which means you can now quit your job and let the passive income streams support your monthly expenses.",
+        hint: "Quit your job.",
+        action_items: []
+      }
+    ],
+
+    statements: {
+      cash_flow_statement: {
+        income: [
+          {name: "Salary", item_description: "The campus employes you to lower the cost of the personnels here at the department.", amount: 4100, regular: true},
+          {name: "Combined Intellectual Rights", amount: 450, passive: true, regular: true},
+          {name: "Combined Entrepreneurial Income", amount: 1435, regular: true, passive: true},
+          {name: "2BR/1BA Rent", amount: 755, regular: true, passive: true},
+          {name: "2BR/1BA #2 Rent", amount: 600, regular: true, passive: true},
+          {name: "Rent on 3BR/2BA", description: "rent", amount: 750, passive: true, regular: true}
+        ],
+        expenses: [
+          {name: "Combined Asset Maintenance Pay", amount: 420, regular: true},
+          {name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 1250, regular: true},
+          {name: "2BR/1BA Mortgage Monthly Pay", regular: true, amount: 450},
+          {name: "2BR/1BA #2 Mortgage Monthly Pay", amount: 500, regular: true},
+          {name: "15yr-Mortgage Monthly Pay", description: "new pay", amount: 2100, regular: true}
+        ],
+      },
+      balance_sheet: {
+        assets: [
+          {name: "Cash", item_description: "cold and sure", amount: 105496},
+          {name: "Other Assets", item_description: "sdf", amount: 1350},
+          {name: "Boss Home Studio", amount: 7360},
+          {name: "3BR/2BA House", description: "home", amount: 216000},
+          {name: "2BR/1BA Apt", amount: 55000},
+          {name: "2BR/1BA Apt #2", amount: 45000},
+        ],
+        liabilities: [
+          {name: "15yr-Mortgage", description: "new loan", amount: 200000},
+          {name: "2BR/1BA Mortgage", amount: 48500},
+          {name: "2BR/1BA #2 Mortgage", amount: 45000},
+        ],
+      },
+      deleted: []
+    },
+
+    equity: 136706,
+    criteria: {
+      should_contain: [
+        ["income", "Cash from Selling 2BR/1BA"],
+        ["expenses", "Two-Floor Loft Down Payment"],
+        ["liabilities", "Two-Floor Loft Mortgage"]
+        ["assets", "Two-Floor Loft"],
+        ["income", "Two-Floor Loft Rent"],
+        ["expenses", "Two-Floor Loft Mortgage Monthly Pay"],
+        ["deleted", "Salary"],
+        ["income", "Combined Intellectual Rights"],
+        ["income", "Combined Entrepreneurial Income"],
+        ["income", "2BR/1BA Rent"],
+        ["deleted", "2BR/1BA #2 Rent"],
+        ["income", "Rent on 3BR/2BA"],
+        ["expenses", "Combined Asset Maintenance Pay"],
+        ["expenses", "Other Expenses"],
+        ["expenses", "2BR/1BA Mortgage Monthly Pay"],
+        ["deleted", "2BR/1BA #2 Mortgage Monthly Pay"],
+        ["expenses", "15yr-Mortgage Monthly Pay"],
+        ["assets", "Cash"],
+        ["assets", "Other Assets"],
+        ["assets", "Boss Home Studio"],
+        ["assets", "3BR/2BA House"],
+        ["assets", "2BR/1BA Apt"],
+        ["deleted", "2BR/1BA Apt #2"],
+        ["liabilities", "15yr-Mortgage"],
+        ["liabilities", "2BR/1BA Mortgage"],
+        ["deleted", "2BR/1BA #2 Mortgage"],
       ],
       should_not_be_present: [
 
