@@ -1,6 +1,7 @@
 'use strict'
 
 var User = require("./app/models/User");
+var KeyCode = require("./app/models/KeyCode");
 var crypto = require("./app/utils/crypto");
 var bodyParser = require("body-parser");
 var bcrypt = require("bcrypt");
@@ -42,6 +43,78 @@ var addRoutes = function(app){
         res.render("login", { username: undefined });
       }
     })
+  });
+
+  app.get("/unlock_with_code/*", function(req, res){
+    var sessionToken = req.cookies["lanyardblue-session"];
+    User.findOne({sessionToken: sessionToken}, 'username email sessionToken data premium', function(err, currentUser){
+      if(currentUser && !currentUser.premium){
+        // var key_code = req.body.key_code;
+        var key_code = req.url.split("/").pop();
+        console.log(key_code);
+        KeyCode.findOne({ key_code: key_code }, 'key_code valid', function(err, keyCode){
+          if(keyCode.valid){
+            console.log("key found");
+            keyCode.valid = false;
+            currentUser.premium = true;
+            keyCode.save();
+            currentUser.save();
+            writeResponse(res, {
+              status: 200,
+              message: "unlock success"
+            })
+          }else{
+            console.log("key not found")
+            writeResponse(res, {
+              status: 403,
+              message: "code not valid"
+            })
+          }
+        });
+      }else{
+        writeResponse(res, {
+          status: 403,
+          message: "not premitted"
+        })
+      }
+    })
+  });
+
+  app.get("/add_keys", function(req, res){
+    var sessionToken = req.cookies["lanyardblue-session"];
+    User.findOne({ sessionToken: sessionToken }, 'username email sessionToken data', function(err, currentUser){
+      if(currentUser && currentUser.email == "raymond@lanyardblue.com"){
+        User.count({}, function(err, userCount){
+          KeyCode.count({}, function(err, keyCodeCount){
+            console.log("user count: " + userCount);
+            console.log("keycode count: " + keyCodeCount);
+
+            if(keyCodeCount < (userCount + 1)*100){
+              for(var i = 0; i < 10; i++){
+                KeyCode.create({
+                  key_code: crypto.generateUnlockKey(),
+                  valid: true
+                })
+              }
+              writeResponse(res, {
+                status: 200,
+                message: "complete"
+              })
+            }else{
+              writeResponse(res, {
+                status: 200,
+                message: "overload"
+              });
+            }
+          });
+        });
+      }else{
+        writeResponse(res, {
+          status: 403,
+          message: "permission denied"
+        });
+      }
+    });
   });
 
   app.get("/login", function(req, res){
