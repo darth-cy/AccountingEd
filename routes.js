@@ -61,7 +61,7 @@ var addRoutes = function(app){
             currentUser.save();
             writeResponse(res, {
               status: 200,
-              message: "unlock success"
+              message: "unlock successful"
             })
           }else{
             console.log("key not found")

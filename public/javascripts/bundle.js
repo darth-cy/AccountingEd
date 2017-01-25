@@ -24730,7 +24730,41 @@
 	      should_not_be_present: [],
 	      should_be: []
 	    }
+	  },
+	
+	  "15": {
+	    id: "15",
+	    title: "Exercise: Liability Cost",
+	    premium: true,
+	    description: "Starting this first premium chapter, we're going to start working on exercises that deal with the most important concepts. In this exercise, we need to decide which liabilities to pay back first according to their cost.",
+	    steps: [{
+	      step_title: "Instructions",
+	      description: "You have three loans outstanding in your liability sheet and you're planning to pay back two of them. Assess the cost of each loan and pay back two of them using the cash entry in step 2.",
+	      action_items: []
+	    }, {
+	      step_title: "Cash for Loan Payback",
+	      description: "Your scholarship have a provision to grant you an additional $5,000 if you graduate with accumulative GPA above 3.90. Your stellar academic performance impressed the policy holder and you easily obtained the extra cash.",
+	      action_items: [{ name: "Cash from Scholarship", description: "surg", amount: 5000, regular: false }]
+	    }],
+	
+	    statements: {
+	      cash_flow_statement: {
+	        income: [{ name: "Part-time Salary", item_description: "The campus employes you to lower the cost of the personnels here at the department.", amount: 1300, regular: true }],
+	        expenses: [{ name: "Rent", item_description: "A comfortable home services you physically, but you service it financially.", amount: 750, regular: true }, { name: "Student Loan Monthly Pay", item_description: "not", amount: 45, regular: true }, { name: "Credit Card Monthly Pay", item_description: "e", amount: 80, regular: true }, { name: "Car Loan Monthly Pay", item_description: "2er", amount: 134, regular: true }, { name: "Other Expenses", item_description: "A symbol of adulthood worth fighting for.", amount: 244, regular: true }]
+	      },
+	      balance_sheet: {
+	        assets: [{ name: "Cash", item_description: "Home.", amount: 4470 }, { name: "Car", item_description: "", amount: 14500 }, { name: "Other Assets", item_description: "Simple, cold, and sure.", amount: 2300 }],
+	        liabilities: [{ name: "Student Loan", item_description: "Your parents support your expenses", amount: 2000 }, { name: "Credit Card Balance", item_description: "credit", amount: 645 }, { name: "Car Loan", amount: 7500 }]
+	      },
+	      deleted: []
+	    },
+	    equity: 0,
+	    criteria: {
+	      should_contain: [["income", "Cash from Scholarship"], ["income", "Part-time Salary"], ["expenses", "Rent"], ["expenses", "Student Loan Monthly Pay"], ["deleted", "Credit Card Monthly Pay"], ["deleted", "Car Loan Monthly Pay"], ["expenses", "Other Expenses"], ["assets", "Cash"], ["assets", "Other Assets"], ["assets", "Car"], ["liabilities", "Student Loan"], ["deleted", "Credit Card Balance"], ["deleted", "Car Loan"]],
+	      should_be: [["equity"]]
+	    }
 	  }
+	
 	};
 
 /***/ },
