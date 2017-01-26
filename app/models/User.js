@@ -8,6 +8,7 @@ if(typeof User == 'undefined'){
     sessionToken: String,
     premium: Boolean,
     data: mongoose.Schema.Types.Mixed,
+    chaptersPassed: {type: mongoose.Schema.Types.Mixed, default: {}},
   });
 
   User = mongoose.model("User", userSchema);

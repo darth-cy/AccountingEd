@@ -36,24 +36,54 @@ var addRoutes = function(app){
       res.render("login", { messages: ["Please log in to view contents."] });
       return 1;
     }
-    User.findOne({ sessionToken: sessionToken }, 'username email sessionToken data', function(err, currentUser){
+    User.findOne({ sessionToken: sessionToken }, 'username email sessionToken data chaptersPassed premium', function(err, currentUser){
       if(currentUser){
-        res.render("index", { username: currentUser.username, userId: currentUser._id, userSessionToken: currentUser.sessionToken });
+        res.render("index", { userPremium: currentUser.premium, username: currentUser.username, userChaptersPassed: JSON.stringify(currentUser.chaptersPassed), userId: currentUser._id, userEmail: currentUser.email, userData: currentUser.data, userSessionToken: currentUser.sessionToken });
       }else{
         res.render("login", { username: undefined });
       }
     })
   });
 
+  app.post("/save_user", function(req, res){
+    if(!req.cookies){
+      res.render("login", { messages: ["No sessions detected"] });
+      return 1;
+    }
+    var sessionToken = req.cookies["lanyardblue-session"];
+    if(!sessionToken){
+      res.render("login", { messages: ["Please log in to view contents."] });
+      return 1;
+    }
+    User.findOne({ sessionToken: sessionToken }, 'username email sessionToken data chaptersPassed premium', function(err, currentUser){
+      if(currentUser){
+        var newData = req.body.userData;
+        console.log(JSON.parse(JSON.stringify(newData.chaptersPassed)));
+        currentUser.premium = newData.premium;
+        currentUser.chaptersPassed = JSON.parse(JSON.stringify(newData.chaptersPassed));
+        currentUser.save();
+        writeResponse(res, {
+          status: 200,
+          message: "update complete"
+        });
+      }else{
+        writeResponse(res, {
+          status: 404,
+          message: "user not found"
+        });
+      }
+    })
+  })
+
   app.get("/unlock_with_code/*", function(req, res){
     var sessionToken = req.cookies["lanyardblue-session"];
     User.findOne({sessionToken: sessionToken}, 'username email sessionToken data premium', function(err, currentUser){
-      if(currentUser && !currentUser.premium){
+      if(currentUser){
         // var key_code = req.body.key_code;
         var key_code = req.url.split("/").pop();
         console.log(key_code);
         KeyCode.findOne({ key_code: key_code }, 'key_code valid', function(err, keyCode){
-          if(keyCode.valid){
+          if(keyCode && keyCode.valid){
             console.log("key found");
             keyCode.valid = false;
             currentUser.premium = true;
@@ -88,17 +118,20 @@ var addRoutes = function(app){
           KeyCode.count({}, function(err, keyCodeCount){
             console.log("user count: " + userCount);
             console.log("keycode count: " + keyCodeCount);
-
+            var newKeys = [];
             if(keyCodeCount < (userCount + 1)*100){
               for(var i = 0; i < 10; i++){
+                let newKey = crypto.generateUnlockKey();
+                newKeys.push(newKey);
                 KeyCode.create({
-                  key_code: crypto.generateUnlockKey(),
+                  key_code: newKey,
                   valid: true
                 })
               }
               writeResponse(res, {
                 status: 200,
-                message: "complete"
+                message: "complete",
+                new_keys: newKeys,
               })
             }else{
               writeResponse(res, {
@@ -123,9 +156,9 @@ var addRoutes = function(app){
       return 0;
     }else{
       var sessionToken = req.cookies["lanyardblue-session"];
-      User.findOne({ sessionToken: sessionToken }, 'username email sessionToken data', function(err, currentUser){
+      User.findOne({ sessionToken: sessionToken }, 'username email sessionToken data chaptersPassed premium', function(err, currentUser){
         if(currentUser){
-          res.render("index", { username: currentUser.username, userId: currentUser._id, userSessionToken: currentUser.sessionToken });
+          res.render("index", { userPremium: currentUser.premium, username: currentUser.username, userChaptersPassed: JSON.stringify(currentUser.chaptersPassed), userEmail: currentUser.email, userData: currentUser.data, userId: currentUser._id, userSessionToken: currentUser.sessionToken });
         }else{
           res.render("login", { username: undefined });
         }
@@ -139,9 +172,9 @@ var addRoutes = function(app){
       return 0;
     }else{
       var sessionToken = req.cookies["lanyardblue-session"];
-      User.findOne({ sessionToken: sessionToken }, 'username email sessionToken data', function(err, currentUser){
+      User.findOne({ sessionToken: sessionToken }, 'username email sessionToken data chaptersPassed premium', function(err, currentUser){
         if(currentUser){
-          res.render("index", { username: currentUser.username, userId: currentUser._id, userSessionToken: currentUser.sessionToken });
+          res.render("index", { userPremium: currentUser.premium, username: currentUser.username, userChaptersPassed: JSON.stringify(currentUser.chaptersPassed), userEmail: currentUser.email, userData: currentUser.data, userId: currentUser._id, userSessionToken: currentUser.sessionToken });
         }else{
           res.render("splash", { username: undefined });
         }

@@ -25,7 +25,21 @@ function findCurrentStateListByName(states, name){
 }
 
 function saveUser(newState){
-  debugger;
+  $.ajax({
+    url: "/save_user",
+    method: "POST",
+    contentType: "application/json",
+    dataType: "json",
+    data: JSON.stringify({
+      "userData": newState.user
+    }),
+    success: function(response){
+
+    },
+    error: function(response){
+
+    }
+  })
   return 0;
 }
 
@@ -66,6 +80,7 @@ const reducer = (prevState=_initState, action) => {
       console.log(action.payload);
       return newState;
     case "SELECT_CHAPTER":
+      newState.mode = "chapters";
       newState.currentState = CHAPTERS[action.payload];
       newState.currentChapter = CHAPTERS[action.payload];
       return newState;
@@ -158,7 +173,14 @@ const reducer = (prevState=_initState, action) => {
       newState.currentChapterEvaluation = action.payload;
       return newState;
     case "SAVE_USER":
-      debugger;
+      saveUser(newState);
+      return newState;
+    case "UNLOCK_USER":
+      newState.user.premium = true;
+      saveUser(newState);
+      return newState;
+    case "PAYMENT_PAGE":
+      newState.mode = "payment";
       return newState;
     default:
       return prevState;

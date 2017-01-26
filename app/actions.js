@@ -6,6 +6,18 @@ export const CHECK_ANSWER = "CHECK_ANSWER";
 export const SAVE_USER = "SAVE_USER";
 export const CHANGE_NOTIFICATION_STATE = "CHANGE_NOTIFICATION_STATE";
 export const MOVE_ITEM_MOBILE = "MOVE_ITEM_MOBILE";
+export const UNLOCK_USER = "UNLOCK_USER";
+export const PAYMENT_PAGE = "PAYMENT_PAGE";
+
+export const unlockUser = (spec) => ({
+  type: UNLOCK_USER,
+  payload: spec
+})
+
+export const paymentPage = (spec) => ({
+  type: PAYMENT_PAGE,
+  payload: spec
+})
 
 export const moveItemMobile = (spec) => ({
   type: MOVE_ITEM_MOBILE,

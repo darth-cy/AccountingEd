@@ -83,7 +83,23 @@ body{
   display: inline-block;
   min-width: 90%;
 }
+.chapters-list-item.locked{
+  background-color: #1b5067;
+}
+.lock-image{
+  width: 1.7rem;
+  display: inline-block;
+}
 
+#unlock-code-input{
+  display: inline-block;
+  width: 30rem;
+  font-size: 1.7rem;
+  font-weight: bold;
+  border: 1px solid black;
+  vertical-align: bottom;
+  margin-right: 1rem;
+}
 
 .chapters-list-item.passed{
   background-color: #00bc8c;
@@ -97,8 +113,6 @@ body{
   padding-top: 2.5%;
   padding-bottom: 20%;
 }
-
-
 .chapter-go-button, .chapter-check-button, .chapter-go-back-button{
   padding-left: 2.5rem;
   padding-right: 2.5rem;

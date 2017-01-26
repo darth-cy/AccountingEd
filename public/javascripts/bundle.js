@@ -23868,7 +23868,17 @@
 	}
 	
 	function saveUser(newState) {
-	  debugger;
+	  $.ajax({
+	    url: "/save_user",
+	    method: "POST",
+	    contentType: "application/json",
+	    dataType: "json",
+	    data: JSON.stringify({
+	      "userData": newState.user
+	    }),
+	    success: function success(response) {},
+	    error: function error(response) {}
+	  });
 	  return 0;
 	}
 	
@@ -23912,6 +23922,7 @@
 	      console.log(action.payload);
 	      return newState;
 	    case "SELECT_CHAPTER":
+	      newState.mode = "chapters";
 	      newState.currentState = _chapters.CHAPTERS[action.payload];
 	      newState.currentChapter = _chapters.CHAPTERS[action.payload];
 	      return newState;
@@ -24003,7 +24014,14 @@
 	      newState.currentChapterEvaluation = action.payload;
 	      return newState;
 	    case "SAVE_USER":
-	      debugger;
+	      saveUser(newState);
+	      return newState;
+	    case "UNLOCK_USER":
+	      newState.user.premium = true;
+	      saveUser(newState);
+	      return newState;
+	    case "PAYMENT_PAGE":
+	      newState.mode = "payment";
 	      return newState;
 	    default:
 	      return prevState;
@@ -24065,6 +24083,22 @@
 	var SAVE_USER = exports.SAVE_USER = "SAVE_USER";
 	var CHANGE_NOTIFICATION_STATE = exports.CHANGE_NOTIFICATION_STATE = "CHANGE_NOTIFICATION_STATE";
 	var MOVE_ITEM_MOBILE = exports.MOVE_ITEM_MOBILE = "MOVE_ITEM_MOBILE";
+	var UNLOCK_USER = exports.UNLOCK_USER = "UNLOCK_USER";
+	var PAYMENT_PAGE = exports.PAYMENT_PAGE = "PAYMENT_PAGE";
+	
+	var unlockUser = exports.unlockUser = function unlockUser(spec) {
+	  return {
+	    type: UNLOCK_USER,
+	    payload: spec
+	  };
+	};
+	
+	var paymentPage = exports.paymentPage = function paymentPage(spec) {
+	  return {
+	    type: PAYMENT_PAGE,
+	    payload: spec
+	  };
+	};
 	
 	var moveItemMobile = exports.moveItemMobile = function moveItemMobile(spec) {
 	  return {
@@ -24830,6 +24864,12 @@
 	    },
 	    changeNotificationState: function changeNotificationState(specs) {
 	      return dispatch((0, _actions.changeNotificationState)(specs));
+	    },
+	    unlockUser: function unlockUser(specs) {
+	      return dispatch((0, _actions.unlockUser)(specs));
+	    },
+	    paymentPage: function paymentPage(specs) {
+	      return dispatch((0, _actions.paymentPage)(specs));
 	    }
 	  };
 	};
@@ -24932,7 +24972,18 @@
 	
 	  switch (props.states.mode) {
 	    case "chapters":
-	      return _react2.default.createElement(_chapters2.default, { user: props.states.user, device: props.states.device, chapters: _chapters3.CHAPTERS, currentChapter: props.states.currentChapter, selectChapter: props.states.selectChapter, startChapter: props.states.startChapter, formatNumber: formatNumber });
+	    case "payment":
+	      return _react2.default.createElement(_chapters2.default, { user: props.states.user,
+	        mode: props.states.mode,
+	        device: props.states.device,
+	        chapters: _chapters3.CHAPTERS,
+	        currentChapter: props.states.currentChapter,
+	        selectChapter: props.states.selectChapter,
+	        startChapter: props.states.startChapter,
+	        formatNumber: formatNumber,
+	        paymentPage: props.states.paymentPage,
+	        unlockUser: props.states.unlockUser
+	      });
 	      break;
 	    case "chapter":
 	      return _react2.default.createElement(_chapter2.default, { chapter: props.states.currentChapter, currentState: props.states.currentState, switchMode: props.states.switchMode, goBackChapters: props.states.goBackChapters,
@@ -24995,6 +25046,26 @@
 	    var props = this.props;
 	    var thisView = this;
 	
+	    function unlock(e) {
+	      e.preventDefault();
+	
+	      var keyInput = $("#unlock-code-input").val();
+	      $.ajax({
+	        url: "/unlock_with_code/" + keyInput,
+	        method: "GET",
+	        dataType: "json",
+	        contentType: "application/json",
+	        success: function success(response) {
+	          props.unlockUser();
+	          props.selectChapter("15");
+	          alert("Thank You for Supporting our Site and We Wish You Financial Success!");
+	        },
+	        error: function error(response) {
+	          alert(":( Sorry the code is not valid.");
+	        }
+	      });
+	    }
+	
 	    return _react2.default.createElement(
 	      'div',
 	      null,
@@ -25010,58 +25081,159 @@
 	          'div',
 	          null,
 	          $.map(props.chapters, function (chapter, idx) {
-	            return _react2.default.createElement(
-	              'div',
-	              { className: "chapters-list-item " + (props.user.chaptersPassed[chapter.id] ? "passed" : ""), onClick: function onClick() {
-	                  props.selectChapter(chapter.id);
-	                  if (props.device.isMobile) {
-	                    $(".chapters-detailed").css("display", "block");
-	                    $(".chapters-list").css("display", "none");
-	                  }
-	                }, key: chapter.id },
-	              idx + ". ",
-	              '\xA0\xA0',
-	              chapter.title
-	            );
+	            if (chapter.premium && !props.user.premium) {
+	              return _react2.default.createElement(
+	                'div',
+	                { className: "chapters-list-item locked", onClick: function onClick() {
+	                    props.paymentPage();
+	                    if (props.device.isMobile) {
+	                      $(".chapters-detailed").css("display", "block");
+	                      $(".chapters-list").css("display", "none");
+	                    }
+	                  }, key: chapter.id },
+	                _react2.default.createElement('img', { className: 'lock-image', src: 'images/lock.png' }),
+	                '\xA0\xA0\xA0',
+	                chapter.title
+	              );
+	            } else {
+	              return _react2.default.createElement(
+	                'div',
+	                { className: "chapters-list-item " + (props.user.chaptersPassed[chapter.id] ? "passed" : ""), onClick: function onClick() {
+	                    props.selectChapter(chapter.id);
+	                    if (props.device.isMobile) {
+	                      $(".chapters-detailed").css("display", "block");
+	                      $(".chapters-list").css("display", "none");
+	                    }
+	                  }, key: chapter.id },
+	                idx + ". ",
+	                '\xA0\xA0',
+	                chapter.title
+	              );
+	            }
 	          })
 	        )
 	      ),
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'col-md-8 chapters-detailed height-align' },
-	        _react2.default.createElement(
-	          'h2',
-	          null,
-	          props.currentChapter.title
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          props.currentChapter.description
-	        ),
-	        _react2.default.createElement(
-	          'button',
-	          { className: 'btn btn-default chapter-go-button', onClick: function onClick() {
-	              props.startChapter(props.currentChapter.id);
-	            } },
-	          'Start Chapter Exercises'
-	        ),
-	        props.device.isMobile ? _react2.default.createElement(
-	          'button',
-	          { className: 'btn btn-default chapter-go-back-button', onClick: function onClick() {
-	              $(".chapters-detailed").css("display", "none");
-	              $(".chapters-list").css("display", "block");
-	            } },
-	          'Back to Chapters'
-	        ) : "",
-	        _react2.default.createElement('hr', null),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          props.currentChapter.steps.map(function (step, idx) {
-	            return _react2.default.createElement(_step_in_chapters2.default, { key: idx, index: idx + 1, step: step, formatNumber: props.formatNumber });
-	          })
-	        )
+	        function () {
+	          if (props.mode == "payment") {
+	            return _react2.default.createElement(
+	              'div',
+	              null,
+	              _react2.default.createElement(
+	                'h2',
+	                null,
+	                'Unlock Additional Exercises'
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                null,
+	                'If you find the above journey insufficient in satisfying your learning, then perhaps these additional exercises will help solidify your knowledge.'
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                null,
+	                'These chapters are individually constructed scenarios with each one testing a specific concept we covered. They come at a premium of $4.99 and can be accessed like free chapters once you unlock them.'
+	              ),
+	              props.device.isMobile ? _react2.default.createElement(
+	                'button',
+	                { className: 'btn btn-default chapter-go-back-button', style: { "margin-left": "0px" }, onClick: function onClick() {
+	                    $(".chapters-detailed").css("display", "none");
+	                    $(".chapters-list").css("display", "block");
+	                  } },
+	                'Back to Chapters'
+	              ) : "",
+	              _react2.default.createElement(
+	                'h3',
+	                null,
+	                '\xA0'
+	              ),
+	              props.user.email == "demony@lanyardblue.com" ? _react2.default.createElement(
+	                'h6',
+	                { style: { "color": "#df1a20" } },
+	                'You are using the public demo account. Please use a registered accout to unlock additional contents.'
+	              ) : _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                  'h4',
+	                  null,
+	                  'Unlock with Lanyard Access Code:'
+	                ),
+	                _react2.default.createElement(
+	                  'p',
+	                  null,
+	                  'If you have received a Lanyard Access Code (a 10-digit serial number with only capital letters and numbers), enter it here to unlock the additional chapters:'
+	                ),
+	                _react2.default.createElement(
+	                  'form',
+	                  null,
+	                  _react2.default.createElement('input', { id: 'unlock-code-input', type: 'text', className: 'form-control' }),
+	                  _react2.default.createElement('input', { type: 'submit', className: 'btn btn-default', onClick: unlock })
+	                ),
+	                _react2.default.createElement(
+	                  'h3',
+	                  null,
+	                  '\xA0'
+	                ),
+	                _react2.default.createElement(
+	                  'h4',
+	                  null,
+	                  'Pay $4.99 Premium:'
+	                ),
+	                _react2.default.createElement(
+	                  'p',
+	                  null,
+	                  'Please PayPal or Venmo me $4.99 (if you want to support the site by sending more, that is fantastic and I will remember you). My associated email and phone number with these two payment methods are qg231@nyu.edu and (347)549-0904.'
+	                ),
+	                _react2.default.createElement(
+	                  'p',
+	                  null,
+	                  'Append a note to your payment (including where I can send the access code) or email me the receipt afterwards directly to receive the code.'
+	                )
+	              )
+	            );
+	          } else {
+	            return _react2.default.createElement(
+	              'div',
+	              null,
+	              _react2.default.createElement(
+	                'h2',
+	                null,
+	                props.currentChapter.title
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                null,
+	                props.currentChapter.description
+	              ),
+	              _react2.default.createElement(
+	                'button',
+	                { className: 'btn btn-default chapter-go-button', onClick: function onClick() {
+	                    props.startChapter(props.currentChapter.id);
+	                  } },
+	                'Start Chapter Exercises'
+	              ),
+	              props.device.isMobile ? _react2.default.createElement(
+	                'button',
+	                { className: 'btn btn-default chapter-go-back-button', onClick: function onClick() {
+	                    $(".chapters-detailed").css("display", "none");
+	                    $(".chapters-list").css("display", "block");
+	                  } },
+	                'Back to Chapters'
+	              ) : "",
+	              _react2.default.createElement('hr', null),
+	              _react2.default.createElement(
+	                'div',
+	                null,
+	                props.currentChapter.steps.map(function (step, idx) {
+	                  return _react2.default.createElement(_step_in_chapters2.default, { key: idx, index: idx + 1, step: step, formatNumber: props.formatNumber });
+	                })
+	              )
+	            );
+	          }
+	        }()
 	      )
 	    );
 	  },

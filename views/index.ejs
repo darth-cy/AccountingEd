@@ -3,9 +3,15 @@
 <script src="/javascripts/jquery-3.1.1.min.js"></script>
 <script>
   globalUserData={
-   username: "razynoir",
-   chaptersPassed: {},
+   username: "",
+   email: "",
+   chaptersPassed: "",
   };
+  globalUserData.username = "<%= username %>";
+  globalUserData.email = "<%= userEmail %>";
+  globalUserData.chaptersPassed=JSON.parse($("<div/>").html("<%= userChaptersPassed %>").text());
+  globalUserData.premium = eval("<%= userPremium %>");
+  // globalUserData.chaptersPassed = {};
 </script>
 <div id="mobile-indicator"></div>
 <script>
